@@ -1,5 +1,7 @@
 <?php
 
+namespace GIndie\DBHandler\MySQL;
+
 /**
  * DVLP-DBHandler - Schema
  *
@@ -8,17 +10,11 @@
  *
  * @package DatabaseHandler
  *
- * @version GI-DBH.00.00 18-02-14 Empty [class/trait/interface/file] created.
+ * @version GI-DBH.00.00 18-02-14 Empty class created.
+ * - Class implements \GIndie\DBHandler\Interfaces\Schema
+ * - Abstract class
  */
-
-namespace GIndie\DBHandler\MySQL;
-
-/**
- * Description of Schema
- *
- * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
- */
-class Schema
+abstract class Schema implements \GIndie\DBHandler\Interfaces\Schema
 {
     //put your code here
 }

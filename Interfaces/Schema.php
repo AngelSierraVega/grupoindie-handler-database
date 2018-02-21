@@ -14,5 +14,9 @@ namespace GIndie\DBHandler\Interfaces;
  */
 interface Schema
 {
-    //put your code here
+    /**
+     * @since GI-DBH.00.01
+     * @return string
+     */
+    public static function name();
 }

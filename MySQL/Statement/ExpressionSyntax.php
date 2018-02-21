@@ -16,6 +16,8 @@ namespace GIndie\DBHandler\MySQL\Statement;
  * @edit GI-DBH.00.01
  * - Added comparison methods
  * - Added expresion methods
+ * @edit GI-DBH.00.02 18-02-17
+ * - Updated compEqual()
  */
 class ExpressionSyntax
 {
@@ -73,9 +75,16 @@ class ExpressionSyntax
      * @return string
      * 
      * @since GI-DBH.00.01
+     * @edit GI-DBH.00.02
+     * - Handle string case on $expr2
      */
     public static function compEqual($expr, $expr2)
     {
+        switch (\is_string($expr2))
+        {
+            case true:
+                $expr2 = "'{$expr2}'";
+        }
         return "{$expr} = {$expr2}";
     }
 

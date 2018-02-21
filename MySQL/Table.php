@@ -11,8 +11,32 @@ namespace GIndie\DBHandler\MySQL;
  * @package DatabaseHandler
  *
  * @version GI-DBH.00.00 18-02-14 Empty class created.
+ * @edit GI-DBH.00.01 18-02-15
+ * - Abstract class
+ * - Class implements \GIndie\DBHandler\Interfaces\Table
  */
-class Table
+abstract class Table implements \GIndie\DBHandler\Interfaces\Table
 {
-    //put your code here
+
+    /**
+     * 
+     * @return string
+     * @since GI-DBH.00.01
+     */
+    public static function schemaName()
+    {
+        $schema = static::schema();
+        return $schema::name();
+    }
+
+    /**
+     * 
+     * @return \GIndie\DBHandler\MySQL\Statement\Select
+     * @since GI-DBH.00.01
+     */
+    public static function stmSelect()
+    {
+        return Statement::select(["*"], [static::schemaName() => static::name()]);
+    }
+
 }

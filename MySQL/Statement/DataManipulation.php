@@ -24,13 +24,12 @@ class DataManipulation
      * Traits
      * @since GI-DBH.00.01
      */
-    use \GIndie\DBHandler\MySQL\Statement\DataManipulation\groupByTrait;
-    use \GIndie\DBHandler\MySQL\Statement\DataManipulation\havingTrait;
-    use \GIndie\DBHandler\MySQL\Statement\DataManipulation\limitTrait;
-    use \GIndie\DBHandler\MySQL\Statement\DataManipulation\orderByTrait;
-    use \GIndie\DBHandler\MySQL\Statement\DataManipulation\selectorTrait;
-    use \GIndie\DBHandler\MySQL\Statement\DataManipulation\tableReferenceTrait;
-    use \GIndie\DBHandler\MySQL\Statement\DataManipulation\whereTrait;
+    use Traits\groupByTrait;
+    use Traits\havingTrait;
+    use Traits\limitTrait;
+    use Traits\orderByTrait;
+    use Traits\selectorTrait;
+    use Traits\tableReferenceTrait;
+    use Traits\whereTrait;
     
-    public function test();
 }
