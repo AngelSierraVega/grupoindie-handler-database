@@ -60,6 +60,6 @@ class MySQL
      * @var \mysqli 
      * @since GI-DBH.00.01
      */
-    private static $connection;
+    public static $connection;
 
 }
