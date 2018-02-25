@@ -31,4 +31,17 @@ class Statement
         return new Statement\Select($selectors, $tableReferences);
     }
 
+    /**
+     * 
+     * @param string $name
+     * @param string $characterSet
+     * @param string $collation
+     * @return \GIndie\DBHandler\MySQL\Statement\CreateSchema
+     * @since 18-04-07
+     */
+    public static function createSchema($name, $characterSet, $collation)
+    {
+        return new Statement\CreateSchema($name, $characterSet, $collation);
+    }
+
 }

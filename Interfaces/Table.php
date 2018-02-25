@@ -11,32 +11,39 @@ namespace GIndie\DBHandler\Interfaces;
  * @package DatabaseHandler
  *
  * @version GI-DBH.00.00 18-02-14 Empty interface created.
- * @edit GI-DBH.00.01 18-02-15
+ * @edit 18-02-15
  * - Created schema(), primaryKeyName(), name(), columnNames()
+ * @edit 18-04-26
+ * - Created config()
  */
 interface Table
 {
 
     /**
-     * @since GI-DBH.00.01
+     * @since 18-04-26
+     */
+    public static function config();
+
+    /**
+     * @since 18-02-15
      * @return string
      */
     public static function schema();
 
     /**
-     * @since GI-DBH.00.01
+     * @since 18-02-15
      * @return string
      */
     public static function name();
 
     /**
-     * @since GI-DBH.00.01
+     * @since 18-02-15
      * @return string
      */
     public static function primaryKeyName();
-    
+
     /**
-     * @since GI-DBH.00.01
+     * @since 18-02-15
      * @return string
      */
     public static function columnNames();

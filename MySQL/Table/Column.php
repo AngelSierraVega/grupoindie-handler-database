@@ -9,77 +9,56 @@ namespace GIndie\DBHandler\MySQL\Table;
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
  * @package DatabaseHandler
+ * @subpackage MySQL56
  *
  * @version GI-DBH.00.00 18-02-14 Empty class created.
  * @edit GI-DBH.00.01
  * - Created private vars
  * - Created dummies for static methods
+ * @edit 18-04-26
+ * - Abstracted static constructors into ToDo\StaticConstructors
  */
-class Column
+class Column implements ColumnTypes
 {
 
     /**
-     * @since GI-DBH.00.01
-     * @todo 
-     * - Functional method
+     * @since 18-04-26
+     */
+    use StaticConstructors;
+
+    /**
      * 
+     * @param type $columnName
+     * @param type $dataType
+     * @param type $length
+     * @param type $values
+     * @param type $primaryKey
+     * @param type $notNull
+     * @param type $unique
+     * @param type $binary
+     * @param type $unsigned
+     * @param type $zerofill
+     * @param type $autoincremental
+     * @param type $default
+     * 
+     * @since 18-04-26
      */
-    public static function integer();
-
-    /**
-     * @since GI-DBH.00.01
-     * @todo 
-     * - Functional method
-     */
-    public static function varchar();
-
-    /**
-     * @since GI-DBH.00.01
-     * @todo 
-     * - Functional method
-     */
-    public static function datetime();
-
-    /**
-     * @todo 
-     * - Functional method
-     */
-    public static function date();
-
-    /**
-     * @since GI-DBH.00.01
-     * @todo 
-     * - Functional method
-     */
-    public static function char();
-
-    /**
-     * @since GI-DBH.00.01
-     * @todo 
-     * - Functional method
-     */
-    public static function enum();
-
-    /**
-     * @since GI-DBH.00.01
-     * @todo 
-     * - Functional method
-     */
-    public static function tinyint();
-
-    /**
-     * @since GI-DBH.00.01
-     * @todo 
-     * - Functional method
-     */
-    public static function tinytext();
-
-    /**
-     * @since GI-DBH.00.01
-     * @todo 
-     * - Functional method
-     */
-    public static function text();
+    protected function __construct($columnName, $dataType, $length, $values, $primaryKey, $notNull, $unique,
+                                   $binary, $unsigned, $zerofill, $autoincremental, $default)
+    {
+        $this->columnName = $columnName;
+        $this->dataType = $dataType;
+        $this->length = $length;
+        $this->values = $values;
+        $this->primaryKey = $primaryKey;
+        $this->notNull = $notNull;
+        $this->unique = $unique;
+        $this->binary = $binary;
+        $this->unsigned = $unsigned;
+        $this->zerofill = $zerofill;
+        $this->autoincremental = $autoincremental;
+        $this->default = $default;
+    }
 
     /**
      *
@@ -91,7 +70,6 @@ class Column
     /**
      *
      * @var int
-     * @todo constants with data types 
      * @since GI-DBH.00.01
      */
     private $dataType;

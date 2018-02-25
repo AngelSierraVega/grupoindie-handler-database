@@ -10,13 +10,21 @@ namespace GIndie\DBHandler\Interfaces;
  *
  * @package DatabaseHandler
  *
- * @version GI-DBH.00.00 18-02-14 Empty interface created.
+ * @version AO
+ * @since 18-02-14
  */
 interface Schema
 {
+
     /**
-     * @since GI-DBH.00.01
+     * @since 18-02-14
      * @return string
      */
     public static function name();
+
+    /**
+     * @since 18-04-06
+     * @return array
+     */
+    public static function tableClasses();
 }

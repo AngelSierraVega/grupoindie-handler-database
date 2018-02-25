@@ -13,6 +13,8 @@ namespace GIndie\DBHandler;
  * @version GI-DBH.00.00 18-02-14 Empty class created.
  * @edit GI-DBH.00.01
  * - Added openConnection(), query(), $connection from DPR-DBHandler
+ * @edit GI-DBH.00.02
+ * - Created getConnection()
  */
 class MySQL
 {
@@ -54,12 +56,25 @@ class MySQL
         }
         return static::$connection->query($query);
     }
+    
+    /**
+     * 
+     * @return \mysqli 
+     * @since GI-DBH.00.02
+     */
+    public static function getConnection()
+    {
+        if (\is_null(static::$connection)) {
+            static::$connection = static::openConnection();
+        }
+        return static::$connection;
+    }
 
     /**
      *
      * @var \mysqli 
      * @since GI-DBH.00.01
      */
-    public static $connection;
+    protected static $connection;
 
 }
