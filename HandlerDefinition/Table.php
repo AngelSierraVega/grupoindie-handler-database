@@ -1,6 +1,6 @@
 <?php
 
-namespace GIndie\DBHandler\Instances;
+namespace GIndie\DBHandler\HandlerDefinition;
 
 /**
  * GI-DBHandler-DVLP - Table
@@ -10,15 +10,13 @@ namespace GIndie\DBHandler\Instances;
  *
  * @package DatabaseHandler
  *
- * @version 00
+ * @version ??
  * @since 18-04-30
+ * @edit 18-05-01
+ * - Moved file from [base_dir]\Handlers to [base_dir]\HandlerDefinition
+ * - Updated namespace
  */
 interface Table
 {
-
-    /**
-     * The name of the database related to the table
-     * @since 18-04-30 
-     */
-    public static function databaseClassname();
+    //put your code here
 }

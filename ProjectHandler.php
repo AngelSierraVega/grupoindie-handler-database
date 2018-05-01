@@ -10,9 +10,10 @@ namespace GIndie\DBHandler;
  *
  * @package DatabaseHandler
  *
- * @version GI-DBH.00.00 18-02-24 Empty class created.
- * @edit GI-DBH.00.01
+ * @since 18-02-24
+ * @edit 
  * - Added code from GI-CMMN
+ * @version AO
  */
 class ProjectHandler extends \GIndie\ProjectHandler
 {
@@ -20,7 +21,7 @@ class ProjectHandler extends \GIndie\ProjectHandler
     /**
      * 
      * @return string
-     * @since GI-DBH.00.01
+     * @since 18-02-24
      */
     public static function pathToSourceCode()
     {
@@ -30,7 +31,7 @@ class ProjectHandler extends \GIndie\ProjectHandler
     /**
      * 
      * @return string
-     * @since GI-DBH.00.01
+     * @since 18-02-24
      */
     public static function projectName()
     {
@@ -40,7 +41,7 @@ class ProjectHandler extends \GIndie\ProjectHandler
     /**
      * 
      * @return null
-     * @since GI-DBH.00.01
+     * @since 18-02-24
      */
     public static function projectNamespace()
     {
@@ -50,7 +51,7 @@ class ProjectHandler extends \GIndie\ProjectHandler
     /**
      * 
      * @return string
-     * @since GI-DBH.00.01
+     * @since 18-02-24
      */
     public static function projectVendor()
     {

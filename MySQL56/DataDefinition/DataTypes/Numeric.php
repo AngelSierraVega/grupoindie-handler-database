@@ -24,12 +24,13 @@ namespace GIndie\DBHandler\MySQL56\DataDefinition\DataTypes;
  * @package DatabaseHandler
  * @subpackage MySQL56
  *
- * @version 56.0
+ * @version 00
  * @since 18-04-26
  * @edit 18-04-27
  * - Added some interfaces for static methods
- * @todo
- * - Add the rest of the interfaces
+ * @edit 18-05-01
+ * - Added prefix DATATYPE_
+ * @version A0
  */
 interface Numeric
 {
@@ -39,46 +40,52 @@ interface Numeric
      * A bit-value type. M indicates the number of bits per value, from 1 to 64. 
      * The default is 1 if M is omitted.
      * @since 18-04-26 
+     * @edit 18-05-01
      */
-    const BIT = "BIT";
+    const DATATYPE_BIT = "BIT";
 
     /**
      * TINYINT[(M)] [UNSIGNED] [ZEROFILL]
      * A very small integer. The signed range is -128 to 127. The unsigned range is 0 to 255.
      * @since 18-04-26 
+     * @edit 18-05-01
      */
-    const TINYINT = "TINYINT";
+    const DATATYPE_TINYINT = "TINYINT";
 
     /**
      * BOOL, BOOLEAN
      * These types are synonyms for TINYINT(1). A value of zero is considered false. 
      * Nonzero values are considered true.
      * @since 18-04-26 
+     * @edit 18-05-01
      */
-    const BOOL = "BOOL";
+    const DATATYPE_BOOL = "BOOL";
 
     /**
      * BOOL, BOOLEAN
      * These types are synonyms for TINYINT(1). A value of zero is considered false. 
      * Nonzero values are considered true.
      * @since 18-04-26 
+     * @edit 18-05-01
      */
-    const BOOLEAN = "BOOLEAN";
+    const DATATYPE_BOOLEAN = "BOOLEAN";
 
     /**
      * SMALLINT[(M)] [UNSIGNED] [ZEROFILL]
      * A small integer. The signed range is -32768 to 32767. The unsigned range is 0 to 65535.
      * @since 18-04-26 
+     * @edit 18-05-01
      */
-    const SMALLINT = "SMALLINT";
+    const DATATYPE_SMALLINT = "SMALLINT";
 
     /**
      * MEDIUMINT[(M)] [UNSIGNED] [ZEROFILL]
      * A medium-sized integer. The signed range is -8388608 to 8388607. 
      * The unsigned range is 0 to 16777215.
      * @since 18-04-26 
+     * @edit 18-05-01
      */
-    const MEDIUMINT = "MEDIUMINT";
+    const DATATYPE_MEDIUMINT = "MEDIUMINT";
 
     /**
      * INT[(M)] [UNSIGNED] [ZEROFILL]
@@ -88,15 +95,17 @@ interface Numeric
      * SERIAL DEFAULT VALUE in the definition of an integer column is an alias for 
      * NOT NULL AUTO_INCREMENT UNIQUE.
      * @since 18-04-26 
+     * @edit 18-05-01
      */
-    const INT = "INT";
+    const DATATYPE_INT = "INT";
 
     /**
      * INTEGER[(M)] [UNSIGNED] [ZEROFILL]
      * This type is a synonym for INT.
      * @since 18-04-26 
+     * @edit 18-05-01
      */
-    const INTEGER = "INTEGER";
+    const DATATYPE_INTEGER = "INTEGER";
 
     /**
      * BIGINT[(M)] [UNSIGNED] [ZEROFILL]
@@ -104,8 +113,9 @@ interface Numeric
      * The unsigned range is 0 to 18446744073709551615.
      * 
      * @since 18-04-26 
+     * @edit 18-05-01
      */
-    const BIGINT = "BIGINT";
+    const DATATYPE_BIGINT = "BIGINT";
 
     /**
      * SERIAL is an alias for BIGINT UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE.
@@ -128,8 +138,9 @@ interface Numeric
      * The -, +, and * operators use BIGINT arithmetic when both operands are integer values. This means that if you multiply two big integers (or results from functions that return integers), you may get unexpected results when the result is larger than 9223372036854775807.
 
      * @since 18-04-26 
+     * @edit 18-05-01
      */
-    const SERIAL = "SERIAL";
+    const DATATYPE_SERIAL = "SERIAL";
 
     /**
      * DECIMAL[(M[,D])] [UNSIGNED] [ZEROFILL]
@@ -145,8 +156,9 @@ interface Numeric
      * All basic calculations (+, -, *, /) with DECIMAL columns are done with a precision of 65 digits.
      * 
      * @since 18-04-26 
+     * @edit 18-05-01
      */
-    const DECIMAL = "DECIMAL";
+    const DATATYPE_DECIMAL = "DECIMAL";
 
     /**
      * DEC[(M[,D])] [UNSIGNED] [ZEROFILL], 
@@ -155,8 +167,9 @@ interface Numeric
      * These types are synonyms for DECIMAL. The FIXED synonym is available for compatibility 
      * with other database systems.
      * @since 18-04-26 
+     * @edit 18-05-01
      */
-    const DEC = "DEC";
+    const DATATYPE_DEC = "DEC";
 
     /**
      * DEC[(M[,D])] [UNSIGNED] [ZEROFILL], 
@@ -165,8 +178,9 @@ interface Numeric
      * These types are synonyms for DECIMAL. The FIXED synonym is available for compatibility 
      * with other database systems.
      * @since 18-04-26 
+     * @edit 18-05-01
      */
-    const NUMERIC = "NUMERIC";
+    const DATATYPE_NUMERIC = "NUMERIC";
 
     /**
      * DEC[(M[,D])] [UNSIGNED] [ZEROFILL], 
@@ -175,8 +189,9 @@ interface Numeric
      * These types are synonyms for DECIMAL. The FIXED synonym is available for compatibility 
      * with other database systems.
      * @since 18-04-26 
+     * @edit 18-05-01
      */
-    const FIXED = "FIXED";
+    const DATATYPE_FIXED = "FIXED";
 
     /**
      * FLOAT[(M,D)] [UNSIGNED] [ZEROFILL]
@@ -206,8 +221,9 @@ interface Numeric
      * FLOAT(p) syntax is provided for ODBC compatibility.
      * 
      * @since 18-04-26 
+     * @edit 18-05-01
      */
-    const FLOAT = "FLOAT";
+    const DATATYPE_FLOAT = "FLOAT";
 
     /**
      * DOUBLE[(M,D)] [UNSIGNED] [ZEROFILL]
@@ -224,8 +240,9 @@ interface Numeric
      * UNSIGNED, if specified, disallows negative values.
      * 
      * @since 18-04-26 
+     * @edit 18-05-01
      */
-    const DOUBLE = "DOUBLE";
+    const DATATYPE_DOUBLE = "DOUBLE";
 
     /**
      * DOUBLE PRECISION[(M,D)] [UNSIGNED] [ZEROFILL], 
@@ -235,8 +252,9 @@ interface Numeric
      * REAL is a synonym for FLOAT rather than DOUBLE.
      * 
      * @since 18-04-26 
+     * @edit 18-05-01
      */
-    const DOUBLE_PRECISION = "DOUBLE_PRECISION";
+    const DATATYPE_DOUBLE_PRECISION = "DOUBLE_PRECISION";
 
     /**
      * DOUBLE PRECISION[(M,D)] [UNSIGNED] [ZEROFILL], 
@@ -246,7 +264,8 @@ interface Numeric
      * REAL is a synonym for FLOAT rather than DOUBLE.
      * 
      * @since 18-04-26 
+     * @edit 18-05-01
      */
-    const REAL = "REAL";
+    const DATATYPE_REAL = "REAL";
 
 }

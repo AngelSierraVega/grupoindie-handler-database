@@ -18,6 +18,9 @@ namespace GIndie\DBHandler\MySQL56\DataDefinition\DataTypes;
  *
  * @version 00
  * @since 18-04-26
+ * @edit 18-05-01
+ * - Added prefix DATATYPE_
+ * @version A0
  */
 interface DateTime
 {
@@ -30,8 +33,9 @@ interface DateTime
      * or numbers. 
      * 
      * @since 18-04-26 
+     * @edit 18-05-01
      */
-    const DATE = "DATE";
+    const DATATYPE_DATE = "DATE";
 
     /**
      * DATETIME[(fsp)]
@@ -50,8 +54,9 @@ interface DateTime
      * as described in Section 11.3.5, “Automatic Initialization and Updating for TIMESTAMP and DATETIME”.
      *  
      * @since 18-04-26 
+     * @edit 18-05-01
      */
-    const DATETIME = "DATETIME";
+    const DATATYPE_DATETIME = "DATETIME";
 
     /**
      * TIMESTAMP[(fsp)]
@@ -67,8 +72,9 @@ interface DateTime
      * If omitted, the default precision is 0. 
      * 
      * @since 18-04-26 
+     * @edit 18-05-01
      */
-    const TIMESTAMP = "TIMESTAMP";
+    const DATATYPE_TIMESTAMP = "TIMESTAMP";
 
     /**
      * TIME[(fsp)]
@@ -82,8 +88,9 @@ interface DateTime
      * If omitted, the default precision is 0. 
      * 
      * @since 18-04-26 
+     * @edit 18-05-01
      */
-    const TIME = "TIME";
+    const DATATYPE_TIME = "TIME";
 
     /**
      * YEAR[(2|4)]
@@ -95,7 +102,8 @@ interface DateTime
      * values to YEAR columns using either strings or numbers. 
      * 
      * @since 18-04-26 
+     * @edit 18-05-01
      */
-    const YEAR = "YEAR";
+    const DATATYPE_YEAR = "YEAR";
 
 }

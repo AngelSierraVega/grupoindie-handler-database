@@ -10,11 +10,14 @@ namespace GIndie\DBHandler;
  *
  * @package DatabaseHandler
  *
- * @version GI-DBH.00.00 18-02-14 Empty class created.
- * @edit GI-DBH.00.01
+ * @since 18-02-14
+ * @edit
  * - Added openConnection(), query(), $connection from DPR-DBHandler
- * @edit GI-DBH.00.02
  * - Created getConnection()
+ * @version AO
+ * 
+ * @todo Class extends MySQL56
+ * @deprecated since 18-05-01
  */
 class MySQL
 {
@@ -22,7 +25,7 @@ class MySQL
     /**
      * 
      * @return \mysqli
-     * @since GI-DBH.00.01
+     * @since 18-02-14
      */
     private static function openConnection()
     {
@@ -47,7 +50,7 @@ class MySQL
      * SHOW, DESCRIBE or EXPLAIN queries <b>mysqli_query</b> will return a 
      * <b>mysqli_result</b> object. For other successful queries <b>mysqli_query</b> 
      * will return <b>TRUE</b>.
-     * @since GI-DBH.00.01
+     * @since 18-02-14
      */
     public static function query($query)
     {
@@ -60,7 +63,7 @@ class MySQL
     /**
      * 
      * @return \mysqli 
-     * @since GI-DBH.00.02
+     * @since 18-02-14
      */
     public static function getConnection()
     {
@@ -73,7 +76,7 @@ class MySQL
     /**
      *
      * @var \mysqli 
-     * @since GI-DBH.00.01
+     * @since 18-02-14
      */
     protected static $connection;
 

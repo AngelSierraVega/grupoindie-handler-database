@@ -1,6 +1,6 @@
 <?php
 
-namespace GIndie\DBHandler\Instances;
+namespace GIndie\DBHandler\HandlerDefinition;
 
 /**
  * GI-DBHandler-DVLP - Database
@@ -12,6 +12,9 @@ namespace GIndie\DBHandler\Instances;
  *
  * @version ??
  * @since 18-04-30
+ * @edit 18-05-01
+ * - Moved file from [base_dir]\Handlers to [base_dir]\HandlerDefinition
+ * - Updated namespace
  */
 interface Database
 {

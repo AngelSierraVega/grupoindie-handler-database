@@ -1,19 +1,19 @@
 <?php
 
-namespace GIndie\DBHandler\Handlers;
+namespace GIndie\DBHandler;
 
 /**
- * GI-DBHandler-DVLP - Database
+ * GI-DBHandler-DVLP - MySQL56
  *
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
  * @package DatabaseHandler
  *
- * @version AO
- * @since 18-04-30
+ * @version ??
+ * @since 18-05-01
  */
-interface Database
+class MySQL56
 {
     //put your code here
 }

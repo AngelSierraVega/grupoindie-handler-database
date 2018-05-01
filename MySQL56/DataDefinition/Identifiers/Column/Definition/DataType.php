@@ -16,6 +16,52 @@ namespace GIndie\DBHandler\MySQL56\DataDefinition\Column\Definition;
  */
 interface DataType
 {
+    
+    /**
+     * 
+     * @link <https://dev.mysql.com/doc/refman/5.6/en/create-table.html#create-table-types-attributes>
+     * 
+     * data_type
+     * 
+     * data_type represents the data type in a column definition. spatial_type represents
+     * a spatial data type. The data type syntax shown is representative only. For a full 
+     * description of the syntax available for specifying column data types, as well as 
+     * information about the properties of each type, see Chapter 11, Data Types, and 
+     * Section 11.5, “Spatial Data Types”.
+     * 
+     * Some attributes do not apply to all data types. AUTO_INCREMENT applies only to 
+     * integer and floating-point types. DEFAULT does not apply to the BLOB or TEXT types.
+     * 
+     * Character data types (CHAR, VARCHAR, TEXT) can include CHARACTER SET and COLLATE 
+     * attributes to specify the character set and collation for the column. For details, 
+     * see Chapter 10, Character Sets, Collations, Unicode. CHARSET is a synonym for 
+     * CHARACTER SET.
+     * Example: CREATE TABLE t (c CHAR(20) CHARACTER SET utf8 COLLATE utf8_bin);
+     * 
+     * MySQL 5.6 interprets length specifications in character column definitions in 
+     * characters. Lengths for BINARY and VARBINARY are in bytes.
+     * 
+     * For CHAR, VARCHAR, BINARY, and VARBINARY columns, indexes can be created that use 
+     * only the leading part of column values, using col_name(length) syntax to specify an 
+     * index prefix length. BLOB and TEXT columns also can be indexed, but a prefix length 
+     * must be given. Prefix lengths are given in characters for nonbinary string types and 
+     * in bytes for binary string types. That is, index entries consist of the first length 
+     * characters of each column value for CHAR, VARCHAR, and TEXT columns, and the first 
+     * length bytes of each column value for BINARY, VARBINARY, and BLOB columns. Indexing 
+     * only a prefix of column values like this can make the index file much smaller. For 
+     * additional information about index prefixes, see Section 13.1.13, “CREATE INDEX 
+     * Syntax”.
+     * 
+     * Only the InnoDB and MyISAM storage engines support indexing on BLOB and TEXT columns. 
+     * For example: CREATE TABLE test (blob_col BLOB, INDEX(blob_col(10)));
+     * 
+     * @since 18-04-27
+     * @edit 18-05-01
+     * - Added from Column\Definition
+     */
+    public static function dataType();
+    
+    
 
     /**
      * TINYINT[(M)] [UNSIGNED] [ZEROFILL]

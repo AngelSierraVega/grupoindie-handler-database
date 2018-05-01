@@ -1,7 +1,9 @@
 <?php
 
+namespace GIndie\DBHandler\HandlerDefinition;
+
 /**
- * GI-DBHandler-DVLP - Table
+ * GI-DBHandler-DVLP - Connection
  *
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
@@ -9,17 +11,9 @@
  * @package DatabaseHandler
  *
  * @version ??
- * @since 18-04-30
+ * @since 18-05-01
  */
-
-namespace GIndie\DBHandler\Handlers;
-
-/**
- * Description of Table
- *
- * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
- */
-class Table
+interface Connection
 {
     //put your code here
 }

@@ -26,12 +26,13 @@ namespace GIndie\DBHandler\MySQL56\DataDefinition\DataTypes;
  *
  * @package DatabaseHandler
  *
- * @version 56.0
+ * @version 00
  * @since 18-04-26
  * @edit 18-04-27
  * - Added some interfaces for static methods
- * @todo
- * - Add the rest of the interfaces
+ * @edit 18-05-01
+ * - Added prefix DATATYPE_
+ * @version A0
  */
 interface String
 {
@@ -58,7 +59,7 @@ interface String
      * 
      * @since 18-04-26 
      */
-    const CHAR = "CHAR";
+    const DATATYPE_CHAR = "CHAR";
 
     /**
      * NATIONAL CHAR[(M)] [CHARACTER SET charset_name] [COLLATE collation_name]
@@ -71,7 +72,7 @@ interface String
      * 
      * @since 18-04-27 
      */
-    const NCHAR = "NCHAR";
+    const DATATYPE_NCHAR = "NCHAR";
 
     /**
      * [NATIONAL] VARCHAR(M) [CHARACTER SET charset_name] [COLLATE collation_name]
@@ -94,7 +95,7 @@ interface String
      * 
      * @since 18-04-26 
      */
-    const VARCHAR = "VARCHAR";
+    const DATATYPE_VARCHAR = "VARCHAR";
 
     /**
      * BINARY[(M)]
@@ -104,7 +105,7 @@ interface String
      * 
      * @since 18-04-26 
      */
-    const BINARY = "BINARY";
+    const DATATYPE_BINARY = "BINARY";
 
     /**
      * VARBINARY(M)
@@ -114,7 +115,7 @@ interface String
      * 
      * @since 18-04-26 
      */
-    const VARBINARY = "VARBINARY";
+    const DATATYPE_VARBINARY = "VARBINARY";
 
     /**
      * TINYBLOB
@@ -123,7 +124,7 @@ interface String
      * using a 1-byte length prefix that indicates the number of bytes in the value. 
      * @since 18-04-26 
      */
-    const TINYBLOB = "TINYBLOB";
+    const DATATYPE_TINYBLOB = "TINYBLOB";
 
     /**
      * TINYTEXT [CHARACTER SET charset_name] [COLLATE collation_name]
@@ -134,7 +135,7 @@ interface String
      * 
      * @since 18-04-26 
      */
-    const TINYTEXT = "TINYTEXT";
+    const DATATYPE_TINYTEXT = "TINYTEXT";
 
     /**
      * BLOB[(M)]
@@ -147,7 +148,7 @@ interface String
      * 
      * @since 18-04-26 
      */
-    const BLOB = "BLOB";
+    const DATATYPE_BLOB = "BLOB";
 
     /**
      * TEXT[(M)] [CHARACTER SET charset_name] [COLLATE collation_name]
@@ -161,7 +162,7 @@ interface String
      * 
      * @since 18-04-26 
      */
-    const TEXT = "TEXT";
+    const DATATYPE_TEXT = "TEXT";
 
     /**
      * MEDIUMBLOB
@@ -171,7 +172,7 @@ interface String
      * 
      * @since 18-04-26 
      */
-    const MEDIUMBLOB = "MEDIUMBLOB";
+    const DATATYPE_MEDIUMBLOB = "MEDIUMBLOB";
 
     /**
      * MEDIUMTEXT [CHARACTER SET charset_name] [COLLATE collation_name]
@@ -182,7 +183,7 @@ interface String
      * 
      * @since 18-04-26 
      */
-    const MEDIUMTEXT = "MEDIUMTEXT";
+    const DATATYPE_MEDIUMTEXT = "MEDIUMTEXT";
 
     /**
      * LONGBLOB
@@ -194,7 +195,7 @@ interface String
      * 
      * @since 18-04-26 
      */
-    const LONGBLOB = "LONGBLOB";
+    const DATATYPE_LONGBLOB = "LONGBLOB";
 
     /**
      * LONGTEXT [CHARACTER SET charset_name] [COLLATE collation_name]
@@ -207,7 +208,7 @@ interface String
      * 
      * @since 18-04-26 
      */
-    const LONGTEXT = "LONGTEXT";
+    const DATATYPE_LONGTEXT = "LONGTEXT";
 
     /**
      * ENUM('value1','value2',...) [CHARACTER SET charset_name] [COLLATE collation_name]
@@ -223,7 +224,7 @@ interface String
      * 
      * @since 18-04-26 
      */
-    const ENUM = "ENUM";
+    const DATATYPE_ENUM = "ENUM";
 
     /**
      * SET('value1','value2',...) [CHARACTER SET charset_name] [COLLATE collation_name]
@@ -237,6 +238,6 @@ interface String
      * 
      * @since 18-04-26 
      */
-    const SET = "SET";
+    const DATATYPE_SET = "SET";
 
 }

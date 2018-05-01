@@ -1,5 +1,7 @@
 <?php
 
+namespace GIndie\DBHandler\HandlerDefinition;
+
 /**
  * GI-DBHandler-DVLP - Column
  *
@@ -10,16 +12,11 @@
  *
  * @version ??
  * @since 18-04-30
+ * @edit 18-05-01
+ * - Moved file from [base_dir]\Handlers to [base_dir]\HandlerDefinition
+ * - Updated namespace
  */
-
-namespace GIndie\DBHandler\Handlers;
-
-/**
- * Description of Column
- *
- * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
- */
-class Column
+interface Column
 {
     //put your code here
 }

@@ -10,10 +10,11 @@ namespace GIndie\DBHandler;
  *
  * @package DatabaseHandler
  *
- * @version GI-DBH.00.00 18-02-14 Empty class created.
- * @edit GI-DBH.00.01
+ * @since 18-02-14
+ * @edit
  * - Class extends from \GIndie\INIHandler
  * - Created fileName(), requiredVars()
+ * @version A0
  */
 class INIHandler extends \GIndie\INIHandler
 {
@@ -21,7 +22,7 @@ class INIHandler extends \GIndie\INIHandler
     /**
      * 
      * @return string
-     * @since GI-DBH.00.01
+     * @since 18-02-14
      */
     public static function fileName()
     {
@@ -31,7 +32,7 @@ class INIHandler extends \GIndie\INIHandler
     /**
      * 
      * @return array
-     * @since GI-DBH.00.01
+     * @since 18-02-14
      */
     public static function requiredVars()
     {

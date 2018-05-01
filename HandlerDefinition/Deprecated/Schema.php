@@ -1,6 +1,6 @@
 <?php
 
-namespace GIndie\DBHandler\Interfaces;
+namespace GIndie\DBHandler\HandlerDefinition\Deprecated;
 
 /**
  * DVLP-DBHandler - Schema
@@ -10,20 +10,24 @@ namespace GIndie\DBHandler\Interfaces;
  *
  * @package DatabaseHandler
  *
- * @version AO
+ * @version 00
  * @since 18-02-14
+ * @deprecated since 18-05-01
+ * - Moved class from [base_dir]\Interfaces to [base_dir]\HandlerDefinition\Deprecated
  */
 interface Schema
 {
 
     /**
      * @since 18-02-14
+     * @deprecated since 18-05-01
      * @return string
      */
     public static function name();
 
     /**
      * @since 18-04-06
+     * @deprecated since 18-05-01
      * @return array
      */
     public static function tableClasses();

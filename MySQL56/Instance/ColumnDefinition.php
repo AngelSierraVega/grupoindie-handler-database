@@ -12,9 +12,148 @@ namespace GIndie\DBHandler\MySQL56\Instance;
  *
  * @version 00
  * @since 18-04-30
+ * @edit 18-05-01
+ * - Added methods from defined interterface(s)
  * @todo Program class
  */
-class ColumnDefinition
+class ColumnDefinition implements \GIndie\DBHandler\MySQL56\DataDefinition\Column\Definition
 {
-    //put your code here
+    /**
+     * @todo private vars
+     * notNull
+     * defaultValue
+     * autoIncrement
+     * comment
+     * columnFormat
+     * storage
+     */
+
+    /**
+     * Once defined the table and the column name, [this class] defines the specification
+     * of a Column.
+     * 
+     * @link <https://dev.mysql.com/doc/refman/5.6/en/create-table.html#create-table-types-attributes>
+     * 
+     * @param \GIndie\DBHandler\MySQL56\DataDefinition\Column\Definition\DataType $dataType 
+     * Represents the data type in a column definition. spatial_type represents
+     * a spatial data type. The data type syntax shown is representative only. For a full 
+     * description of the syntax available for specifying column data types, as well as 
+     * information about the properties of each type, see Chapter 11, Data Types, and 
+     * Section 11.5, “Spatial Data Types”.
+     * 
+     * @since 18-05-01
+     * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\Column\Definition
+     */
+    public function __construct(Definition\DataType $dataType);
+
+    /**
+     * If neither NULL nor NOT NULL is specified, the column is treated as though NULL had 
+     * been specified.
+     * 
+     * @param boolean $value 
+     * @return \Self
+     * 
+     * @since 18-05-01
+     * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\Column\Definition
+     */
+    public function setNotNull($value = true);
+
+    /**
+     * Specifies a default value for a column. With one exception, the default value must be a 
+     * constant; it cannot be a function or an expression. This means, for example, that you 
+     * cannot set the default for a date column to be the value of a function such as NOW() or 
+     * CURRENT_DATE. The exception is that you can specify CURRENT_TIMESTAMP as the default for 
+     * a TIMESTAMP or DATETIME column. See Section 11.3.5, “Automatic Initialization and Updating 
+     * for TIMESTAMP and DATETIME”.
+     * 
+     * If a column definition includes no explicit DEFAULT value, MySQL determines the default 
+     * value as described in Section 11.6, “Data Type Default Values”.
+     * 
+     * BLOB and TEXT columns cannot be assigned a default value.
+     * 
+     * @param mixed $value 
+     * @return \Self
+     * 
+     * @since 18-05-01
+     * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\Column\Definition
+     */
+    public function setDefaultValue($value);
+
+    /**
+     * An integer or floating-point column can have the additional attribute AUTO_INCREMENT. 
+     * When you insert a value of NULL (recommended) or 0 into an indexed AUTO_INCREMENT 
+     * column, the column is set to the next sequence value. Typically this is value+1, where 
+     * value is the largest value for the column currently in the table. AUTO_INCREMENT 
+     * sequences begin with 1.
+     * 
+     * To retrieve an AUTO_INCREMENT value after inserting a row, use the LAST_INSERT_ID() 
+     * SQL function or the mysql_insert_id() C API function. See Section 12.14, 
+     * “Information Functions”, and Section 23.8.7.37, “mysql_insert_id()”.
+     * 
+     * If the NO_AUTO_VALUE_ON_ZERO SQL mode is enabled, you can store 0 in AUTO_INCREMENT 
+     * columns as 0 without generating a new sequence value. See Section 5.1.10, 
+     * “Server SQL Modes”.
+     * 
+     * There can be only one AUTO_INCREMENT column per table, it must be indexed, and it 
+     * cannot have a DEFAULT value. An AUTO_INCREMENT column works properly only if it 
+     * contains only positive values. Inserting a negative number is regarded as inserting 
+     * a very large positive number. This is done to avoid precision problems when numbers 
+     * “wrap” over from positive to negative and also to ensure that you do not accidentally 
+     * get an AUTO_INCREMENT column that contains 0.
+     * 
+     * @param boolean $value 
+     * @return \Self
+     * 
+     * @since 18-05-01
+     * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\Column\Definition
+     */
+    public function setAutoIncrement($value = true);
+
+    /**
+     * A comment for a column can be specified with the COMMENT option, up to 1024 characters 
+     * long. The comment is displayed by the SHOW CREATE TABLE and SHOW FULL COLUMNS statements.
+     * 
+     * @param string $comment 
+     * @return \Self
+     * 
+     * @since 18-05-01
+     * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\Column\Definition
+     */
+    public function setComment($comment);
+
+    /**
+     * @return boolean
+     * 
+     * @since 18-05-01
+     * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\Column\Definition
+     */
+    public function getNotNull();
+
+    /**
+     * BLOB and TEXT columns cannot be assigned a default value.
+     * 
+     * @return mixed
+     * 
+     * @since 18-05-01
+     * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\Column\Definition
+     */
+    public function getDefaultValue();
+
+    /**
+     * An integer or floating-point column can have the additional attribute AUTO_INCREMENT. 
+     * 
+     * @return boolean
+     * 
+     * @since 18-05-01
+     * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\Column\Definition
+     */
+    public function getAutoIncrement();
+
+    /**
+     * @return string
+     * 
+     * @since 18-05-01
+     * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\Column\Definition
+     */
+    public function getComment();
 }

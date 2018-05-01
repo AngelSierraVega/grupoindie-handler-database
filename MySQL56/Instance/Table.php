@@ -21,24 +21,6 @@ abstract class Table implements Instances\Table, DataDefinition\Identifiers\Tabl
 
     /**
      * @since 18-04-30
-     * @var array The columns of the table
-     */
-    private static $columns = [];
-
-    /**
-     * @since 18-04-30
-     * @return array
-     */
-    public static function columns()
-    {
-        if (empty(static::$columns)) {
-            \trigger_error("Columns not defined.", \E_USER_ERROR);
-        }
-        return static::$columns;
-    }
-
-    /**
-     * @since 18-04-30
      * @var GIndie\DBHandler\MySQL56\Instance\Database 
      */
     private static $database;
@@ -59,13 +41,41 @@ abstract class Table implements Instances\Table, DataDefinition\Identifiers\Tabl
 
     /**
      * @since 18-04-30
+     * @var array The columns of the table
+     */
+    private static $columns = [];
+
+    /**
+     * @since 18-04-30
+     * @return array
+     */
+    public static function columns()
+    {
+
+        if (empty(static::$columns)) {
+            \trigger_error("Columns not defined.", \E_USER_ERROR);
+        }
+        return static::$columns;
+    }
+
+    /**
+     * @since 18-04-30
      * @param string $name
      * @param \GIndie\DBHandler\MySQL56\Instance\ColumnType $dataType
      * @return \GIndie\DBHandler\MySQL56\Instance\ColumnDefinition
      */
     public static function columnDefinition($name, ColumnType $dataType)
     {
-        return new ColumnDefinition($dataType, $notNull, $defaultValue, $autoIncrement, $comment, $columnFormat, $storage);
+        static::$columns[$name] = new ColumnDefinition($dataType, $notNull, $defaultValue, $autoIncrement, $comment, $columnFormat, $storage);
+        /**
+         * @todo
+         * static::columnDefinitionSerial($name);
+          static::columnDefinitionChar($name);
+          static::columnDefinitionVarchar($name);
+          static::columnDefinitionInt($name);
+          return parent::columns();
+         */
+        return static::$columns[$name];
     }
 
     /**

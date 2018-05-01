@@ -8,9 +8,10 @@
  *
  * @package DatabaseHandler
  *
- * @version GI-DBH.00.00 18-02-14 Empty file created.
- * @edit GI-DBH.00.01
+ * @since 18-02-14
+ * @edit
  * - Functional autoloader
+ * @version AO
  */
 
 namespace GIndie\DBHandler;
@@ -18,7 +19,7 @@ namespace GIndie\DBHandler;
 /**
  * Autoloader function
  * 
- * @since GI-DBH.00.01
+ * @since 18-02-14
  * - Added code from Straffsa\WebServiceTimbrado\FacturacionExterna
  */
 \spl_autoload_register(function($className) {
