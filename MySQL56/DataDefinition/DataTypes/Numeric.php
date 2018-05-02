@@ -21,6 +21,7 @@ namespace GIndie\DBHandler\MySQL56\DataDefinition\DataTypes;
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
+ * 
  * @package DatabaseHandler
  * @subpackage MySQL56
  *
@@ -37,8 +38,10 @@ interface Numeric
 
     /**
      * BIT[(M)]
+     * 
      * A bit-value type. M indicates the number of bits per value, from 1 to 64. 
      * The default is 1 if M is omitted.
+     * 
      * @since 18-04-26 
      * @edit 18-05-01
      */
@@ -46,7 +49,9 @@ interface Numeric
 
     /**
      * TINYINT[(M)] [UNSIGNED] [ZEROFILL]
+     * 
      * A very small integer. The signed range is -128 to 127. The unsigned range is 0 to 255.
+     * 
      * @since 18-04-26 
      * @edit 18-05-01
      */
@@ -54,8 +59,10 @@ interface Numeric
 
     /**
      * BOOL, BOOLEAN
+     * 
      * These types are synonyms for TINYINT(1). A value of zero is considered false. 
      * Nonzero values are considered true.
+     * 
      * @since 18-04-26 
      * @edit 18-05-01
      */
@@ -63,8 +70,10 @@ interface Numeric
 
     /**
      * BOOL, BOOLEAN
+     * 
      * These types are synonyms for TINYINT(1). A value of zero is considered false. 
      * Nonzero values are considered true.
+     * 
      * @since 18-04-26 
      * @edit 18-05-01
      */
@@ -72,7 +81,9 @@ interface Numeric
 
     /**
      * SMALLINT[(M)] [UNSIGNED] [ZEROFILL]
+     * 
      * A small integer. The signed range is -32768 to 32767. The unsigned range is 0 to 65535.
+     * 
      * @since 18-04-26 
      * @edit 18-05-01
      */
@@ -80,8 +91,10 @@ interface Numeric
 
     /**
      * MEDIUMINT[(M)] [UNSIGNED] [ZEROFILL]
+     * 
      * A medium-sized integer. The signed range is -8388608 to 8388607. 
      * The unsigned range is 0 to 16777215.
+     * 
      * @since 18-04-26 
      * @edit 18-05-01
      */
@@ -89,11 +102,14 @@ interface Numeric
 
     /**
      * INT[(M)] [UNSIGNED] [ZEROFILL]
+     * 
      * A normal-size integer. The signed range is -2147483648 to 2147483647. 
      * The unsigned range is 0 to 4294967295.
+     * 
      * SERIAL is an alias for BIGINT UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE.
      * SERIAL DEFAULT VALUE in the definition of an integer column is an alias for 
      * NOT NULL AUTO_INCREMENT UNIQUE.
+     * 
      * @since 18-04-26 
      * @edit 18-05-01
      */
@@ -101,7 +117,9 @@ interface Numeric
 
     /**
      * INTEGER[(M)] [UNSIGNED] [ZEROFILL]
+     * 
      * This type is a synonym for INT.
+     * 
      * @since 18-04-26 
      * @edit 18-05-01
      */
@@ -109,6 +127,7 @@ interface Numeric
 
     /**
      * BIGINT[(M)] [UNSIGNED] [ZEROFILL]
+     * 
      * A large integer. The signed range is -9223372036854775808 to 9223372036854775807. 
      * The unsigned range is 0 to 18446744073709551615.
      * 
@@ -164,8 +183,10 @@ interface Numeric
      * DEC[(M[,D])] [UNSIGNED] [ZEROFILL], 
      * NUMERIC[(M[,D])] [UNSIGNED] [ZEROFILL], 
      * FIXED[(M[,D])] [UNSIGNED] [ZEROFILL]
+     * 
      * These types are synonyms for DECIMAL. The FIXED synonym is available for compatibility 
      * with other database systems.
+     * 
      * @since 18-04-26 
      * @edit 18-05-01
      */
@@ -175,8 +196,10 @@ interface Numeric
      * DEC[(M[,D])] [UNSIGNED] [ZEROFILL], 
      * NUMERIC[(M[,D])] [UNSIGNED] [ZEROFILL], 
      * FIXED[(M[,D])] [UNSIGNED] [ZEROFILL]
+     * 
      * These types are synonyms for DECIMAL. The FIXED synonym is available for compatibility 
      * with other database systems.
+     * 
      * @since 18-04-26 
      * @edit 18-05-01
      */
@@ -186,8 +209,10 @@ interface Numeric
      * DEC[(M[,D])] [UNSIGNED] [ZEROFILL], 
      * NUMERIC[(M[,D])] [UNSIGNED] [ZEROFILL], 
      * FIXED[(M[,D])] [UNSIGNED] [ZEROFILL]
+     * 
      * These types are synonyms for DECIMAL. The FIXED synonym is available for compatibility 
      * with other database systems.
+     * 
      * @since 18-04-26 
      * @edit 18-05-01
      */

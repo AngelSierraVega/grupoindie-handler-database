@@ -1,24 +1,25 @@
 <?php
 
-namespace GIndie\DBHandler\MySQL;
+namespace GIndie\DBHandler\MySQL56\Handler;
 
 /**
- * DVLP-DBHandler - Schema
+ * GI-DBHandler-DVLP - Database
  *
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
  * @package DatabaseHandler
  *
- * @version GI-DBH.00.00 18-02-14 Empty class created.
- * - Class implements \GIndie\DBHandler\Interfaces\Schema
- * - Abstract class
- * @edit 18-04-06
- * - Added charset(), collation()
- * @deprecated since 18-04-30
- * - Copied code to ..\MySQL56\Handler\Database, ..\MySQL56\Instance\Database
+ * @version 00
+ * @since 18-04-30
+ * @edit
+ * - Added code from ..\MySQL\Schema
+ * @todo
+ * - Upgrade methods
+ * @edit 18-05-02
+ * - Moved file from [base_dir]\MySQL56\Handler to [base_dir]\MySQL56
  */
-abstract class Schema implements \GIndie\DBHandler\Interfaces\Schema
+class Database
 {
 
     /**
@@ -57,24 +58,6 @@ abstract class Schema implements \GIndie\DBHandler\Interfaces\Schema
     public static function stmCreate()
     {
         return Statement::createSchema(static::name(), static::charset(), static::collation());
-    }
-    
-    /**
-     * @since 18-04-06
-     * @return string
-     */
-    public static function charset()
-    {
-        return "utf8";
-    }
-
-    /**
-     * @since 18-04-06
-     * @return string
-     */
-    public static function collation()
-    {
-        return "utf8_general_ci";
     }
 
 }

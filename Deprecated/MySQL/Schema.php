@@ -10,13 +10,21 @@ namespace GIndie\DBHandler\MySQL;
  *
  * @package DatabaseHandler
  *
- * @version GI-DBH.00.00 18-02-14 Empty class created.
+ * @since 18-02-14
+ * @edit 
  * - Class implements \GIndie\DBHandler\Interfaces\Schema
  * - Abstract class
+ * @version 00
  * @edit 18-04-06
  * - Added charset(), collation()
+ * @edit 18-04-07
+ * - Functional class
+ * @version A0
  * @deprecated since 18-04-30
  * - Copied code to ..\MySQL56\Handler\Database, ..\MySQL56\Instance\Database
+ * @edit 18-05-02
+ * - Moved file from [base_dir]\MySQL to [base_dir]\Deprecated\MySQL
+ * @version AO.DPR
  */
 abstract class Schema implements \GIndie\DBHandler\Interfaces\Schema
 {
@@ -26,6 +34,7 @@ abstract class Schema implements \GIndie\DBHandler\Interfaces\Schema
      * @return boolean
      * @throws \GIndie\DBHandler\ExceptionDBHandler
      * @since 18-04-07
+     * @deprecated since 18-04-30
      */
     public static function validateSchemaDefinition()
     {
@@ -53,15 +62,17 @@ abstract class Schema implements \GIndie\DBHandler\Interfaces\Schema
      * @return \GIndie\DBHandler\MySQL\Statement\CreateSchema
      * @since 18-04-06
      * @edit 18-04-07
+     * @deprecated since 18-04-30
      */
     public static function stmCreate()
     {
         return Statement::createSchema(static::name(), static::charset(), static::collation());
     }
-    
+
     /**
      * @since 18-04-06
      * @return string
+     * @deprecated since 18-04-30
      */
     public static function charset()
     {
@@ -71,6 +82,7 @@ abstract class Schema implements \GIndie\DBHandler\Interfaces\Schema
     /**
      * @since 18-04-06
      * @return string
+     * @deprecated since 18-04-30
      */
     public static function collation()
     {

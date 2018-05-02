@@ -1,5 +1,7 @@
 <?php
 
+namespace GIndie\DBHandler\MySQL56\DataDefinition\Table;
+
 /**
  * GI-DBHandler-DVLP - Options
  *
@@ -7,18 +9,13 @@
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
  * @package DatabaseHandler
+ * @subpackage MySQL56
  *
- * @version ??
  * @since 18-04-29
- */
-
-namespace GIndie\DBHandler\MySQL56\DataDefinition\Table;
-
-/**
- *
- * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
+ * @version UNDEFINED
  */
 interface Options
 {
     //put your code here
 }
+

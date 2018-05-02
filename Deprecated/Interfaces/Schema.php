@@ -1,6 +1,6 @@
 <?php
 
-namespace GIndie\DBHandler\HandlerDefinition\Deprecated;
+namespace GIndie\DBHandler\Interfaces;
 
 /**
  * DVLP-DBHandler - Schema
@@ -10,10 +10,13 @@ namespace GIndie\DBHandler\HandlerDefinition\Deprecated;
  *
  * @package DatabaseHandler
  *
- * @version 00
+ * @version A0
  * @since 18-02-14
  * @deprecated since 18-05-01
  * - Moved class from [base_dir]\Interfaces to [base_dir]\HandlerDefinition\Deprecated
+ * @edit 18-05-02
+ * - Moved class from [base_dir]\Interfaces to [base_dir]\Deprecated\Interfaces
+ * @version A0.DPR
  */
 interface Schema
 {

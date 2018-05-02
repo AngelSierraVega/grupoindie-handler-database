@@ -11,9 +11,10 @@ namespace GIndie\DBHandler\MySQL56\DataDefinition;
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
  * @package DatabaseHandler
+ * @subpackage MySQL56
  *
- * @version AO
  * @since 18-04-29
+ * @version UNDEFINED
  */
 interface Column_References
 {

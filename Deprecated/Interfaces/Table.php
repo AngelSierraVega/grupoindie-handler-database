@@ -1,6 +1,6 @@
 <?php
 
-namespace GIndie\DBHandler\HandlerDefinition\Deprecated;
+namespace GIndie\DBHandler\Interfaces;
 /**
  * DVLP-DBHandler - Table
  *
@@ -14,8 +14,11 @@ namespace GIndie\DBHandler\HandlerDefinition\Deprecated;
  * - Created schema(), primaryKeyName(), name(), columnNames()
  * @edit 18-04-26
  * - Created config()
+ * @version A0
  * @deprecated since 18-05-01
- * - Moved class from [base_dir]\Interfaces to [base_dir]\HandlerDefinition\Deprecated
+ * @edit 18-05-02
+ * - Moved class from [base_dir]\Interfaces to [base_dir]\Deprecated\Interfaces
+ * @version A0.DPR
  */
 interface Table
 {

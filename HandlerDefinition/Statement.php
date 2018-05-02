@@ -1,20 +1,19 @@
 <?php
 
-namespace GIndie\DBHandler\MySQL56\DataDefinition\Identifiers\Table\References;
+namespace GIndie\DBHandler\HandlerDefinition;
 
 /**
- * GI-DBHandler-DVLP - Constraint
+ * GI-DBHandler-DVLP - Statement
  *
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
  * @package DatabaseHandler
- * @subpackage MySQL56
  *
- * @since 18-04-30
+ * @since 18-05-02
  * @version UNDEFINED
  */
-interface Constraint
+class Statement
 {
     //put your code here
 }

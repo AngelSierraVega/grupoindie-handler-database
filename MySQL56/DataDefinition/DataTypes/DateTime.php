@@ -3,7 +3,7 @@
 namespace GIndie\DBHandler\MySQL56\DataDefinition\DataTypes;
 
 /**
- * GI-DBHandler-DVLP - DateTime
+ * 
  * A summary of the temporal data types follows. For additional information about properties 
  * and storage requirements of the temporal types, see Section 11.3, “Date and Time Types”, 
  * and Section 11.7, “Data Type Storage Requirements”. For descriptions of functions that operate 

@@ -20,7 +20,6 @@ namespace GIndie\DBHandler\MySQL56\DataDefinition;
  */
 interface Database
 {
-
     /**
      * The name of the database
      * @since 18-02-14

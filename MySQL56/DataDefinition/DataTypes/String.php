@@ -58,6 +58,7 @@ interface String
      * the values NULL and '' (the empty string). 
      * 
      * @since 18-04-26 
+     * @edit 18-05-01
      */
     const DATATYPE_CHAR = "CHAR";
 
@@ -71,6 +72,7 @@ interface String
      * in characters. The range of M is 0 to 255. If M is omitted, the length is 1. 
      * 
      * @since 18-04-27 
+     * @edit 18-05-01
      */
     const DATATYPE_NCHAR = "NCHAR";
 
@@ -94,6 +96,7 @@ interface String
      * for NATIONAL VARCHAR. 
      * 
      * @since 18-04-26 
+     * @edit 18-05-01
      */
     const DATATYPE_VARCHAR = "VARCHAR";
 
@@ -104,6 +107,7 @@ interface String
      * If omitted, M defaults to 1. 
      * 
      * @since 18-04-26 
+     * @edit 18-05-01
      */
     const DATATYPE_BINARY = "BINARY";
 
@@ -114,6 +118,7 @@ interface String
      * than nonbinary character strings. M represents the maximum column length in bytes. 
      * 
      * @since 18-04-26 
+     * @edit 18-05-01
      */
     const DATATYPE_VARBINARY = "VARBINARY";
 
@@ -123,6 +128,7 @@ interface String
      * A BLOB column with a maximum length of 255 (28 − 1) bytes. Each TINYBLOB value is stored 
      * using a 1-byte length prefix that indicates the number of bytes in the value. 
      * @since 18-04-26 
+     * @edit 18-05-01
      */
     const DATATYPE_TINYBLOB = "TINYBLOB";
 
@@ -134,6 +140,7 @@ interface String
      * using a 1-byte length prefix that indicates the number of bytes in the value. 
      * 
      * @since 18-04-26 
+     * @edit 18-05-01
      */
     const DATATYPE_TINYTEXT = "TINYTEXT";
 
@@ -147,6 +154,7 @@ interface String
      * as the smallest BLOB type large enough to hold values M bytes long. 
      * 
      * @since 18-04-26 
+     * @edit 18-05-01
      */
     const DATATYPE_BLOB = "BLOB";
 
@@ -161,6 +169,7 @@ interface String
      * as the smallest TEXT type large enough to hold values M characters long. 
      * 
      * @since 18-04-26 
+     * @edit 18-05-01
      */
     const DATATYPE_TEXT = "TEXT";
 
@@ -171,6 +180,7 @@ interface String
      * stored using a 3-byte length prefix that indicates the number of bytes in the value. 
      * 
      * @since 18-04-26 
+     * @edit 18-05-01
      */
     const DATATYPE_MEDIUMBLOB = "MEDIUMBLOB";
 
@@ -182,6 +192,7 @@ interface String
      * is stored using a 3-byte length prefix that indicates the number of bytes in the value. 
      * 
      * @since 18-04-26 
+     * @edit 18-05-01
      */
     const DATATYPE_MEDIUMTEXT = "MEDIUMTEXT";
 
@@ -194,6 +205,7 @@ interface String
      * length prefix that indicates the number of bytes in the value. 
      * 
      * @since 18-04-26 
+     * @edit 18-05-01
      */
     const DATATYPE_LONGBLOB = "LONGBLOB";
 
@@ -207,6 +219,7 @@ interface String
      * a 4-byte length prefix that indicates the number of bytes in the value. 
      * 
      * @since 18-04-26 
+     * @edit 18-05-01
      */
     const DATATYPE_LONGTEXT = "LONGTEXT";
 
@@ -223,6 +236,7 @@ interface String
      * “Limits Imposed by .frm File Structure”. 
      * 
      * @since 18-04-26 
+     * @edit 18-05-01
      */
     const DATATYPE_ENUM = "ENUM";
 
@@ -237,6 +251,7 @@ interface String
      * information on this limit, see Section C.10.5, “Limits Imposed by .frm File Structure”. 
      * 
      * @since 18-04-26 
+     * @edit 18-05-01
      */
     const DATATYPE_SET = "SET";
 

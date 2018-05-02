@@ -1,6 +1,6 @@
 <?php
 
-namespace GIndie\DBHandler\MySQL56\DataDefinition\Column;
+namespace GIndie\DBHandler\MySQL56\DataDefinition\Identifiers\Column;
 
 /**
  * Once defined the table and the column name, [this class] defines the specification
@@ -190,6 +190,7 @@ interface Definition
     public function getComment();
 
     /**
+     * 
      * COLUMN_FORMAT
      * 
      * In NDB Cluster, it is also possible to specify a data storage format for individual columns 
