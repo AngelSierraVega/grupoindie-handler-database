@@ -22,7 +22,7 @@ use GIndie\DBHandler\INIHandler;
  * @deprecated since 18-05-01
  * @edit 18-05-02
  * - Moved file from [base_dir] to [base_dir]\Deprecated
- * @version AO.DPR
+ * @version A1.00
  */
 class MySQL
 {

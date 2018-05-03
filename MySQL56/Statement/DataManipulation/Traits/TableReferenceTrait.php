@@ -1,25 +1,34 @@
 <?php
 
-namespace GIndie\DBHandler\MySQL\Statement\DataManipulation;
+namespace GIndie\DBHandler\MySQL56\Statement\DataManipulation\Traits;
 
 /**
  * DVLP-DBHandler - tableReferenceTrait
+ *
+ * @link <https://dev.mysql.com/doc/refman/5.6/en/select.html>
  *
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
  * @package DatabaseHandler
+ * @subpackage MySQL56
  *
- * @version GI-DBH.00.00 18-02-15 Empty trait created.
+ * @since 18-02-15
+ * @edit 
+ * - Functional trait
+ * @version A0
+ * @edit 18-05-03
+ * - Moved file from [base_dir]\MySQL\Statement to [base_dir]\MySQL56\Statement\DataManipulation\Traits
+ * - Updated namespace
+ * - Updated trait name due to PSR-0 Violation
+ * @version A1
  */
-trait tableReferenceTrait
+trait TableReferenceTrait
 {
 
     /**
-     * 
      * @return string
-     * 
-     * @since GI-DBH.00.01
+     * @since 18-02-15
      */
     protected function renderTableReferences()
     {
@@ -27,12 +36,10 @@ trait tableReferenceTrait
     }
 
     /**
-     * 
      * @param array $selectors
-     * 
      * @return $this
      * 
-     * @since GI-DBH.00.01
+     * @since 18-02-15
      */
     public function setTableReferences(array $tableReferences)
     {
@@ -59,7 +66,7 @@ trait tableReferenceTrait
     /**
      *
      * @var array 
-     * @since GI-DBH.00.01
+     * @since 18-02-15
      */
     private $tableReferences;
 

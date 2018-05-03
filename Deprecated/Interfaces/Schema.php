@@ -16,7 +16,7 @@ namespace GIndie\DBHandler\Interfaces;
  * - Moved class from [base_dir]\Interfaces to [base_dir]\HandlerDefinition\Deprecated
  * @edit 18-05-02
  * - Moved class from [base_dir]\Interfaces to [base_dir]\Deprecated\Interfaces
- * @version A0.DPR
+ * @version A1.00
  */
 interface Schema
 {
@@ -32,6 +32,7 @@ interface Schema
      * @since 18-04-06
      * @deprecated since 18-05-01
      * @return array
+     * public static function tableClasses();
      */
-    public static function tableClasses();
+    
 }

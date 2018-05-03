@@ -13,7 +13,7 @@ namespace GIndie\DBHandler;
  * @since 18-02-24
  * @edit 
  * - Added code from GI-CMMN
- * @version AO
+ * @version A1.00
  */
 class ProjectHandler extends \GIndie\ProjectHandler
 {

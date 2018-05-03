@@ -20,9 +20,11 @@ use GIndie\DBHandler\MySQL56;
  * - Created createSchema()
  * @version A0
  * @deprecated since 18-05-02
- * @edit 
+ * @edit 18-05-02
  * - Moved file from [base_dir]\MySQL to [base_dir]\Deprecated\MySQL
- * @version AO.DPR
+ * @edit 18-05-03
+ * - Updated class
+ * @version A1.00
  */
 class Statement
 {
@@ -32,17 +34,17 @@ class Statement
      * @param array $selectors
      * @param array $tableReferences
      * 
-     * @return \GIndie\DBHandler\MySQL56\Statement\Select
+     * @return \GIndie\DBHandler\MySQL56\Statement\DataManipulation\Select
      * 
      * @since 18-02-15
-     * @deprecated since 18-05-02
-     * @edit
+     * @deprecated since 18-05-02 use MySQL56\Statement\DataManipulation::select instead
+     * @edit 18-05-03
+     * - Use MySQL56\Statement\DataManipulation
      * - Updated return type
-     * - Use MySQL56\Statement
      */
     public static function select(array $selectors, array $tableReferences)
     {
-        return MySQL56\Statement::select($selectors, $tableReferences);
+        return MySQL56\Statement\DataManipulation::select($selectors, $tableReferences);
     }
 
     /**
@@ -50,16 +52,16 @@ class Statement
      * @param string $name
      * @param string $characterSet
      * @param string $collation
-     * @return \GIndie\DBHandler\MySQL56\Statement\CreateSchema
+     * @return \GIndie\DBHandler\MySQL56\Statement\DataDefinition\CreateSchema
      * @since 18-04-07
-     * @deprecated since 18-05-02
-     * @edit
+     * @deprecated since 18-05-02. Use MySQL56\Statement\DataDefinition::createDatabase instead
+     * @edit 18-05-03
+     * - Use MySQL56\Statement\DataDefinition
      * - Updated return type
-     * - Use MySQL56\Statement
      */
     public static function createSchema($name, $characterSet, $collation)
     {
-        return MySQL56\Statement::createSchema($name, $characterSet, $collation);
+        return MySQL56\Statement\DataDefinition::createDatabase($name, $characterSet, $collation);
     }
 
 }

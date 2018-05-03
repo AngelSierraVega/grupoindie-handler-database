@@ -19,9 +19,12 @@ namespace GIndie\DBHandler\MySQL;
  * - Created getAssocByAttribute(), getAssocById()
  * @version A0
  * @deprecated since 18-05-02
- * @edit 
+ * @edit 18-05-02
  * - Moved file from [base_dir]\MySQL to [base_dir]\Deprecated\MySQL
- * @version AO.DPR
+ * @version A1.00
+ * @edit 18-05-05
+ * - Error handling on getAssocByAttribute()
+ * @version A1.01
  */
 abstract class Table implements \GIndie\DBHandler\Interfaces\Table
 {
@@ -57,6 +60,8 @@ abstract class Table implements \GIndie\DBHandler\Interfaces\Table
      * 
      * @since 18-02-22
      * @deprecated since 18-05-02
+     * @edit 18-05-05
+     * - Simple error handling
      */
     public static function getAssocByAttribute($attributeName, $attributeValue)
     {
@@ -64,12 +69,16 @@ abstract class Table implements \GIndie\DBHandler\Interfaces\Table
         $Select = static::stmSelect();
         $Select->addConditionEquals($attributeName, $attributeValue);
         $Query = \GIndie\DBHandler\MySQL::query($Select);
-        switch ($Query->num_rows)
-        {
-            case 0:
-                break;
-            default:
-                $rtnArray = $Query->fetch_assoc();
+        if ($Query) {
+            switch ($Query->num_rows)
+            {
+                case 0:
+                    break;
+                default:
+                    $rtnArray = $Query->fetch_assoc();
+            }
+        }else{
+            \trigger_error(\GIndie\DBHandler\MySQL::getConnection()->error, \E_USER_ERROR);
         }
         return $rtnArray;
     }

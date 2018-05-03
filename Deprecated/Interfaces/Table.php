@@ -18,7 +18,7 @@ namespace GIndie\DBHandler\Interfaces;
  * @deprecated since 18-05-01
  * @edit 18-05-02
  * - Moved class from [base_dir]\Interfaces to [base_dir]\Deprecated\Interfaces
- * @version A0.DPR
+ * @version A1.00
  */
 interface Table
 {
@@ -26,8 +26,9 @@ interface Table
     /**
      * @since 18-04-26
      * @deprecated since 18-05-01
+     * public static function config();
      */
-    public static function config();
+    
 
     /**
      * @since 18-02-15

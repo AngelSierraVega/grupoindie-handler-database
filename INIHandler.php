@@ -14,7 +14,10 @@ namespace GIndie\DBHandler;
  * @edit
  * - Class extends from \GIndie\INIHandler
  * - Created fileName(), requiredVars()
- * @version A0
+ * @version A0.00
+ * @todo
+ * - Handle root user
+ * @version A1.00
  */
 class INIHandler extends \GIndie\INIHandler
 {

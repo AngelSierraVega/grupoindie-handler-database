@@ -1,6 +1,6 @@
 <?php
 
-namespace GIndie\DBHandler\MySQL\Statement;
+namespace GIndie\DBHandler\MySQL56\Statement\DataManipulation;
 
 /**
  * DVLP-DBHandler - Select
@@ -9,13 +9,19 @@ namespace GIndie\DBHandler\MySQL\Statement;
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
  * @package DatabaseHandler
+ * @subpackage MySQL56
  *
- * @version GI-DBH.00.00 18-02-14 Empty class created.
- * @edit GI-DBH.00.01
+ * @since 18-02-14
+ * @edit 18-02-14
  * - Class extends DataManipulation
  * - Created __construct(), __toString()
+ * @version A0
+ * @edit 18-05-03
+ * - Moved file from [base_dir]\MySQL\Statement to [base_dir]\MySQL56\Statement\DataManipulation
+ * - Updated namespace
+ * @version A1
  */
-class Select extends DataManipulation
+class Select extends DataManipulationStatement
 {
 
     /**
@@ -23,7 +29,7 @@ class Select extends DataManipulation
      * @param array $selectors
      * @param array $tableReferences
      * 
-     * @since GI-DBH.00.01
+     * @since 18-02-14
      */
     public function __construct(array $selectors, array $tableReferences)
     {
@@ -35,7 +41,7 @@ class Select extends DataManipulation
      * 
      * @return string
      * 
-     * @since GI-DBH.00.01
+     * @since 18-02-14
      */
     public function __toString()
     {

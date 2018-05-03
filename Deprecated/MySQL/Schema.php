@@ -24,7 +24,7 @@ namespace GIndie\DBHandler\MySQL;
  * - Copied code to ..\MySQL56\Handler\Database, ..\MySQL56\Instance\Database
  * @edit 18-05-02
  * - Moved file from [base_dir]\MySQL to [base_dir]\Deprecated\MySQL
- * @version AO.DPR
+ * @version A1.00
  */
 abstract class Schema implements \GIndie\DBHandler\Interfaces\Schema
 {

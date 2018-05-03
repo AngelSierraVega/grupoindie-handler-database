@@ -1,24 +1,32 @@
 <?php
 
-namespace GIndie\DBHandler\MySQL\Statement;
+namespace GIndie\DBHandler\MySQL56\Statement\DataDefinition;
 
 /**
  * GI-DBHandler-DVLP - CreateSchema
  * 
- * @link <https://dev.mysql.com/doc/refman/5.6/en/create-database.html>
- * CREATE {DATABASE | SCHEMA} [IF NOT EXISTS] db_name
+ * MySQL 5.6 implementation: CREATE {DATABASE | SCHEMA} [IF NOT EXISTS] db_name
  * [DEFAULT] CHARACTER SET [=] charset_name
  * [DEFAULT] COLLATE [=] collation_name
- *
+ * 
+ * @link <https://dev.mysql.com/doc/refman/5.6/en/create-database.html>
+ * 
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
  * @package DatabaseHandler
+ * @subpackage MySQL56
  *
- * @version AO
  * @since 18-04-07
+ * @version AO
+ * 
+ * @edit 18-05-03
+ * - Moved file from [base_dir]\MySQL\Statement to [base_dir]\MySQL56\Statement\DataDefinition
+ * - Updated namespace
+ * - Class extends DataDefinitionStatement
+ * @version A1
  */
-class CreateSchema extends DataDefinition
+class CreateSchema extends DataDefinitionStatement
 {
 
     /**

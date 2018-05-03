@@ -1,31 +1,38 @@
 <?php
 
-namespace GIndie\DBHandler\MySQL\Statement\DataManipulation;
+namespace GIndie\DBHandler\MySQL56\Statement\DataManipulation\Traits;
 
 /**
  * DVLP-DBHandler - selectorTrait
  * 
- * @link <https://dev.mysql.com/doc/refman/5.7/en/select.html>
+ * @link <https://dev.mysql.com/doc/refman/5.6/en/select.html>
  *
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
  * @package DatabaseHandler
+ * @subpackage MySQL56
  *
- * @version GI-DBH.00.00 18-02-15 Empty trait created.
- * @edit GI-DBH.00.01
+ * @since 18-02-15
+ * @edit
  * - Created $selectors, setSelectors(), renderSelectors()
+ * @version A0
+ * @edit 18-05-03
+ * - Moved file from [base_dir]\MySQL\Statement to [base_dir]\MySQL56\Statement\DataManipulation\Traits
+ * - Updated namespace
+ * - Updated trait name due to PSR-0 Violation
+ * @version A1
  * @todo 
  * - Create addSelector()
  */
-trait selectorTrait
+trait SelectorTrait
 {
 
     /**
      * 
      * @return string
      * 
-     * @since GI-DBH.00.01
+     * @since 18-02-15
      */
     protected function renderSelectors()
     {
@@ -38,7 +45,7 @@ trait selectorTrait
      * 
      * @return $this
      * 
-     * @since GI-DBH.00.01
+     * @since 18-02-15
      */
     public function setSelectors(array $selectors)
     {
@@ -62,6 +69,12 @@ trait selectorTrait
         return $this;
     }
 
+    /**
+     * 
+     * @param string $value
+     * @return string
+     * @since 18-02-15
+     */
     protected function getFormatedValue($value)
     {
         $rtnValue = "";
@@ -80,7 +93,7 @@ trait selectorTrait
     /**
      *
      * @var array 
-     * @since GI-DBH.00.01
+     * @since 18-02-15
      */
     private $selectors;
 
