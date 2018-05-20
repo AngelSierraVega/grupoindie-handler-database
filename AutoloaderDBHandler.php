@@ -6,15 +6,15 @@
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package DatabaseHandler
+ * @package GIndie\DBHandler\ProjectDefinition
  *
  * @since 18-02-14
- * @edit
+ * @edit18-02-14
  * - Functional autoloader
- * @version A0.00
+ * @version 0A.00
  * @edit 18-05-05
  * - Autoloader for deprecated folders
- * @version A1.00
+ * @version 0A.10
  */
 
 namespace GIndie\DBHandler;

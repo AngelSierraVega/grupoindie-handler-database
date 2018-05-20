@@ -9,7 +9,7 @@ ${licensePrefix?replace(" +$", "", "r")}
 ${licensePrefix}@author Angel Sierra Vega <angel.sierra@grupoindie.com>
 ${licensePrefix}@copyright (c) ${date?date?string("yyyy")} Angel Sierra Vega. Grupo INDIE.
 ${licensePrefix?replace(" +$", "", "r")}
-${licensePrefix}@package DatabaseHandler
+${licensePrefix}@package DBHandler
 ${licensePrefix?replace(" +$", "", "r")}
 ${licensePrefix}@since ${date?date?string("yy-MM-dd")}
 ${licensePrefix}@version UNDEFINED

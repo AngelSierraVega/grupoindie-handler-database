@@ -8,15 +8,15 @@ namespace GIndie\DBHandler\Interfaces;
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package DatabaseHandler
+ * @package GIndie\DBHandler\Deprecated
  *
- * @version A0
+ * @version 0A.00
  * @since 18-02-14
  * @deprecated since 18-05-01
  * - Moved class from [base_dir]\Interfaces to [base_dir]\HandlerDefinition\Deprecated
  * @edit 18-05-02
  * - Moved class from [base_dir]\Interfaces to [base_dir]\Deprecated\Interfaces
- * @version A1.00
+ * @version 0A.10
  */
 interface Schema
 {
@@ -34,5 +34,4 @@ interface Schema
      * @return array
      * public static function tableClasses();
      */
-    
 }

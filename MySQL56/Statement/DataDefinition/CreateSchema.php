@@ -14,17 +14,14 @@ namespace GIndie\DBHandler\MySQL56\Statement\DataDefinition;
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package DatabaseHandler
- * @subpackage MySQL56
+ * @package GIndie\DBHandler\MySQL56\Statement
  *
  * @since 18-04-07
- * @version AO
- * 
  * @edit 18-05-03
  * - Moved file from [base_dir]\MySQL\Statement to [base_dir]\MySQL56\Statement\DataDefinition
  * - Updated namespace
  * - Class extends DataDefinitionStatement
- * @version A1
+ * @version 0A.10
  */
 class CreateSchema extends DataDefinitionStatement
 {

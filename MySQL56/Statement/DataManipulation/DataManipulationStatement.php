@@ -10,13 +10,12 @@ namespace GIndie\DBHandler\MySQL56\Statement\DataManipulation;
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package DatabaseHandler
- * @subpackage MySQL56
+ * @package GIndie\DBHandler\MySQL56\Statement
  *
  * @since 18-05-03
  * - Abstract class
  * - Added traits
- * @version A1
+ * @version 0A.10
  */
 abstract class DataManipulationStatement
 {

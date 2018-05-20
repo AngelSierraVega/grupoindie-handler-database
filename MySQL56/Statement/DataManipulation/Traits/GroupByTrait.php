@@ -10,7 +10,7 @@ namespace GIndie\DBHandler\MySQL56\Statement\DataManipulation\Traits;
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package DatabaseHandler
+ * @package GIndie\DBHandler\MySQL56\Statement
  * @subpackage MySQL56
  *
  * @since 18-02-15
@@ -21,7 +21,7 @@ namespace GIndie\DBHandler\MySQL56\Statement\DataManipulation\Traits;
  * - Moved file from [base_dir]\MySQL\Statement to [base_dir]\MySQL56\Statement\DataManipulation\Traits
  * - Updated namespace
  * - Updated trait name due to PSR-0 Violation
- * @version A1
+ * @version 0A.10
  */
 trait GroupByTrait
 {

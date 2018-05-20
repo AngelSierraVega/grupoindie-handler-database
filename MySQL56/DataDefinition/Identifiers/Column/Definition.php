@@ -40,15 +40,13 @@ namespace GIndie\DBHandler\MySQL56\DataDefinition\Identifiers\Column;
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package DatabaseHandler
- * @subpackage MySQL56
+ * @package GIndie\DBHandler\DataDefinition\MySQL56\
  *
- * @version 00 
+ * @version 0A.F0
  * @since 18-04-29
  * - Added methods from GIndie\DBHandler\MySQL56\DataDefinition\Column
  * @edit 18-05-01
  * - Defined constructor and main setters and getters
- * @version A0
  */
 interface Definition
 {

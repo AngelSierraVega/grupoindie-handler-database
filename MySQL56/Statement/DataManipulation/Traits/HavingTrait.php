@@ -10,8 +10,7 @@ namespace GIndie\DBHandler\MySQL56\Statement\DataManipulation\Traits;
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package DatabaseHandler
- * @subpackage MySQL56
+ * @package GIndie\DBHandler\MySQL56\Statement
  *
  * @since 18-02-15 
  * @edit 18-02-15
@@ -21,10 +20,10 @@ namespace GIndie\DBHandler\MySQL56\Statement\DataManipulation\Traits;
  * - Moved file from [base_dir]\MySQL\Statement to [base_dir]\MySQL56\Statement\DataManipulation\Traits
  * - Updated namespace
  * - Updated trait name due to PSR-0 Violation
- * @version 00.01
+ * @version 00.10
  * @edit 18-05-05
  * - Return empty string on all methods.
- * @version 00.02
+ * @version 00.20
  */
 trait HavingTrait
 {

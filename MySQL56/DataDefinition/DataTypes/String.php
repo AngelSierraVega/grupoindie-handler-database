@@ -24,15 +24,15 @@ namespace GIndie\DBHandler\MySQL56\DataDefinition\DataTypes;
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package DatabaseHandler
+ * @package GIndie\DBHandler\DataDefinition\MySQL56\
  *
- * @version 00
+ * @version 0B.00
+ * 
  * @since 18-04-26
  * @edit 18-04-27
  * - Added some interfaces for static methods
  * @edit 18-05-01
  * - Added prefix DATATYPE_
- * @version A0
  */
 interface String
 {

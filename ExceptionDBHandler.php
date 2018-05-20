@@ -8,15 +8,15 @@ namespace GIndie\DBHandler;
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package DatabaseHandler
+ * @package GIndie\DBHandler
  * 
  * @since 18-04-07
  * - Functional class
- * @version A0.00
+ * @version 0A.00
  * @todo
  * - Custom DBHandler exception
  * - Extend from GIException
- * @version A1.00
+ * @version 0A.10
  */
 class ExceptionDBHandler extends \Exception
 {

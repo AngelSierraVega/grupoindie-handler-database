@@ -8,16 +8,16 @@ namespace GIndie\DBHandler;
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package DatabaseHandler
+ * @package GIndie\DBHandler\Components
  *
  * @since 18-02-14
  * @edit
  * - Class extends from \GIndie\INIHandler
  * - Created fileName(), requiredVars()
- * @version A0.00
+ * @version 0A.00
  * @todo
  * - Handle root user
- * @version A1.00
+ * @version 0A.10
  */
 class INIHandler extends \GIndie\INIHandler
 {

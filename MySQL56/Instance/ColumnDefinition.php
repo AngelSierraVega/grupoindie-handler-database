@@ -8,9 +8,9 @@ namespace GIndie\DBHandler\MySQL56\Instance;
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package DatabaseHandler
+ * @package GIndie\DBHandler\MySQL56\Instance
  *
- * @version 00
+ * @version 00.20
  * @since 18-04-30
  * @edit 18-05-01
  * - Added methods from defined interterface(s)
@@ -166,11 +166,11 @@ namespace GIndie\DBHandler\MySQL\Table;
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package DatabaseHandler
- * @subpackage MySQL56
+ * @package GIndie\DBHandler\Deprecated
  *
- * @version GI-DBH.00.00 18-02-14 Empty class created.
- * @edit GI-DBH.00.01
+ * @version 00.20
+ * @since 18-02-14
+ * @edit 18-02-14
  * - Created private vars
  * - Created dummies for static methods
  * @edit 18-04-26
@@ -223,84 +223,84 @@ class Column implements ColumnTypes
     /**
      *
      * @var string 
-     * @since GI-DBH.00.01
+     * @since 18-02-14
      */
     private $columnName;
 
     /**
      *
      * @var int
-     * @since GI-DBH.00.01
+     * @since 18-02-14
      */
     private $dataType;
 
     /**
      *
      * @var int 
-     * @since GI-DBH.00.01
+     * @since 18-02-14
      */
     private $length;
 
     /**
      *
      * @var string comma sepparated values 
-     * @since GI-DBH.00.01
+     * @since 18-02-14
      */
     private $values;
 
     /**
      *
      * @var string 
-     * @since GI-DBH.00.01
+     * @since 18-02-14
      */
     private $primaryKey;
 
     /**
      *
      * @var boolean 
-     * @since GI-DBH.00.01
+     * @since 18-02-14
      */
     private $notNull;
 
     /**
      *
      * @var boolean 
-     * @since GI-DBH.00.01
+     * @since 18-02-14
      */
     private $unique;
 
     /**
      *
      * @var boolean 
-     * @since GI-DBH.00.01
+     * @since 18-02-14
      */
     private $binary;
 
     /**
      *
      * @var boolean 
-     * @since GI-DBH.00.01
+     * @since 18-02-14
      */
     private $unsigned;
 
     /**
      *
      * @var boolean 
-     * @since GI-DBH.00.01
+     * @since 18-02-14
      */
     private $zerofill;
 
     /**
      *
      * @var boolean 
-     * @since GI-DBH.00.01
+     * @since 18-02-14
      */
     private $autoincremental;
 
     /**
      *
      * @var string 
-     * @since GI-DBH.00.01
+     * @since 18-02-14
      */
     private $default;
 

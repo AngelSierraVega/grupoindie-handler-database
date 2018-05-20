@@ -10,7 +10,7 @@ use GIndie\DBHandler\MySQL56;
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package DatabaseHandler
+ * @package GIndie\DBHandler\Deprecated
  * 
  * @since 18-02-14
  * @version 00
@@ -24,7 +24,7 @@ use GIndie\DBHandler\MySQL56;
  * - Moved file from [base_dir]\MySQL to [base_dir]\Deprecated\MySQL
  * @edit 18-05-03
  * - Updated class
- * @version A1.00
+ * @version 0A.10
  */
 class Statement
 {

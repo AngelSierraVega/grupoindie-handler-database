@@ -8,10 +8,10 @@ namespace GIndie\DBHandler\HandlerDefinition;
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package DatabaseHandler
+ * @package GIndie\DBHandler\DataDefinition
  *
- * @since 18-05-02
  * @version UNDEFINED
+ * @since 18-05-02
  */
 class Statement
 {

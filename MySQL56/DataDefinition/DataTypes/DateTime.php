@@ -3,7 +3,6 @@
 namespace GIndie\DBHandler\MySQL56\DataDefinition\DataTypes;
 
 /**
- * 
  * A summary of the temporal data types follows. For additional information about properties 
  * and storage requirements of the temporal types, see Section 11.3, “Date and Time Types”, 
  * and Section 11.7, “Data Type Storage Requirements”. For descriptions of functions that operate 
@@ -14,13 +13,13 @@ namespace GIndie\DBHandler\MySQL56\DataDefinition\DataTypes;
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package DatabaseHandler
+ * @package GIndie\DBHandler\DataDefinition\MySQL56\
  *
- * @version 00
+ * @version 0B.00
+ * 
  * @since 18-04-26
  * @edit 18-05-01
  * - Added prefix DATATYPE_
- * @version A0
  */
 interface DateTime
 {

@@ -8,16 +8,18 @@ namespace GIndie\DBHandler\MySQL56\Handler;
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package DatabaseHandler
+ * @package GIndie\DBHandler\MySQL56\
  *
- * @version 00
+ * @version 0A.40
+ * 
  * @since 18-04-30
- * @edit
+ * @edit 18-04-30
  * - Added code from ..\MySQL\Schema
- * @todo
- * - Upgrade methods
  * @edit 18-05-02
  * - Moved file from [base_dir]\MySQL56\Handler to [base_dir]\MySQL56
+ * @todo
+ * - Upgrade methods
+ * - Handle schemma
  */
 class Database
 {

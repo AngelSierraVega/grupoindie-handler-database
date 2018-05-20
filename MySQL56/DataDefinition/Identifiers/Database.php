@@ -12,10 +12,10 @@ namespace GIndie\DBHandler\MySQL56\DataDefinition;
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package DatabaseHandler
+ * @package GIndie\DBHandler\DataDefinition\MySQL56\
  * @subpackage MySQL56
  *
- * @version 00
+ * @version 0A.F0
  * @since 18-04-27
  */
 interface Database

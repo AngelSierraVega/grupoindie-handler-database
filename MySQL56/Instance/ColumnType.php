@@ -8,9 +8,9 @@ namespace GIndie\DBHandler\MySQL56\Instance;
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package DatabaseHandler
+ * @package GIndie\DBHandler\MySQL56\Instance
  *
- * @version 00
+ * @version UNDEFINED
  * @since 18-04-30
  * @todo Program class
  */

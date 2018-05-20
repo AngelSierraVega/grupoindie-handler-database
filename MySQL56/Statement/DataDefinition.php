@@ -8,8 +8,7 @@ namespace GIndie\DBHandler\MySQL56\Statement;
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package DatabaseHandler
- * @subpackage MySQL56
+ * @package GIndie\DBHandler\MySQL56\Statement
  *
  * @since 18-04-07
  * @version AO
@@ -17,7 +16,7 @@ namespace GIndie\DBHandler\MySQL56\Statement;
  * - Moved file from [base_dir]\MySQL\Statement to [base_dir]\MySQL56\Statement
  * - Updated namespace
  * - createDatabase() Copied from [base_dir]\MySQL\Statement, updated return value
- * @version A1
+ * @version 0A.10
  */
 class DataDefinition
 {

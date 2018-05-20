@@ -12,8 +12,7 @@ use GIndie\DBHandler\MySQL56\Statement\ExpressionSyntax;
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package DatabaseHandler
- * @subpackage MySQL56
+ * @package GIndie\DBHandler\MySQL56\Statement
  *
  * @since 18-02-15
  * @edit
@@ -23,7 +22,7 @@ use GIndie\DBHandler\MySQL56\Statement\ExpressionSyntax;
  * - Moved file from [base_dir]\MySQL\Statement to [base_dir]\MySQL56\Statement\DataManipulation\Traits
  * - Updated namespace
  * - Updated trait name due to PSR-0 Violation
- * @version A1
+ * @version 0A.10
  */
 trait WhereTrait
 {

@@ -10,8 +10,7 @@ use GIndie\DBHandler\MySQL\Statement\DataManipulation AS Traits;
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package DatabaseHandler
- * @subpackage MySQL56
+ * @package GIndie\DBHandler\MySQL56\Statement
  *
  * @since 18-02-15
  * @edit 18-02-15
@@ -21,7 +20,7 @@ use GIndie\DBHandler\MySQL\Statement\DataManipulation AS Traits;
  * - Factory class
  * - Created select()
  * - Moved traits to [current]\DataManipulation\DataManipulationStatement
- * @version A1
+ * @version 0A.10
  */
 class DataManipulation
 {

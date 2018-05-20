@@ -11,9 +11,9 @@ use GIndie\DBHandler\MySQL56\DataDefinition;
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package DatabaseHandler
+ * @package GIndie\DBHandler\MySQL56\Instance
  *
- * @version 00
+ * @version 00.50
  * @since 18-04-30
  */
 abstract class Table implements Instances\Table, DataDefinition\Identifiers\Table

@@ -8,15 +8,37 @@ namespace GIndie\DBHandler;
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package DatabaseHandler
+ * @package GIndie\DBHandler\Components
  *
  * @since 18-02-24
- * @edit 
+ * @edit 18-02-24
  * - Added code from GI-CMMN
- * @version A1.00
+ * @version 0A.10
+ * @edit 18-05-19
+ * - extends \GIndie\ProjectHandler\AbstractProjectHandler
  */
-class ProjectHandler extends \GIndie\ProjectHandler
+class ProjectHandler extends \GIndie\ProjectHandler\AbstractProjectHandler
 {
+
+    /**
+     * 
+     * @return string
+     * @since 18-05-17
+     * @edit 18-05-19
+     * - Upgraded project versions 
+     */
+    public static function versions()
+    {
+        $rtnArray = parent::versions();
+        //AlphaCero
+        $rtnArray[\hexdec("0A.00")]["description"] = "Functional project for FacturacionExterna";
+        //AlphaOne
+        $rtnArray[\hexdec("0A.10")]["description"] = "Upgrade generic MySQL to specific MySQL56 functionality";
+        $rtnArray[\hexdec("0A.10")]["code"] = "AlphaOne";
+        $rtnArray[\hexdec("0A.10")]["threshold"] = "0A.10";
+        \ksort($rtnArray);
+        return $rtnArray;
+    }
 
     /**
      * 
