@@ -8,7 +8,8 @@
  *
  * @package GIndie\DBHandler\Components\Platform
  * 
- * @version 0A.26
+ * @version 0A.20
+ * @since 18-03-21
  */
 
 namespace GIndie\DBHandler\Components\Platform;
@@ -18,7 +19,6 @@ use GIndie\ScriptGenerator\Bootstrap3\Component\Alert;
 
 /**
  * 
- * @since 18-03-21
  * @edit 18-05-05
  * - Updated namespace
  * @edit 18-05-06
@@ -26,11 +26,13 @@ use GIndie\ScriptGenerator\Bootstrap3\Component\Alert;
  * @edit 18-05-20
  * - Functional Database read
  * - Moved file from [sndbx_folder]\Platform\..
+ * @edit 18-05-21
+ * - Renamed class and file from Module to ModuleDBMS
  * @todo
  * - Main functionality for module
  * - Complete functionality for module
  */
-class Module extends \GIndie\Platform\Controller\Module
+class ModuleDBMS extends \GIndie\Platform\Controller\Module
 {
 
     /**
@@ -53,32 +55,32 @@ class Module extends \GIndie\Platform\Controller\Module
          * [DBMSInfo                 ]
          * [EventScheduler][Databases]
          */
-        $this->configPlaceholder("i-i-i")->typeHTMLString("[DBMSInfo]");
-        $this->configPlaceholder("i-ii-i")->typeHTMLString("[EventScheduler]");
-        $this->configPlaceholder("i-ii-ii")->typeHTMLString("[Databases]");
+        $this->config("i-i-i")->typeHTMLString("[DBMSInfo]");
+        $this->config("i-ii-i")->typeHTMLString("[EventScheduler]");
+        $this->config("i-ii-ii")->typeHTMLString("[Databases]");
 
         /**
          * [DatabaseInfo            ]
          * [Events][Routines][Tables]
          */
-        $this->configPlaceholder("ii-i-i")->typeHTMLString("[DatabaseInfo]");
-        $this->configPlaceholder("ii-iii-i")->typeHTMLString("[Events]");
-        $this->configPlaceholder("ii-iii-ii")->typeHTMLString("[Routines]");
-        $this->configPlaceholder("ii-iii-iii")->typeHTMLString("[Tables]");
+        $this->config("ii-i-i")->typeHTMLString("[DatabaseInfo]");
+        $this->config("ii-iii-i")->typeHTMLString("[Events]");
+        $this->config("ii-iii-ii")->typeHTMLString("[Routines]");
+        $this->config("ii-iii-iii")->typeHTMLString("[Tables]");
 
         /**
          * [TableInfo               ]
          * [Attributes][Restrictions]
          */
-        $this->configPlaceholder("iii-i-i")->typeHTMLString("[TableInfo]");
-        $this->configPlaceholder("iii-ii-i")->typeHTMLString("[Attributes]");
-        $this->configPlaceholder("iii-ii-ii")->typeHTMLString("[Restrictions]");
+        $this->config("iii-i-i")->typeHTMLString("[TableInfo]");
+        $this->config("iii-ii-i")->typeHTMLString("[Attributes]");
+        $this->config("iii-ii-ii")->typeHTMLString("[Restrictions]");
 
         /**
          * Define slaves
          */
-        $this->configPlaceholder("i-ii-ii")->addSlave("ii-i-i");
-        $this->configPlaceholder("i-ii-ii")->addSlave("ii-iii-iii");
+        $this->config("i-ii-ii")->addSlave("ii-i-i");
+        $this->config("i-ii-ii")->addSlave("ii-iii-iii");
     }
 
     /**
@@ -350,10 +352,10 @@ class Module extends \GIndie\Platform\Controller\Module
         <p><small>Archivo de configuración en Ubuntu, Debian y derivados:</small>
             <br><samp>/etc/mysql/my.cnf</samp></p>
         <pre>
-                                                                                                                        ...
-                                                                                                                        [mysqld]
-                                                                                                                        ...
-                                                                                                                        event_scheduler = ON
+                                                                                                                                ...
+                                                                                                                                [mysqld]
+                                                                                                                                ...
+                                                                                                                                event_scheduler = ON
         </pre>
         <?php
 

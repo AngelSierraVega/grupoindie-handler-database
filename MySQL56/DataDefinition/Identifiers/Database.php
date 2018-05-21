@@ -1,6 +1,6 @@
 <?php
 
-namespace GIndie\DBHandler\MySQL56\DataDefinition;
+namespace GIndie\DBHandler\MySQL56\DataDefinition\Identifiers;
 
 /**
  * GI-DBHandler-DVLP - Database

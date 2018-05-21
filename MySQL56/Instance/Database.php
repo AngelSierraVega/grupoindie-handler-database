@@ -1,9 +1,5 @@
 <?php
 
-namespace GIndie\DBHandler\MySQL56\Instance;
-
-use GIndie\DBHandler\MySQL56\DataDefinition;
-
 /**
  * GI-DBHandler-DVLP - Database
  *
@@ -12,13 +8,21 @@ use GIndie\DBHandler\MySQL56\DataDefinition;
  *
  * @package GIndie\DBHandler\MySQL56\Instance
  *
- * @version 00.F0
+ * @version 0A.10
  * @since 18-04-30
+ */
+
+namespace GIndie\DBHandler\MySQL56\Instance;
+
+use GIndie\DBHandler\MySQL56\DataDefinition;
+
+/**
+ * 
  * @edit 18-04-30
  * - Added code from ..\MySQL\Schema
- * - Abstract class, implements \GIndie\DBHandler\MySQL56\DataDefinition\Database 
+ * - Abstract class, implements \GIndie\DBHandler\MySQL56\DataDefinition\Identifiers\Database
  */
-abstract class Database implements DataDefinition\Database
+abstract class Database implements DataDefinition\Identifiers\Database
 {
 
     /**

@@ -6,7 +6,7 @@
  *
  * @package GIndie\DBHandler\Components\Platform
  * 
- * @version 0A.26
+ * @version 0A.2A
  */
 
 namespace GIndie\DBHandler\Components\Platform;
@@ -33,10 +33,12 @@ class Instance extends \GIndie\Platform\Instance
     /**
      * 
      * @since 18-03-21
+     * @edit 18-05-21
      */
     public function config()
     {
-        $this->setModule(Module::class);
+        $this->setModule(ModuleDBMS::class);
+        $this->setModule(ModuleDataModel::class);
     }
 
 }
