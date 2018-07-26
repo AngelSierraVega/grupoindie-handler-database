@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\Components\Platform
  *
- * @version 0A.20
+ * @version 0A.23
  * @since 18-05-21
  */
 
@@ -141,6 +141,8 @@ class ModuleDataModel extends \GIndie\Platform\Controller\Module
      * 
      * @since 18-05-21
      * - Functional method
+     * @edit 18-07-16
+     * - Use placeholder() instead of configPlaceholder()
      */
     public function config()
     {
@@ -148,9 +150,9 @@ class ModuleDataModel extends \GIndie\Platform\Controller\Module
          * [Databases][DatabaseModel][Tables]
          * 
          */
-        $this->configPlaceholder("i-iii-i")->typeCallable([$this, "wdgtDatabases"]);
-        $this->configPlaceholder("i-iii-ii")->typeCallable([$this, "wdgtDatabaseModel"]);
-        $this->configPlaceholder("i-iii-iii")->typeCallable([$this, "wdgtTables"]);
+        $this->placeholder("i-iii-i")->typeCallable([$this, "wdgtDatabases"]);
+        $this->placeholder("i-iii-ii")->typeCallable([$this, "wdgtDatabaseModel"]);
+        $this->placeholder("i-iii-iii")->typeCallable([$this, "wdgtTables"]);
 
         /**
          * [TableModel              ]
@@ -159,23 +161,23 @@ class ModuleDataModel extends \GIndie\Platform\Controller\Module
          * protected function wdgtRestrictions()
          * protected function wdgtRestrictionModel()
          */
-        $this->configPlaceholder("ii-i-i")->typeCallable([$this, "wdgtTableModel"]);
-        $this->configPlaceholder("ii-ii-i")->typeCallable([$this, "wdgtColumns"]);
-        $this->configPlaceholder("ii-ii-ii")->typeCallable([$this, "wdgtColumnModel"]);
-        $this->configPlaceholder("iii-ii-i")->typeHTMLString("@wdgtRestrictions");
-        $this->configPlaceholder("iii-ii-ii")->typeHTMLString("@wdgtRestrictionModel");
+        $this->placeholder("ii-i-i")->typeCallable([$this, "wdgtTableModel"]);
+        $this->placeholder("ii-ii-i")->typeCallable([$this, "wdgtColumns"]);
+        $this->placeholder("ii-ii-ii")->typeCallable([$this, "wdgtColumnModel"]);
+        $this->placeholder("iii-ii-i")->typeHTMLString("@wdgtRestrictions");
+        $this->placeholder("iii-ii-ii")->typeHTMLString("@wdgtRestrictionModel");
 
         /**
          * Define slaves for [Databases]
          */
-        $this->configPlaceholder("i-iii-i")->addSlave("i-iii-ii");
-        $this->configPlaceholder("i-iii-i")->addSlave("i-iii-iii");
+        $this->placeholder("i-iii-i")->addSlave("i-iii-ii");
+        $this->placeholder("i-iii-i")->addSlave("i-iii-iii");
         /**
          * Define slaves for [Tables]
          */
-        $this->configPlaceholder("i-iii-iii")->addSlave("ii-i-i");
-        $this->configPlaceholder("i-iii-iii")->addSlave("ii-ii-i");
-        $this->configPlaceholder("i-iii-iii")->addSlave("iii-ii-i");
+        $this->placeholder("i-iii-iii")->addSlave("ii-i-i");
+        $this->placeholder("i-iii-iii")->addSlave("ii-ii-i");
+        $this->placeholder("i-iii-iii")->addSlave("iii-ii-i");
     }
 
     /**

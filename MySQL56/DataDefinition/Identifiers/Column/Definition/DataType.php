@@ -42,7 +42,7 @@ namespace GIndie\DBHandler\MySQL56\DataDefinition\Identifiers\Column\Definition;
  *
  * @package GIndie\DBHandler\DataDefinition\MySQL56\
  *
- * @version 0A.F0
+ * @version 0A.F4
  * @since 18-04-30
  * @todo 
  * - setter and getter for D
@@ -69,6 +69,24 @@ interface DataType
      * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\DataTypes\Numeric
      */
     public static function tinyint($m, $unsigned = false, $zerofill = false);
+    
+    /**
+     * TIMESTAMP[(fsp)]
+     * 
+     * A timestamp. The range is '1970-01-01 00:00:01.000000' UTC to '2038-01-19 03:14:07.999999' UTC. 
+     * TIMESTAMP values are stored as the number of seconds since the epoch ('1970-01-01 00:00:00' UTC). 
+     * A TIMESTAMP cannot represent the value '1970-01-01 00:00:00' because that is equivalent 
+     * to 0 seconds from the epoch and the value 0 is reserved for representing '0000-00-00 00:00:00', 
+     * the “zero” TIMESTAMP value.
+     * 
+     * As of MySQL 5.6.4, an optional fsp value in the range from 0 to 6 may be given to specify 
+     * fractional seconds precision. A value of 0 signifies that there is no fractional part. 
+     * If omitted, the default precision is 0. 
+     * 
+     * @param null|int $fsp
+     * @since 18-08-02
+     */
+    public static function timestamp($fsp = null);
 
     /**
      * INTEGER[(M)] [UNSIGNED] [ZEROFILL] ALIAS FOR INT[(M)] [UNSIGNED] [ZEROFILL]
@@ -83,7 +101,7 @@ interface DataType
      * SERIAL DEFAULT VALUE in the definition of an integer column is an alias for 
      * NOT NULL AUTO_INCREMENT UNIQUE.
      * 
-     * @param int $m
+     * @param null|int $m
      * @param boolean $unsigned
      * @param boolean $zerofill 
      * 
@@ -94,7 +112,7 @@ interface DataType
      * @edit 18-04-30
      * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\DataTypes\Numeric
      */
-    public static function integer($m, $unsigned = false, $zerofill = false);
+    public static function integer($m = null, $unsigned = false, $zerofill = false);
 
     /**
      * SERIAL is an alias for BIGINT UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE.
@@ -139,8 +157,10 @@ interface DataType
      * - Added from \GIndie\DBHandler\MySQL\Table\Column
      * @edit 18-04-30
      * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\DataTypes\DateTime
+     * @edit 18-08-01
+     * - Added default null
      */
-    public static function datetime($fsp);
+    public static function datetime($fsp = null);
 
     /**
      * DATE
@@ -336,7 +356,7 @@ interface DataType
      * 
      * @return string
      */
-    public function getFPS();
+    public function getFSP();
 
     /**
      * 
@@ -361,7 +381,7 @@ interface DataType
 
     /**
      * @since 18-04-30
-     * @param type $m
+     * @param int $m
      */
     public function setM($m);
 
@@ -385,7 +405,7 @@ interface DataType
      * @since 18-04-30
      * @param int $fsp
      */
-    public function setFPS($fsp);
+    public function setFSP($fsp);
 
     /**
      * @since 18-04-30
@@ -404,5 +424,11 @@ interface DataType
      * @param array $values
      */
     public function setValues(array $values);
-}
 
+    /**
+     * 
+     * @param int $d
+     * @since 18-08-01
+     */
+    public function setD($d);
+}
