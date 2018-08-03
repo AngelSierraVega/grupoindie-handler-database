@@ -73,6 +73,8 @@ trait SelectorTrait
      * @param string $value
      * @return string
      * @since 18-02-15
+     * @edit 18-08-13
+     * - Removed ` from custom value
      */
     protected function getFormatedValue($value)
     {
@@ -83,7 +85,8 @@ trait SelectorTrait
                 $rtnValue = $value;
                 break;
             default:
-                $rtnValue = "`{$value}`";
+//                $rtnValue = "`{$value}`";
+                $rtnValue = $value;
                 break;
         }
         return $rtnValue;

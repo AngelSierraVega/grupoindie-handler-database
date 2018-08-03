@@ -49,6 +49,20 @@ namespace GIndie\DBHandler\MySQL56\DataDefinition\Identifiers\Column\Definition;
  */
 interface DataType
 {
+    
+    /**
+     * BLOB[(M)]
+     * 
+     * A BLOB column with a maximum length of 65,535 (216 − 1) bytes. Each BLOB value is stored 
+     * using a 2-byte length prefix that indicates the number of bytes in the value.
+     * 
+     * An optional length M can be given for this type. If this is done, MySQL creates the column 
+     * as the smallest BLOB type large enough to hold values M bytes long. 
+     * 
+     * @param int|null $m
+     * @since 18-08-02
+     */
+    public static function blob($m=null);
 
     /**
      * TINYINT[(M)] [UNSIGNED] [ZEROFILL]
@@ -281,7 +295,7 @@ interface DataType
      * An optional length M can be given for this type. If this is done, MySQL creates the column 
      * as the smallest TEXT type large enough to hold values M characters long. 
      * 
-     * @param int $m
+     * @param int|null $m
      * @param string|null $charsetName
      * @param string|null $collationName
      * 
@@ -291,8 +305,10 @@ interface DataType
      * - Defined interface
      * @edit 18-04-30
      * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\DataTypes\string
+     * @edit 18-08-15
+     * - Default null value for $m
      */
-    public static function text($m, $charsetName = null, $collationName = null);
+    public static function text($m = null, $charsetName = null, $collationName = null);
 
     /**
      * ENUM('value1','value2',...) [CHARACTER SET charset_name] [COLLATE collation_name]

@@ -66,7 +66,7 @@ interface Definition
      * 
      * @since 18-05-01
      */
-    public function __construct(Definition\DataType $dataType);
+    public function __construct(\GIndie\DBHandler\MySQL56\Instance\DataType $dataType);
 
     /**
      * If neither NULL nor NOT NULL is specified, the column is treated as though NULL had 

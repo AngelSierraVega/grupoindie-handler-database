@@ -37,7 +37,7 @@ abstract class AbstractDBHandler
     {
         $connection = new \mysqli("p:" . INIHandler::getHost(), INIHandler::getMainUsername(), INIHandler::getMainPassword());
         if (\mysqli_connect_errno()) {
-            throw new \Exception("Connection failed: " . \mysqli_connect_error());
+            throw ExceptionDBHandler::invalidConnection(\mysqli_connect_error());
         }
         $connection->set_charset("utf8");
         return $connection;

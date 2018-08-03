@@ -34,7 +34,7 @@ namespace GIndie\DBHandler\MySQL56\DataDefinition\DataTypes;
  * @edit 18-05-01
  * - Added prefix DATATYPE_
  */
-interface String
+interface StringDataTypes
 {
 
     /**

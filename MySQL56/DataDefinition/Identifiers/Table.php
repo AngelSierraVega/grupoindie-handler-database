@@ -61,7 +61,7 @@ interface Table
 
     /**
      * 
-     * @param type $name
+     * @param string $name
      * @param \GIndie\DBHandler\MySQL56\DataDefinition\Identifiers\Column\Definition\DataType $dataType
      * 
      * @return \GIndie\DBHandler\MySQL56\DataDefinition\Identifiers\Column

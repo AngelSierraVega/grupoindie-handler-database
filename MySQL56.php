@@ -1,7 +1,5 @@
 <?php
 
-namespace GIndie\DBHandler;
-
 /**
  * GI-DBHandler-DVLP - MySQL56
  *
@@ -11,9 +9,16 @@ namespace GIndie\DBHandler;
  * @package GIndie\DBHandler
  *
  * @since 18-05-01
- * @version UNDEFINED
+ * @version 0A.30
  */
-class MySQL56
+
+namespace GIndie\DBHandler;
+
+/**
+ * Main handler for a MySQL56 [connection]
+ * 
+ */
+class MySQL56 extends AbstractDBHandler
 {
-    //put your code here
+    
 }

@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL56\Instance
  *
- * @version 0A.10
+ * @version 0A.70
  * @since 18-04-30
  */
 
@@ -24,6 +24,28 @@ use GIndie\DBHandler\MySQL56\DataDefinition;
  */
 abstract class Database implements DataDefinition\Identifiers\Database
 {
+    /**
+     *
+     * @var \GIndie\DBHandler\MySQL56\Instance\Database 
+     * @since 18-08-02
+     * @deprecated since 18-08-15
+     * private static $instance;
+     */
+
+    /**
+     * @return \GIndie\DBHandler\MySQL56\Instance\Database
+     * @since 18-08-02
+     * @edit 18-08-15
+     * - Upgraded method due to bug.
+     */
+    public static function getInstance()
+    {
+        return new static();
+//        if (!isset(static::$instance)) {
+//            static::$instance = new static();
+//        }
+//        return static::$instance;
+    }
 
     /**
      * @since 18-04-06
@@ -45,4 +67,10 @@ abstract class Database implements DataDefinition\Identifiers\Database
         return "utf8_general_ci";
     }
 
+    /**
+     * @since 18-08-02
+     * @edit 18-08-15
+     * - Renamed from getTableClassname to getTableClassnames
+     */
+    abstract public static function getTableClassnames();
 }

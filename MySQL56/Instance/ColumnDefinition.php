@@ -1,7 +1,5 @@
 <?php
 
-namespace GIndie\DBHandler\MySQL56\Instance;
-
 /**
  * GI-DBHandler-DVLP - ColumnDefinition
  *
@@ -10,23 +8,53 @@ namespace GIndie\DBHandler\MySQL56\Instance;
  *
  * @package GIndie\DBHandler\MySQL56\Instance
  *
- * @version 00.20
+ * @version 0A.80
  * @since 18-04-30
+ */
+
+namespace GIndie\DBHandler\MySQL56\Instance;
+
+/**
  * @edit 18-05-01
  * - Added methods from defined interterface(s)
- * @todo Program class
+ * @edit 18-05-15
+ * - Class implements \GIndie\DBHandler\MySQL56\DataDefinition\Identifiers\Column\Definition
+ * - Added code from temp class Column
+ * @todo 
+ * - Functional class
  */
-class ColumnDefinition implements \GIndie\DBHandler\MySQL56\DataDefinition\Column\Definition
+class ColumnDefinition
+        implements \GIndie\DBHandler\MySQL56\DataDefinition\Identifiers\Column\Definition
 {
     /**
      * @todo private vars
-     * notNull
-     * defaultValue
-     * autoIncrement
-     * comment
      * columnFormat
      * storage
      */
+
+    /**
+     *
+     * @var array
+     * @since 18-08-18
+     */
+    private $indexes = [];
+
+    /**
+     * 
+     * @param string $index
+     * @since 18-08-18
+     */
+    public function addIndex($index)
+    {
+        $this->indexes[] = $index;
+    }
+
+    /**
+     *
+     * @var \GIndie\DBHandler\MySQL56\Instance\DataType
+     * @since 18-08-15
+     */
+    private $dataType;
 
     /**
      * Once defined the table and the column name, [this class] defines the specification
@@ -43,8 +71,30 @@ class ColumnDefinition implements \GIndie\DBHandler\MySQL56\DataDefinition\Colum
      * 
      * @since 18-05-01
      * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\Column\Definition
+     * @edit 18-08-15
+     * - Functional method
      */
-    public function __construct(Definition\DataType $dataType);
+    public function __construct(\GIndie\DBHandler\MySQL56\Instance\DataType $dataType)
+    {
+        $this->dataType = $dataType;
+    }
+
+    /**
+     * 
+     * @return \GIndie\DBHandler\MySQL56\DataDefinition\Column\Definition\DataType
+     * @since 18-08-20
+     */
+    public function getDataType()
+    {
+        return $this->dataType;
+    }
+
+    /**
+     *
+     * @var boolean 
+     * @since 18-08-15
+     */
+    private $notNull;
 
     /**
      * If neither NULL nor NOT NULL is specified, the column is treated as though NULL had 
@@ -55,8 +105,21 @@ class ColumnDefinition implements \GIndie\DBHandler\MySQL56\DataDefinition\Colum
      * 
      * @since 18-05-01
      * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\Column\Definition
+     * @edit 18-08-15
+     * - Functional method
      */
-    public function setNotNull($value = true);
+    public function setNotNull($value = true)
+    {
+        $this->notNull = $value;
+        return $this;
+    }
+
+    /**
+     *
+     * @var string 
+     * @since 18-08-15
+     */
+    private $default;
 
     /**
      * Specifies a default value for a column. With one exception, the default value must be a 
@@ -76,8 +139,21 @@ class ColumnDefinition implements \GIndie\DBHandler\MySQL56\DataDefinition\Colum
      * 
      * @since 18-05-01
      * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\Column\Definition
+     * @edit 18-08-15
+     * - Functional method
      */
-    public function setDefaultValue($value);
+    public function setDefaultValue($value)
+    {
+        $this->default = $value;
+        return $this;
+    }
+
+    /**
+     *
+     * @var boolean 
+     * @since 18-08-15
+     */
+    private $autoincrement;
 
     /**
      * An integer or floating-point column can have the additional attribute AUTO_INCREMENT. 
@@ -106,8 +182,21 @@ class ColumnDefinition implements \GIndie\DBHandler\MySQL56\DataDefinition\Colum
      * 
      * @since 18-05-01
      * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\Column\Definition
+     * @edit 18-08-15
+     * - Functional method
      */
-    public function setAutoIncrement($value = true);
+    public function setAutoIncrement($value = true)
+    {
+        $this->autoincrement = $value;
+        return $this;
+    }
+
+    /**
+     *
+     * @var type 
+     * @since 18-08-15
+     */
+    private $comment;
 
     /**
      * A comment for a column can be specified with the COMMENT option, up to 1024 characters 
@@ -118,16 +207,27 @@ class ColumnDefinition implements \GIndie\DBHandler\MySQL56\DataDefinition\Colum
      * 
      * @since 18-05-01
      * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\Column\Definition
+     * @edit 18-08-15
+     * - Functional method
      */
-    public function setComment($comment);
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+        return $this;
+    }
 
     /**
      * @return boolean
      * 
      * @since 18-05-01
      * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\Column\Definition
+     * @edit 18-08-15
+     * - Functional method
      */
-    public function getNotNull();
+    public function getNotNull()
+    {
+        return $this->notNull;
+    }
 
     /**
      * BLOB and TEXT columns cannot be assigned a default value.
@@ -136,8 +236,13 @@ class ColumnDefinition implements \GIndie\DBHandler\MySQL56\DataDefinition\Colum
      * 
      * @since 18-05-01
      * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\Column\Definition
+     * @edit 18-08-15
+     * - Functional method
      */
-    public function getDefaultValue();
+    public function getDefaultValue()
+    {
+        return $this->default;
+    }
 
     /**
      * An integer or floating-point column can have the additional attribute AUTO_INCREMENT. 
@@ -146,162 +251,72 @@ class ColumnDefinition implements \GIndie\DBHandler\MySQL56\DataDefinition\Colum
      * 
      * @since 18-05-01
      * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\Column\Definition
+     * @edit 18-08-15
+     * - Functional method
      */
-    public function getAutoIncrement();
+    public function getAutoIncrement()
+    {
+        return $this->autoincrement;
+    }
 
     /**
      * @return string
      * 
      * @since 18-05-01
      * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\Column\Definition
+     * @edit 18-08-15
+     * - Functional method
      */
-    public function getComment();
-}
-
-namespace GIndie\DBHandler\MySQL\Table;
-
-/**
- * DVLP-DBHandler - Column
- *
- * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
- * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
- *
- * @package GIndie\DBHandler\Deprecated
- *
- * @version 00.20
- * @since 18-02-14
- * @edit 18-02-14
- * - Created private vars
- * - Created dummies for static methods
- * @edit 18-04-26
- * - Abstracted static constructors into ToDo\StaticConstructors
- * @edit 18-05-01
- * - Moved from <[base_dir]\MysqL\Table\Column.php>
- */
-class Column implements ColumnTypes
-{
-
-    /**
-     * @since 18-04-26
-     */
-    use StaticConstructors;
-
-    /**
-     * 
-     * @param type $columnName
-     * @param type $dataType
-     * @param type $length
-     * @param type $values
-     * @param type $primaryKey
-     * @param type $notNull
-     * @param type $unique
-     * @param type $binary
-     * @param type $unsigned
-     * @param type $zerofill
-     * @param type $autoincremental
-     * @param type $default
-     * 
-     * @since 18-04-26
-     */
-    protected function __construct($columnName, $dataType, $length, $values, $primaryKey, $notNull, $unique,
-                                   $binary, $unsigned, $zerofill, $autoincremental, $default)
+    public function getComment()
     {
-        $this->columnName = $columnName;
-        $this->dataType = $dataType;
-        $this->length = $length;
-        $this->values = $values;
-        $this->primaryKey = $primaryKey;
-        $this->notNull = $notNull;
-        $this->unique = $unique;
-        $this->binary = $binary;
-        $this->unsigned = $unsigned;
-        $this->zerofill = $zerofill;
-        $this->autoincremental = $autoincremental;
-        $this->default = $default;
+        return $this->comment;
     }
 
     /**
-     *
-     * @var string 
-     * @since 18-02-14
+     * @return string
+     * @since 18-08-16
+     * @edit 18-08-18
+     * - Added render of indexes
+     * - Added NOT NULL
+     * - Added AUTOINCREMENT
      */
-    private $columnName;
+    public function getColumnDefinition()
+    {
+        $rtnStr = $this->dataType->getDatatype();
 
-    /**
-     *
-     * @var int
-     * @since 18-02-14
-     */
-    private $dataType;
-
-    /**
-     *
-     * @var int 
-     * @since 18-02-14
-     */
-    private $length;
-
-    /**
-     *
-     * @var string comma sepparated values 
-     * @since 18-02-14
-     */
-    private $values;
-
-    /**
-     *
-     * @var string 
-     * @since 18-02-14
-     */
-    private $primaryKey;
-
-    /**
-     *
-     * @var boolean 
-     * @since 18-02-14
-     */
-    private $notNull;
-
-    /**
-     *
-     * @var boolean 
-     * @since 18-02-14
-     */
-    private $unique;
-
-    /**
-     *
-     * @var boolean 
-     * @since 18-02-14
-     */
-    private $binary;
-
-    /**
-     *
-     * @var boolean 
-     * @since 18-02-14
-     */
-    private $unsigned;
-
-    /**
-     *
-     * @var boolean 
-     * @since 18-02-14
-     */
-    private $zerofill;
-
-    /**
-     *
-     * @var boolean 
-     * @since 18-02-14
-     */
-    private $autoincremental;
-
-    /**
-     *
-     * @var string 
-     * @since 18-02-14
-     */
-    private $default;
+        switch ($this->dataType->getDatatype())
+        {
+            case DataType::DATATYPE_INT:
+            case DataType::DATATYPE_TINYINT:
+                $rtnStr .= !\is_null($this->dataType->getM()) ? "({$this->dataType->getM()})" : "";
+                $rtnStr .= ($this->dataType->getUnsigned()) ? " UNSIGNED" : "";
+                $rtnStr .= ($this->dataType->getZerofill()) ? " ZEROFILL" : "";
+                break;
+            case DataType::DATATYPE_TIMESTAMP:
+            case DataType::DATATYPE_TIME:
+                $rtnStr .= !\is_null($this->dataType->getFSP()) ? "({$this->dataType->getFSP()})" : "";
+                break;
+            case DataType::DATATYPE_DECIMAL:
+                $rtnStr .= "({$this->dataType->getM()},{$this->dataType->getD()})";
+                break;
+            case DataType::DATATYPE_VARCHAR:
+                $rtnStr .= "({$this->dataType->getM()})";
+                $rtnStr .= !\is_null($this->dataType->getCharsetName()) ? " CHARACTER SET {$this->dataType->getCharsetName()}" : "";
+                $rtnStr .= !\is_null($this->dataType->getCollationName()) ? " COLLATE {$this->dataType->getCollationName()}" : "";
+                break;
+            default:
+                break;
+        }
+        if ($this->getNotNull() === true) {
+            $rtnStr .= " NOT NULL ";
+        }
+        if ($this->getAutoIncrement() === true) {
+            $rtnStr .= " AUTO_INCREMENT ";
+        }
+        if (\array_count_values($this->indexes) > 0) {
+            $rtnStr .= " " . \join(" ", $this->indexes);
+        }
+        return $rtnStr;
+    }
 
 }

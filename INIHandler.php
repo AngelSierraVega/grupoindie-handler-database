@@ -1,6 +1,5 @@
 <?php
 
-namespace GIndie\DBHandler;
 
 /**
  * DVLP-DBHandler - INIHandler
@@ -11,13 +10,20 @@ namespace GIndie\DBHandler;
  * @package GIndie\DBHandler\Components
  *
  * @since 18-02-14
- * @edit
+ * @version 0A.30
+ */
+
+namespace GIndie\DBHandler;
+
+/**
+ * 
+ * @edit 18-02-14
  * - Class extends from \GIndie\INIHandler
- * - Created fileName(), requiredVars()
- * @version 0A.00
+ * - Created fileName(), requiredVars(), getHost()
+ * @edit 18-07-26
+ * - Created getMainUsername(), getMainPassword(), 
  * @todo
- * - Handle root user
- * @version 0A.10
+ * - Handle different users (including root)
  */
 class INIHandler extends \GIndie\INIHandler
 {
@@ -30,6 +36,46 @@ class INIHandler extends \GIndie\INIHandler
     public static function fileName()
     {
         return "DBHandler";
+    }
+
+    /**
+     * 
+     * @return string
+     * @since 18-07-26
+     */
+    public static function getMainUsername()
+    {
+        return static::getValue("users", "main_username");
+    }
+
+    /**
+     * 
+     * @return string
+     * @since 18-07-26
+     */
+    public static function getMainPassword()
+    {
+        return static::getValue("users", "main_password");
+    }
+    
+    /**
+     * 
+     * @return string
+     * @since 18-08-04
+     */
+    public static function getServerPrefix()
+    {
+        return static::getValue("server", "server_prefix");
+    }
+    
+    /**
+     * 
+     * @return string
+     * @since 18-07-26
+     */
+    public static function getHost()
+    {
+        return static::getValue("server", "host");
     }
 
     /**

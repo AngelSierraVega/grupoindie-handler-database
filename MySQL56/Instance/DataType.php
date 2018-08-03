@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL56\Instance
  *
- * @version 0A.70
+ * @version 0A.A0
  * @since 18-04-30
  */
 
@@ -25,10 +25,33 @@ use GIndie\DBHandler\MySQL56\DataDefinition\Identifiers\Column;
  * - Added settZerofill(), getZerofill()
  * @edit 18-08-01
  * - Renamed class from ColumnType to DataType
+ * @edit 18-08-02
+ * - Added blob()
+ * @edit 18-08-16
+ * - Updated methods.
  */
-class DataType implements DataTypes\Numeric, DataTypes\DateTime, DataTypes\String,
+class DataType implements DataTypes\Numeric, DataTypes\DateTime, DataTypes\StringDataTypes,
         Column\Definition\DataType
 {
+
+    /**
+     * BLOB[(M)]
+     * 
+     * A BLOB column with a maximum length of 65,535 (216 − 1) bytes. Each BLOB value is stored 
+     * using a 2-byte length prefix that indicates the number of bytes in the value.
+     * 
+     * An optional length M can be given for this type. If this is done, MySQL creates the column 
+     * as the smallest BLOB type large enough to hold values M bytes long. 
+     * 
+     * @param int|null $m
+     * @since 18-08-02
+     */
+    public static function blob($m = null)
+    {
+        $rtnData = new DataType(static::DATATYPE_BLOB);
+        $rtnData->setM($m);
+        return $rtnData;
+    }
 
     /**
      * TIMESTAMP[(fsp)]
@@ -254,7 +277,7 @@ class DataType implements DataTypes\Numeric, DataTypes\DateTime, DataTypes\Strin
      * @return \GIndie\DBHandler\MySQL56\Instance\DataType
      * @since 18-08-01
      */
-    public static function text($m, $charsetName = null, $collationName = null)
+    public static function text($m = null, $charsetName = null, $collationName = null)
     {
         $rtnData = new DataType(static::DATATYPE_TEXT);
         $rtnData->setM($m);
@@ -276,12 +299,14 @@ class DataType implements DataTypes\Numeric, DataTypes\DateTime, DataTypes\Strin
      * 
      * @return \GIndie\DBHandler\MySQL56\Instance\DataType
      * @since 18-08-01
+     * @edit 18-08-16
+     * - Upgraded use of setUnsigned()
      */
     public static function tinyint($m, $unsigned = false, $zerofill = false)
     {
         $rtnData = new DataType(static::DATATYPE_TINYINT);
         $rtnData->setM($m);
-        $rtnData->setUnzigned($unzigned);
+        $rtnData->setUnsigned($unsigned);
         $rtnData->setZerofill($zerofill);
         return $rtnData;
     }
@@ -362,16 +387,18 @@ class DataType implements DataTypes\Numeric, DataTypes\DateTime, DataTypes\Strin
      * NOT NULL AUTO_INCREMENT UNIQUE.
      * 
      * @param null|boolean $m
-     * @param null|boolean $unzigned
+     * @param null|boolean $unsigned
      * @param null|boolean $zerofill
      * @return \GIndie\DBHandler\MySQL56\Instance\DataType
      * @since 18-07-31
+     * @edit 18-08-15
+     * - use setUnsigned
      */
-    public static function integer($m = null, $unzigned = false, $zerofill = false)
+    public static function integer($m = null, $unsigned = false, $zerofill = false)
     {
         $rntColumn = new DataType(static::DATATYPE_INT);
         $rntColumn->setM($m);
-        $rntColumn->setUnzigned($unzigned);
+        $rntColumn->setUnsigned($unsigned);
         $rntColumn->setZerofill($zerofill);
         return $rntColumn;
     }
@@ -415,18 +442,12 @@ class DataType implements DataTypes\Numeric, DataTypes\DateTime, DataTypes\Strin
      * @param int $m
      * @return \GIndie\DBHandler\MySQL56\Instance\DataType
      * @since 18-07-31
+     * @edit 18-08-16
+     * - Use of explicit $m
      */
     public function setM($m)
     {
-        switch (true)
-        {
-            case \is_null($m):
-                unset($this->m);
-                break;
-            case \is_bool($m):
-                $this->m = $m;
-                break;
-        }
+        $this->m = $m;
         return $this;
     }
 
@@ -452,18 +473,12 @@ class DataType implements DataTypes\Numeric, DataTypes\DateTime, DataTypes\Strin
      * @param int $d
      * @return \GIndie\DBHandler\MySQL56\Instance\DataType
      * @since 18-07-31
+     * @edit 18-08-16
+     * - Use of explicit $d
      */
     public function setD($d)
     {
-        switch (true)
-        {
-            case \is_null($d):
-                unset($this->d);
-                break;
-            case \is_bool($d):
-                $this->d = $d;
-                break;
-        }
+        $this->d = $d;
         return $this;
     }
 
@@ -489,18 +504,21 @@ class DataType implements DataTypes\Numeric, DataTypes\DateTime, DataTypes\Strin
      * @param boolean $unsigned
      * @return \GIndie\DBHandler\MySQL56\Instance\DataType
      * @since 18-07-31
+     * @edit 18-08-16
+     * - Use of explicit $unsigned
      */
     public function setUnsigned($unsigned)
     {
-        switch (true)
-        {
-            case \is_null($unsigned):
-                unset($this->unsigned);
-                break;
-            case \is_bool($unsigned):
-                $this->unsigned = $unsigned;
-                break;
-        }
+        $this->unsigned = $unsigned;
+//        switch (true)
+//        {
+//            case \is_null($unsigned):
+//                unset();
+//                break;
+//            case \is_bool($unsigned):
+//                $this->unsigned = $unsigned;
+//                break;
+//        }
         return $this;
     }
 
@@ -526,18 +544,21 @@ class DataType implements DataTypes\Numeric, DataTypes\DateTime, DataTypes\Strin
      * @param null|boolean $zerofill
      * @return GIndie\DBHandler\MySQL56\Instance\DataType
      * @since 18-07-31
+     * @edit 18-08-16
+     * - Use of explicit $zerofill
      */
     public function setZerofill($zerofill)
     {
-        switch (true)
-        {
-            case \is_null($zerofill):
-                unset($this->zerofill);
-                break;
-            case \is_bool($zerofill):
-                $this->zerofill = $zerofill;
-                break;
-        }
+        $this->zerofill = $zerofill;
+//        switch (true)
+//        {
+//            case \is_null($zerofill):
+//                unset($this->zerofill);
+//                break;
+//            case \is_bool($zerofill):
+//                $this->zerofill = $zerofill;
+//                break;
+//        }
         return $this;
     }
 
