@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler
  *
- * @version DOING 0A.80
+ * @version 0A.A0
  * @since 18-07-26
  */
 
@@ -81,6 +81,8 @@ abstract class Deployer extends \GIndie\Framework\Controller
      * 
      * @return 
      * @since 18-08-15
+     * @edit 18-08-26
+     * - Added insert of default record if defined
      */
     public static function createTable()
     {
@@ -91,11 +93,13 @@ abstract class Deployer extends \GIndie\Framework\Controller
         if ($tmp !== true) {
             $error = View\Alert::danger(\GIndie\DBHandler\MySQL56::getConnection()->error);
         }
+        if (\count($tmpTableClass->defaultRecord()) > 0) {
+            $tmpTableHandler->insert($tmpTableClass->defaultRecord());
+        }
         $rtnWidget = static::widgetTable();
         if (isset($error)) {
             $rtnWidget->getHeadingBody()->addContent($error);
         }
-
         return $rtnWidget;
     }
 
@@ -370,7 +374,7 @@ abstract class Deployer extends \GIndie\Framework\Controller
         $span->addClass("col-sm-6");
         return $span;
     }
-    
+
     /**
      * 
      * @param \GIndie\DBHandler\MySQL56\Instance\Table $tableInstance

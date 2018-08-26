@@ -18,7 +18,7 @@ namespace GIndie\DBHandler\MySQL56\Statement\DataManipulation;
  * @edit 18-05-03
  * - Moved file from [base_dir]\MySQL\Statement to [base_dir]\MySQL56\Statement\DataManipulation
  * - Updated namespace
- * @version 0A.10
+ * @version 0A.30
  */
 class Select extends DataManipulationStatement
 {
@@ -41,10 +41,12 @@ class Select extends DataManipulationStatement
      * @return string
      * 
      * @since 18-02-14
+     * @edit 18-08-26
+     * - Added " FROM " updated renderTableReferences()
      */
     public function __toString()
     {
-        return "SELECT" . $this->renderSelectors() . $this->renderTableReferences() .
+        return "SELECT" . $this->renderSelectors() . " FROM " . $this->renderTableReferences() .
                 $this->renderWhereClause() . $this->renderGroupBy() . $this->renderHaving() .
                 $this->renderOrderBy() . $this->renderLimit() . ";";
     }

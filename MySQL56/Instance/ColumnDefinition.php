@@ -20,8 +20,6 @@ namespace GIndie\DBHandler\MySQL56\Instance;
  * @edit 18-05-15
  * - Class implements \GIndie\DBHandler\MySQL56\DataDefinition\Identifiers\Column\Definition
  * - Added code from temp class Column
- * @todo 
- * - Functional class
  */
 class ColumnDefinition
         implements \GIndie\DBHandler\MySQL56\DataDefinition\Identifiers\Column\Definition
@@ -36,6 +34,7 @@ class ColumnDefinition
      *
      * @var array
      * @since 18-08-18
+     * @deprecated since 18-08-26
      */
     private $indexes = [];
 
@@ -43,6 +42,7 @@ class ColumnDefinition
      * 
      * @param string $index
      * @since 18-08-18
+     * @deprecated since 18-08-26
      */
     public function addIndex($index)
     {
@@ -279,6 +279,9 @@ class ColumnDefinition
      * - Added render of indexes
      * - Added NOT NULL
      * - Added AUTOINCREMENT
+     * @edit 18-08-26
+     * - Deprecated indexes
+     * - Handle DataType::DATATYPE_BIGINT 
      */
     public function getColumnDefinition()
     {
@@ -288,6 +291,7 @@ class ColumnDefinition
         {
             case DataType::DATATYPE_INT:
             case DataType::DATATYPE_TINYINT:
+            case DataType::DATATYPE_BIGINT:
                 $rtnStr .= !\is_null($this->dataType->getM()) ? "({$this->dataType->getM()})" : "";
                 $rtnStr .= ($this->dataType->getUnsigned()) ? " UNSIGNED" : "";
                 $rtnStr .= ($this->dataType->getZerofill()) ? " ZEROFILL" : "";
@@ -308,14 +312,26 @@ class ColumnDefinition
                 break;
         }
         if ($this->getNotNull() === true) {
-            $rtnStr .= " NOT NULL ";
+            $rtnStr .= " NOT NULL";
+        }
+        if (!is_null($this->default)) {
+            switch (true)
+            {
+                case \is_int($this->default) === true:
+                    $rtnStr .= " DEFAULT " . $this->default;
+                    break;
+                default:
+                    var_dump($this->default);
+                    throw new \Exception("todo handle type");
+                    break;
+            }
         }
         if ($this->getAutoIncrement() === true) {
-            $rtnStr .= " AUTO_INCREMENT ";
+            $rtnStr .= " AUTO_INCREMENT";
         }
-        if (\array_count_values($this->indexes) > 0) {
-            $rtnStr .= " " . \join(" ", $this->indexes);
-        }
+//        if (\array_count_values($this->indexes) > 0) {
+//            $rtnStr .= " " . \join(" ", $this->indexes);
+//        }
         return $rtnStr;
     }
 

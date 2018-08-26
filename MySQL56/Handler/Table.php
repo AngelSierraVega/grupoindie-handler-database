@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL56\
  *
- * @version 0A.80
+ * @version 0A.90
  * @since 18-08-05
  */
 
@@ -92,6 +92,55 @@ class Table
         $query->setDatabaseName($this->getTable()->databaseName());
         $result = \GIndie\DBHandler\MySQL56::query($query);
         return $result;
+    }
+
+    /**
+     * 
+     * @return string
+     * @since 18-08-25
+     */
+    public function countRows()
+    {
+        $query = Statement\DataManipulation::select(["COUNT(*)"], $this->getTableReference());
+        $result = \GIndie\DBHandler\MySQL56::query($query);
+        return $result->fetch_row()[0];
+    }
+
+    /**
+     * 
+     * @return array
+     * @since 18-08-26
+     */
+    public function getTableReference()
+    {
+        return [$this->getTable()->databaseName() => $this->getTable()->name()];
+    }
+
+    /**
+     * 
+     * @param type $insertData
+     */
+    public function insert($insertData)
+    {
+        $query = Statement\DataManipulation::insert($this->getTableReference(), $insertData);
+        $result = \GIndie\DBHandler\MySQL56::query($query);
+        if ($result === false) {
+//            var_dump($insertData);
+            throw new \Exception("QUERY: {$query}<br>ERROR: " . \GIndie\DBHandler\MySQL56::getConnection()->error);
+        }
+        return true;
+    }
+
+    /**
+     * 
+     * @return array
+     * @since 18-08-26
+     */
+    public function selectAll()
+    {
+        $query = Statement\DataManipulation::select(["*"], [$this->getTable()->databaseName() => $this->getTable()->name()]);
+        $result = \GIndie\DBHandler\MySQL56::query($query);
+        return $result->fetch_all(\MYSQLI_ASSOC);
     }
 
     /**

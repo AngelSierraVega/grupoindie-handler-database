@@ -20,7 +20,7 @@ namespace GIndie\DBHandler\MySQL56\Statement\DataManipulation\Traits;
  * - Moved file from [base_dir]\MySQL\Statement to [base_dir]\MySQL56\Statement\DataManipulation\Traits
  * - Updated namespace
  * - Updated trait name due to PSR-0 Violation
- * @version 0A.10
+ * @version 0A.30
  */
 trait TableReferenceTrait
 {
@@ -28,10 +28,12 @@ trait TableReferenceTrait
     /**
      * @return string
      * @since 18-02-15
+     * @edit 18-08-26
+     * - Removed " FROM " string
      */
     protected function renderTableReferences()
     {
-        return " FROM " . \join(", ", $this->tableReferences);
+        return "" . \join(", ", $this->tableReferences);
     }
 
     /**

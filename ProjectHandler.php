@@ -13,7 +13,7 @@ namespace GIndie\DBHandler;
  * @since 18-02-24
  * @edit 18-02-24
  * - Added code from GI-CMMN
- * @version 0A.10
+ * @version 0A.30
  * @edit 18-05-19
  * - extends \GIndie\ProjectHandler\AbstractProjectHandler
  */
@@ -26,6 +26,8 @@ class ProjectHandler extends \GIndie\ProjectHandler\AbstractProjectHandler
      * @since 18-05-17
      * @edit 18-05-19
      * - Upgraded project versions 
+     * @edit 18-08-26
+     * - Upgraded project versions 
      */
     public static function versions()
     {
@@ -36,6 +38,10 @@ class ProjectHandler extends \GIndie\ProjectHandler\AbstractProjectHandler
         $rtnArray[\hexdec("0A.10")]["description"] = "Upgrade generic MySQL to specific MySQL56 functionality";
         $rtnArray[\hexdec("0A.10")]["code"] = "AlphaOne";
         $rtnArray[\hexdec("0A.10")]["threshold"] = "0A.10";
+        //BetaCero
+        $rtnArray[\hexdec("0B.00")]["description"] = "Functional project for MMR-PRDL";
+        $rtnArray[\hexdec("0B.00")]["code"] = "BetaCero";
+        $rtnArray[\hexdec("0B.00")]["threshold"] = "0B.00";
         \ksort($rtnArray);
         return $rtnArray;
     }

@@ -149,7 +149,7 @@ class Database
         if (!isset($this->tables)) {
             $this->tables = [];
             foreach ($this->getDatabase()->getTableClassnames() as $tableClass) {
-                $this->tables[$tableClass] = new \GIndie\DBHandler\MySQL56\Handler\Table(new $tableClass());
+                $this->tables[$tableClass] = new \GIndie\DBHandler\MySQL56\Handler\Table($tableClass::instance());
             }
         }
         return $this->tables;

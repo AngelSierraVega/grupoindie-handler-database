@@ -48,7 +48,7 @@ namespace GIndie\DBHandler\MySQL56\DataDefinition\Identifiers\Column;
  * @edit 18-05-01
  * - Defined constructor and main setters and getters
  */
-interface Definition
+interface Definition //extends Definition\Indexes
 {
 
     /**

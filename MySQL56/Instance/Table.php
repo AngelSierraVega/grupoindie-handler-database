@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL56\Instance
  *
- * @version 0A.30
+ * @version 0A.3A
  * @since 18-04-30
  */
 
@@ -20,6 +20,8 @@ use GIndie\DBHandler\MySQL56\DataDefinition;
 /**
  * @edit 18-07-31
  * - Implements GIndie\DBHandler\HandlerDefinition\Instance\Table
+ * @edit 18-08-26
+ * - Added defaultRecord()
  */
 abstract class Table implements Instance\Table, DataDefinition\Identifiers\Table
 {
@@ -51,14 +53,18 @@ abstract class Table implements Instance\Table, DataDefinition\Identifiers\Table
     /**
      * @since 18-04-30
      * @return string
+     * @edit 18-08-26
+     * - Removed validation of static var
+     * @todo
+     * - ¿Remove method?
      */
     public static function databaseName()
     {
-        if (!isset(static::$database)) {
+//        if (!isset(static::$database)) {
             $tmpName = static::databaseClassname();
             static::$database = new $tmpName();
             unset($tmpName);
-        }
+//        }
         return static::$database->name();
     }
 
@@ -130,6 +136,15 @@ abstract class Table implements Instance\Table, DataDefinition\Identifiers\Table
             static::$referenceDefinition[static::class] = new ReferenceDefinition();
         }
         return static::$referenceDefinition[static::class];
+    }
+    
+    /**
+     * 
+     * @return array
+     * @since 18-08-26
+     */
+    public static function defaultRecord(){
+        return [];
     }
 
 }

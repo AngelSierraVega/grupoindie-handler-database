@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL56\Instance
  *
- * @version 0A.A0
+ * @version 0A.A3
  * @since 18-04-30
  */
 
@@ -29,10 +29,39 @@ use GIndie\DBHandler\MySQL56\DataDefinition\Identifiers\Column;
  * - Added blob()
  * @edit 18-08-16
  * - Updated methods.
+ * @edit 18-08-26
+ * - Added bigint(), serializedBigint()
  */
 class DataType implements DataTypes\Numeric, DataTypes\DateTime, DataTypes\StringDataTypes,
         Column\Definition\DataType
 {
+
+    /**
+     * BIGINT[(M)] [UNSIGNED] [ZEROFILL]
+     * 
+     * A large integer. The signed range is -9223372036854775808 to 9223372036854775807. 
+     * The unsigned range is 0 to 18446744073709551615.
+     * @since 18-08-26
+     */
+    public static function bigint($m, $unsigned = false, $zerofill = false)
+    {
+        $rntColumn = new DataType(static::DATATYPE_BIGINT);
+        $rntColumn->setM($m);
+        $rntColumn->setUnsigned($unsigned);
+        $rntColumn->setZerofill($zerofill);
+        return $rntColumn;
+    }
+    
+    /**
+     * Alias for BIGINT(20) UNSIGNED
+     * @return \GIndie\DBHandler\MySQL56\Instance\DataType
+     * @since 18-08-26
+     */
+    public static function serializedBigint()
+    {
+        $rtnData = static::bigint(20, true);
+        return $rtnData;
+    }
 
     /**
      * BLOB[(M)]
@@ -238,6 +267,8 @@ class DataType implements DataTypes\Numeric, DataTypes\DateTime, DataTypes\Strin
         return $rtnData;
     }
 
+    
+
     /**
      * SERIAL is an alias for BIGINT UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE.
      * 
@@ -289,9 +320,11 @@ class DataType implements DataTypes\Numeric, DataTypes\DateTime, DataTypes\Strin
     /**
      * TINYINT[(M)] [UNSIGNED] [ZEROFILL]
      * 
+     * A very small integer. The signed range is -128 to 127. The unsigned range 
+     * is 0 to 255.
+     * 
      * @link <https://dev.mysql.com/doc/refman/5.6/en/numeric-type-overview.html>
      * 
-     * A very small integer. The signed range is -128 to 127. The unsigned range is 0 to 255.
      * 
      * @param int $m
      * @param boolean $unsigned
