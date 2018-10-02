@@ -8,23 +8,23 @@ namespace GIndie\DBHandler\MySQL;
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package GIndie\DBHandler\Deprecated
+ * @package GIndie\DBHandler
  *
  * @since 18-02-14
  * @edit 
  * - Class implements \GIndie\DBHandler\Interfaces\Schema
  * - Abstract class
- * @version 00
  * @edit 18-04-06
  * - Added charset(), collation()
  * @edit 18-04-07
  * - Functional class
- * @version A0
  * @deprecated since 18-04-30
  * - Copied code to ..\MySQL56\Handler\Database, ..\MySQL56\Instance\Database
  * @edit 18-05-02
  * - Moved file from [base_dir]\MySQL to [base_dir]\Deprecated\MySQL
- * @version 0A.10
+ * @version DEPRECATED
+ * @edit 18-10-02
+ * - Upgraded version
  */
 abstract class Schema implements \GIndie\DBHandler\Interfaces\Schema
 {

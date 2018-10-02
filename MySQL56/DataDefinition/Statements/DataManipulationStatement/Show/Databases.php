@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\DataDefinition\MySQL56\Statements
  *
- * @version 0A.20
+ * @version 00.90
  * @since 18-05-20
  */
 
@@ -35,6 +35,8 @@ namespace GIndie\DBHandler\MySQL56\DataDefinition\Statements\DataManipulationSta
  * @link <https://dev.mysql.com/doc/refman/5.6/en/show-databases.html>
  * 
  * @since 18-05-20
+ * @edit 18-10-02
+ * - Upgraded version
  * @todo
  * SHOW {DATABASES | SCHEMAS}
  *  [LIKE 'pattern' | WHERE expr]

@@ -10,21 +10,21 @@ use GIndie\DBHandler\MySQL56;
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package GIndie\DBHandler\Deprecated
+ * @package GIndie\DBHandler
  * 
  * @since 18-02-14
- * @version 00
  * @edit 18-02-15
  * - Created select()
  * @edit 18-04-07
  * - Created createSchema()
- * @version A0
  * @deprecated since 18-05-02
  * @edit 18-05-02
  * - Moved file from [base_dir]\MySQL to [base_dir]\Deprecated\MySQL
  * @edit 18-05-03
  * - Updated class
- * @version 0A.10
+ * @version DEPRECATED
+ * @edit 18-10-02
+ * - Upgraded version
  */
 class Statement
 {

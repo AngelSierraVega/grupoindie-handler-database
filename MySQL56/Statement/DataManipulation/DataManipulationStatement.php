@@ -15,7 +15,9 @@ namespace GIndie\DBHandler\MySQL56\Statement\DataManipulation;
  * @since 18-05-03
  * - Abstract class
  * - Added traits
- * @version 0A.30
+ * @version 00.A3
+ * @edit 18-10-02
+ * - Upgraded version
  */
 abstract class DataManipulationStatement
 {

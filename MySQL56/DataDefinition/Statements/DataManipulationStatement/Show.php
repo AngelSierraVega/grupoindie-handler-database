@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\DataDefinition\MySQL56\Statements
  *
- * @version 0A.20
+ * @version 00.03
  * @since 18-05-20
  */
 
@@ -30,6 +30,9 @@ namespace GIndie\DBHandler\MySQL56\DataDefinition\Statements\DataManipulationSta
  * set from a <b>SELECT statement</b>
  * 
  * @link <https://dev.mysql.com/doc/refman/5.6/en/show.html>
+ * 
+ * @edit 18-10-02
+ * - Upgraded version
  * 
  * @todo
  * SHOW AUTHORS

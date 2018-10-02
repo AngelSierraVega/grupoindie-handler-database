@@ -1,0 +1,107 @@
+
+18-05-20
+- Functional show statement (0A.20)
+- Added functional component Platform (0A.26)
+18-05-21 to 18-08-25
+- Functional DataType (0A.30)
+- Functional DropDatabase (0A.30)
+- Functional Handler\Database (0A.50)
+- Functional DataDefinition\CreateTable (0A.A0)
+- Functional DataDefinition\DropTable (0A.A0)
+- Functional DataAdministration\ShowColumns (0A.A0)
+- Functional Handler\Table (0A.80)
+- Functional Instance\ReferenceDefinition (0A.40)
+- Functional Deployer (0A.70)
+- Functional upgrade for generic MySQL to specific MySQL56 functionality
+18-08-26 to 18-10-02
+- Functional framework implementation for deployer. (00.8D)
+- Upgraded project version nomenclature.
+
+-------------------------------PROJECT---------------------------------|
+\GIndie\DBHandler
+18-10-03 v:00.8D LOC:8859
+ABS(9) CLA(30) INT(25) SCR(1) TRA(8) NDF(1)
+-------------------------------VERSIONS--------------------------------|
+[00.01] Cero.........| Cero
+[00.30] FP-FE........| Functional project for FacturacionExterna
+[00.70] MySQL-MySQL56| Upgrade generic MySQL to specific MySQL56 functionality
+[00.8D] DPLYR-Funct..| Functional framework implementation for deployer.
+[00.B0] FP-MMR-PRDL..| Functional project for MMR-PRDL
+[01.00] One..........| Release
+--------------------------------FILE-----------------------------|--V--|
+[ABS] AbstractDBHandler.php......................................|00.A3|
+[INT] Deprecated\Interfaces\Schema.php...........................|DPRCT|
+[INT] Deprecated\Interfaces\Table.php............................|DPRCT|
+[ABS] Deprecated\MySQL\Schema.php................................|DPRCT|
+[CLA] Deprecated\MySQL\Statement.php.............................|DPRCT|
+[ABS] Deprecated\MySQL\Table.php.................................|DPRCT|
+[CLA] Deprecated\MySQL.php.......................................|DPRCT|
+[CLA] ExceptionDBHandler.php.....................................|00.A0|
+[INT] MySQL56\DataDefinition\Identifiers\Column\Definition\Indexes.php|DPRCT|
+[ABS] MySQL56\Statement\DataAdministration\DataAdministrationStatement.php|00.0A|
+[CLA] MySQL56\Statement\DataAdministration.php...................|00.30|
+[CLA] MySQL56\Statement\DataDefinition\DropDatabase.php..........|00.A3|
+[CLA] MySQL56.php................................................|00.30|
+[SCR] AutoloaderDBHandler.php....................................|00.A3|
+[CLA] Components\DatabaseDefinitionTest\DBTest.php...............|00.A3|
+[CLA] Components\DatabaseDefinitionTest\TBL01Simple.php..........|00.70|
+[ABS] Components\Framework\Deployer.php..........................|00.A0|
+[CLA] Components\Platform\Instance.php...........................|00.A3|
+[CLA] Components\Platform\ModuleDataModel.php....................|00.A2|
+[CLA] Components\Platform\ModuleDBMS.php.........................|00.A2|
+[NDF] Components\ProjectHandlerLog\current.......................|NDFND|
+[INT] HandlerDefinition\Column.php...............................|NDFND|
+[INT] HandlerDefinition\Connection.php...........................|NDFND|
+[INT] HandlerDefinition\Database.php.............................|NDFND|
+[INT] HandlerDefinition\Instance\Database.php....................|NDFND|
+[INT] HandlerDefinition\Instance\Table.php.......................|00.90|
+[CLA] HandlerDefinition\Statement.php............................|NDFND|
+[INT] HandlerDefinition\Table.php................................|NDFND|
+[CLA] INIHandler.php.............................................|00.AA|
+[CLA] ProjectHandler.php.........................................|00.A9|
+[INT] MySQL56\DataDefinition\DataTypes\DateTime.php..............|00.B0|
+[INT] MySQL56\DataDefinition\DataTypes\Numeric.php...............|00.B0|
+[INT] MySQL56\DataDefinition\DataTypes\StringDataTypes.php.......|00.B0|
+[INT] MySQL56\DataDefinition\Identifiers\Column\Definition.php...|00.AF|
+[INT] MySQL56\DataDefinition\Identifiers\Column.php..............|00.30|
+[INT] MySQL56\DataDefinition\Identifiers\Database.php............|00.A0|
+[INT] MySQL56\DataDefinition\Identifiers\Table\Options.php.......|NDFND|
+[INT] MySQL56\DataDefinition\Identifiers\Table\References\Constraint.php|NDFND|
+[INT] MySQL56\DataDefinition\Identifiers\Table\References\ForeignKey.php|NDFND|
+[INT] MySQL56\DataDefinition\Identifiers\Table\References\Index.php|NDFND|
+[INT] MySQL56\DataDefinition\Identifiers\Table\Table_References.php|NDFND|
+[INT] MySQL56\DataDefinition\Identifiers\Table.php...............|00.30|
+[INT] MySQL56\DataDefinition\Identifiers.php.....................|NDFND|
+[INT] MySQL56\DataDefinition\Identifiers\Column\Definition\DataType.php|00.AF|
+[INT] MySQL56\DataDefinition\Statements\DataManipulationStatement\Show\Databases.php|00.90|
+[INT] MySQL56\DataDefinition\Statements\DataManipulationStatement\Show.php|00.03|
+[CLA] MySQL56\Handler\Database.php...............................|00.A5|
+[CLA] MySQL56\Handler\Table.php..................................|00.A5|
+[CLA] MySQL56\Instance\ColumnDefinition.php......................|00.A9|
+[ABS] MySQL56\Instance\Database.php..............................|00.A7|
+[CLA] MySQL56\Instance\DataType.php..............................|00.AA|
+[CLA] MySQL56\Instance\ReferenceDefinition.php...................|00.AA|
+[ABS] MySQL56\Instance\Table.php.................................|00.A4|
+[CLA] MySQL56\Statement\DataAdministration\ShowColumns.php.......|00.AA|
+[CLA] MySQL56\Statement\DataDefinition\CreateSchema.php..........|00.AA|
+[CLA] MySQL56\Statement\DataDefinition\CreateTable.php...........|00.AA|
+[ABS] MySQL56\Statement\DataDefinition\DataDefinitionStatement.php|00.0A|
+[CLA] MySQL56\Statement\DataDefinition\DropTable.php.............|00.AA|
+[CLA] MySQL56\Statement\DataDefinition.php.......................|00.73|
+[ABS] MySQL56\Statement\DataManipulation\DataManipulationStatement.php|00.A3|
+[CLA] MySQL56\Statement\DataManipulation\Delete.php..............|00.A0|
+[CLA] MySQL56\Statement\DataManipulation\Insert.php..............|00.A3|
+[CLA] MySQL56\Statement\DataManipulation\Select.php..............|00.A3|
+[CLA] MySQL56\Statement\DataManipulation\Show.php................|00.A2|
+[TRA] MySQL56\Statement\DataManipulation\Traits\GroupByTrait.php.|00.A7|
+[TRA] MySQL56\Statement\DataManipulation\Traits\HavingTrait.php..|00.07|
+[TRA] MySQL56\Statement\DataManipulation\Traits\InsertDataTrait.php|00.A3|
+[TRA] MySQL56\Statement\DataManipulation\Traits\LimitTrait.php...|00.A7|
+[TRA] MySQL56\Statement\DataManipulation\Traits\OrderByTrait.php.|00.A7|
+[TRA] MySQL56\Statement\DataManipulation\Traits\SelectorTrait.php|00.A3|
+[TRA] MySQL56\Statement\DataManipulation\Traits\TableReferenceTrait.php|00.A3|
+[TRA] MySQL56\Statement\DataManipulation\Traits\WhereTrait.php...|00.A7|
+[CLA] MySQL56\Statement\DataManipulation.php.....................|00.60|
+[CLA] MySQL56\Statement\ExpressionSyntax.php.....................|00.A0|
+-----------------------------------------------------------------------|
+ \GIndie\DBHandler v 00.8D

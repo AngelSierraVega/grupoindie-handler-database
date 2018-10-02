@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL56\
  *
- * @version 0A.50
+ * @version 00.A5
  * @since 18-04-30
  */
 
@@ -23,6 +23,8 @@ use GIndie\DBHandler\MySQL56\Statement;
  * - Added code from ..\MySQL\Schema
  * @edit 18-05-02
  * - Moved file from [base_dir]\MySQL56\Handler to [base_dir]\MySQL56
+ * @edit 18-10-02
+ * - Upgraded version
  * @todo
  * - Upgrade methods
  * - Handle schemma

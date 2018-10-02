@@ -8,23 +8,22 @@ namespace GIndie\DBHandler\MySQL;
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package GIndie\DBHandler\Deprecated
+ * @package GIndie\DBHandler
  *
  * @since 18-02-14
- * @version 00
  * @edit 18-02-15
  * - Abstract class
  * - Class implements \GIndie\DBHandler\Interfaces\Table
  * @edit 18-02-22
  * - Created getAssocByAttribute(), getAssocById()
- * @version A0
  * @deprecated since 18-05-02
  * @edit 18-05-02
  * - Moved file from [base_dir]\MySQL to [base_dir]\Deprecated\MySQL
- * @version 0A.10
  * @edit 18-05-05
  * - Error handling on getAssocByAttribute()
- * @version 0A.10
+ * @version DEPRECATED
+ * @edit 18-10-02
+ * - Upgraded version
  */
 abstract class Table implements \GIndie\DBHandler\Interfaces\Table
 {

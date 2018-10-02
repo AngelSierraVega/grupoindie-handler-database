@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL56\Instance
  *
- * @version 0A.70
+ * @version 00.A7
  * @since 18-04-30
  */
 
@@ -21,6 +21,8 @@ use GIndie\DBHandler\MySQL56\DataDefinition;
  * @edit 18-04-30
  * - Added code from ..\MySQL\Schema
  * - Abstract class, implements \GIndie\DBHandler\MySQL56\DataDefinition\Identifiers\Database
+ * @edit 18-10-02
+ * - Upgraded version
  */
 abstract class Database implements DataDefinition\Identifiers\Database
 {

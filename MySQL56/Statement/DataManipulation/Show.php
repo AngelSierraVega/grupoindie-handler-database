@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL56\Statement
  *
- * @version 0A.20
+ * @version 00.A2
  * @since 18-05-20
  */
 
@@ -32,7 +32,8 @@ use GIndie\DBHandler\MySQL56\DataDefinition\Statements;
  * set from a <b>SELECT statement</b>
  * 
  * @link <https://dev.mysql.com/doc/refman/5.6/en/show.html>
- * 
+ * @edit 18-10-02
+ * - Upgraded version
  */
 class Show extends DataManipulationStatement
         implements Statements\DataManipulationStatement\Show

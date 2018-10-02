@@ -6,19 +6,22 @@
  *
  * @package GIndie\DBHandler\Components\Platform
  * 
- * @version 0A.2A
+ * @version 00.A3
+ * @since 18-03-21
  */
 
 namespace GIndie\DBHandler\Components\Platform;
 
 /**
- * @since 18-03-21
+ * @edit 18-03-21
  * - Functional class
  * @edit 18-05-05
  * - Updated namespace
  * - Updated BRAND_NAME
  * @edit 18-05-20
  * - Moved file from [sndbx_folder]\Platform\..
+ * @edit 18-10-02
+ * - Upgraded version
  */
 class Instance extends \GIndie\Platform\Instance
 {

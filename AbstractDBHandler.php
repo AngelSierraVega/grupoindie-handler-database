@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler
  *
- * @version 0A.30
+ * @version 00.A3
  * @since 18-07-26
  */
 
@@ -21,6 +21,8 @@ namespace GIndie\DBHandler;
  * @abstract
  * @edit 18-07-26
  * - Added code from Deprecated/MySQL
+ * @edit 18-10-02
+ * - Upgraded version
  */
 abstract class AbstractDBHandler
 {

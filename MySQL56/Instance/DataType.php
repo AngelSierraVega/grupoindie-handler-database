@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL56\Instance
  *
- * @version 0A.A3
+ * @version 00.AA
  * @since 18-04-30
  */
 
@@ -31,6 +31,12 @@ use GIndie\DBHandler\MySQL56\DataDefinition\Identifiers\Column;
  * - Updated methods.
  * @edit 18-08-26
  * - Added bigint(), serializedBigint()
+ * @edit 18-09-02
+ * - Updated decimal()
+ * @edit 18-09-17
+ * - Updated setValues() 
+ * @edit 18-10-02
+ * - Upgraded version
  */
 class DataType implements DataTypes\Numeric, DataTypes\DateTime, DataTypes\StringDataTypes,
         Column\Definition\DataType
@@ -51,7 +57,7 @@ class DataType implements DataTypes\Numeric, DataTypes\DateTime, DataTypes\Strin
         $rntColumn->setZerofill($zerofill);
         return $rntColumn;
     }
-    
+
     /**
      * Alias for BIGINT(20) UNSIGNED
      * @return \GIndie\DBHandler\MySQL56\Instance\DataType
@@ -122,14 +128,20 @@ class DataType implements DataTypes\Numeric, DataTypes\DateTime, DataTypes\Strin
      * 
      * @param int $m
      * @param int $d
+     * @param boolean $unsigned
+     * @param boolean $zerofill
      * 
      * @return \GIndie\DBHandler\MySQL56\Instance\DataType
      * @since 18-08-01
+     * @edit 18-09-02
+     * - Added params $unsigned, $zerofill
      */
-    public static function decimal($m = 10, $d = 0)
+    public static function decimal($m = 10, $d = 0, $unsigned = false, $zerofill = false)
     {
         $rtnData = new DataType(static::DATATYPE_DECIMAL);
         $rtnData->setM($m)->setD($d);
+        $rtnData->setUnsigned($unsigned);
+        $rtnData->setZerofill($zerofill);
         return $rtnData;
     }
 
@@ -264,10 +276,9 @@ class DataType implements DataTypes\Numeric, DataTypes\DateTime, DataTypes\Strin
     public static function enum(array $values, $charsetName = null, $collationName = null)
     {
         $rtnData = new DataType(static::DATATYPE_ENUM);
+        $rtnData->setValues($values);
         return $rtnData;
     }
-
-    
 
     /**
      * SERIAL is an alias for BIGINT UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE.
@@ -715,10 +726,16 @@ class DataType implements DataTypes\Numeric, DataTypes\DateTime, DataTypes\Strin
      * @param array $values
      * @return \GIndie\DBHandler\MySQL56\Instance\DataType
      * @since 18-08-01
+     * @edit 18-09-17
+     * - Added value format handling
      */
     public function setValues(array $values)
     {
-        $this->values = $values;
+        $this->values = [];
+        foreach ($values as $value) {
+            $this->values[] = "'{$value}'";
+        }
+        //$this->values = $values;
         return $this;
     }
 

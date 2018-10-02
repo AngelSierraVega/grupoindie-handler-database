@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler
  *
- * @version UNDEFINED
+ * @version DEPRECATED
  * @since 18-08-18
  */
 
@@ -68,6 +68,8 @@ namespace GIndie\DBHandler\MySQL56\DataDefinition\Identifiers\Column\Definition;
  *
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @deprecated since 18-08-26
+ * @edit 18-10-02
+ * - Upgraded version
  */
 interface Indexes
 {

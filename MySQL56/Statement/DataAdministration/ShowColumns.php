@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL56\Statement
  *
- * @version 0A.A0
+ * @version 00.AA
  * @since 18-08-16
  */
 
@@ -93,6 +93,9 @@ namespace GIndie\DBHandler\MySQL56\Statement\DataAdministration;
  * 
  * The SHOW CREATE TABLE, SHOW TABLE STATUS, and SHOW INDEX statements also 
  * provide information about tables. See Section 13.7.5, “SHOW Syntax”. 
+ * 
+ * @edit 18-10-02
+ * - Upgraded version
  *
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  */

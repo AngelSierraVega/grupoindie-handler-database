@@ -6,7 +6,7 @@
  *
  * @package GIndie\DBHandler\Components\Test
  * 
- * @version 0A.2A
+ * @version 00.A3
  * @since 18-04-30
  */
 
@@ -20,6 +20,9 @@ use GIndie\DBHandler\MySQL56;
  * - Updated namespace
  * @edit 18-05-21
  * - Moved file from [sndbx_folder]\Platform\..
+ * @edit 18-10-02
+ * - Upgraded version
+ * - Created getTableClassnames()
  */
 class DBTest extends MySQL56\Instance\Database
 {
@@ -31,6 +34,15 @@ class DBTest extends MySQL56\Instance\Database
     public static function name()
     {
         return "gi_test_database";
+    }
+
+    /**
+     * The related tables
+     * @return array
+     */
+    public static function getTableClassnames()
+    {
+        return [TBL01Simple::class];
     }
 
 }

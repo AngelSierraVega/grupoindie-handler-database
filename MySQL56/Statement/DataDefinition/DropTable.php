@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL56\Statement
  *
- * @version 0A.A0
+ * @version 00.AA
  * @since 18-08-16
  */
 
@@ -49,6 +49,9 @@ namespace GIndie\DBHandler\MySQL56\Statement\DataDefinition;
  * porting easier from other database systems.
  * 
  * @link <https://dev.mysql.com/doc/refman/5.6/en/drop-table.html>
+ * 
+ * @edit 18-10-02
+ * - Upgraded version
  */
 class DropTable extends DataDefinitionStatement
 {

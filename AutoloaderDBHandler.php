@@ -9,12 +9,15 @@
  * @package GIndie\DBHandler\ProjectDefinition
  *
  * @since 18-02-14
- * @edit18-02-14
+ * @edit 18-02-14
  * - Functional autoloader
  * @version 0A.00
  * @edit 18-05-05
  * - Autoloader for deprecated folders
- * @version 0A.10
+ * @version 00.A3
+ * @edit 18-10-02
+ * - Upgraded version
+ * @todo Remove access to DEPRECATED
  */
 
 namespace GIndie\DBHandler;

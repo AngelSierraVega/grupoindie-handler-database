@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\Components\Platform
  * 
- * @version 0A.20
+ * @version 00.A2
  * @since 18-03-21
  */
 
@@ -28,7 +28,10 @@ use GIndie\ScriptGenerator\Bootstrap3\Component\Alert;
  * - Moved file from [sndbx_folder]\Platform\..
  * @edit 18-05-21
  * - Renamed class and file from Module to ModuleDBMS
+ * @edit 18-10-02
+ * - Upgraded version
  * @todo
+ * - Check implementation
  * - Main functionality for module
  * - Complete functionality for module
  */

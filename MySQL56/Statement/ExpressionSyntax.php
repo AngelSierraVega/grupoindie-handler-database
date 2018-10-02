@@ -1,29 +1,34 @@
 <?php
 
-namespace GIndie\DBHandler\MySQL56\Statement;
-
 /**
- * DVLP-DBHandler - ExpressionSyntax
- * 
- * @link <https://dev.mysql.com/doc/refman/5.7/en/expressions.html>
+ * GI-DBHandler-DVLP - ExpressionSyntax
  *
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
  * @package GIndie\DBHandler\MySQL56\Statement
  *
+ * @version 00.A0
  * @since 18-02-15
- * @edit 
+ */
+
+namespace GIndie\DBHandler\MySQL56\Statement;
+
+/**
+ * @link <https://dev.mysql.com/doc/refman/5.7/en/expressions.html>
+ * 
+ * @edit 18-02-15
  * - Added comparison methods
  * - Added expresion methods
- * @version 00
  * @edit 18-02-17
  * - Updated compEqual()
- * @version A0
  * @edit 18-05-03
  * - Moved file from [base_dir]\MySQL\Statement to [base_dir]\MySQL56\Statement
  * - Updated namespace
- * @version 0A.10
+ * @edit 18-10-01
+ * - Added boolean_primary IS NULL
+ * @edit 18-10-02
+ * - Upgraded version
  * @todo Implement expresions
  * expr || expr
  * expr XOR expr
@@ -34,9 +39,27 @@ namespace GIndie\DBHandler\MySQL56\Statement;
  *  boolean_primary
  * - comparison_operator: <>
  * 
+ * boolean_primary:
+ *  - boolean_primary IS NOT NULL
+ *  - boolean_primary <=> predicate
+ *  - boolean_primary comparison_operator predicate
+ *  - boolean_primary comparison_operator {ALL | ANY} (subquery)
+ *  - predicate
+ * 
  */
 class ExpressionSyntax
 {
+
+    /**
+     * 
+     * @param mixed $expr
+     * @return string
+     * @since 18-10-01
+     */
+    public static function boolIsNull($expr)
+    {
+        return "{$expr} IS NULL";
+    }
 
     /**
      * 
@@ -82,13 +105,19 @@ class ExpressionSyntax
      * @since 18-02-15
      * @edit 18-02-17
      * - Handle string case on $expr2
+     * @edit 18-08-30
+     * - Handle NULL clase on $expr2
      */
     public static function compEqual($expr, $expr2)
     {
-        switch (\is_string($expr2))
+        switch (true)
         {
-            case true:
+            case (\is_null($expr2) === true):
+                $expr2 = "NULL";
+                break;
+            case (\is_string($expr2) === true):
                 $expr2 = "'{$expr2}'";
+                break;
         }
         return "{$expr} = {$expr2}";
     }

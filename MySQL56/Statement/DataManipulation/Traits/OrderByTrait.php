@@ -20,7 +20,9 @@ namespace GIndie\DBHandler\MySQL56\Statement\DataManipulation\Traits;
  * - Moved file from [base_dir]\MySQL\Statement to [base_dir]\MySQL56\Statement\DataManipulation\Traits
  * - Updated namespace
  * - Updated trait name due to PSR-0 Violation
- * @version 0A.10
+ * @version 00.A7
+ * @edit 18-10-02
+ * - Upgraded version
  */
 trait OrderByTrait
 {

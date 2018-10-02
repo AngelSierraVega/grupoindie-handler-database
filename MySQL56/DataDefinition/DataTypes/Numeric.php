@@ -24,13 +24,15 @@ namespace GIndie\DBHandler\MySQL56\DataDefinition\DataTypes;
  * 
  * @package GIndie\DBHandler\DataDefinition\MySQL56\
  *
- * @version 0B.00
+ * @version 00.B0
  * 
  * @since 18-04-26
  * @edit 18-04-27
  * - Added some interfaces for static methods
  * @edit 18-05-01
  * - Added prefix DATATYPE_
+ * @edit 18-10-02
+ * - Upgraded version
  */
 interface Numeric
 {

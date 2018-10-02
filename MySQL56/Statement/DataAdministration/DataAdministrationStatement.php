@@ -8,13 +8,15 @@
  *
  * @package GIndie\DBHandler
  *
- * @version 0A.00
+ * @version 00.0A
  * @since 18-08-16
  */
 
 namespace GIndie\DBHandler\MySQL56\Statement\DataAdministration;
 
 /**
+ * @edit 18-10-02
+ * - Upgraded version
  * @todo 
  * - ¿Implement traits?
  */

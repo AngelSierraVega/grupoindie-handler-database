@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL56\Statement
  *
- * @version 0A.A3
+ * @version 00.AA
  * @since 18-08-15
  */
 
@@ -27,7 +27,10 @@ namespace GIndie\DBHandler\MySQL56\Statement\DataDefinition;
  *   table_option [[,] table_option] ...
  * 
  * @link <https://dev.mysql.com/doc/refman/5.6/en/create-table.html>
- * 
+ * @edit 18-08-27
+ * - Updated addColumnDefinition()
+ * @edit 18-10-02
+ * - Upgraded version
  */
 class CreateTable extends DataDefinitionStatement
 {
@@ -62,10 +65,13 @@ class CreateTable extends DataDefinitionStatement
      * @param string $columnDefinition
      * @since 18-08-15
      * @return \GIndie\DBHandler\MySQL56\Statement\DataDefinition\CreateTable
+     * @edit 18-08-27
+     * - Simple column definition
      */
     public function addColumnDefinition($columnDefinition)
     {
         $this->columnDefinition[] = $columnDefinition;
+//        $this->columnDefinition[] = "`{$columnDefinition}`";
         return $this;
     }
 

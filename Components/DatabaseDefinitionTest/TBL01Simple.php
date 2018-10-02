@@ -6,7 +6,7 @@
  *
  * @package GIndie\DBHandler\Components\Test
  * 
- * @version 0A.23
+ * @version 00.70
  * @since 18-04-30
  */
 
@@ -20,6 +20,8 @@ use GIndie\DBHandler\MySQL56;
  * - Updated namespace
  * @edit 18-05-21
  * - Moved file from [sndbx_folder]\Platform\..
+ * @edit 18-10-02
+ * - Upgraded version
  * @todo 
  * - Functional columns()
  */
@@ -45,16 +47,11 @@ class TBL01Simple extends MySQL56\Instance\Table
     }
 
     /**
-     * 
-     * @return array
+     * @since 18-10-02
      */
-    public static function columns()
+    protected static function tableDefinition()
     {
-        static::columnDefinitionSerial($name);
-        static::columnDefinitionChar($name);
-        static::columnDefinitionVarchar($name);
-        static::columnDefinitionInt($name);
-        return parent::columns();
+        "@todo";
     }
 
 }

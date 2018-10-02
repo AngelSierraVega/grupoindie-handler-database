@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL56\Statement
  *
- * @version 0A.30
+ * @version 00.73
  * @since 18-04-07
  */
 
@@ -25,6 +25,8 @@ namespace GIndie\DBHandler\MySQL56\Statement;
  * - Added createTable()
  * @edit 18-08-16
  * - Added dropTable()
+ * @edit 18-10-02
+ * - Upgraded version
  */
 class DataDefinition
 {

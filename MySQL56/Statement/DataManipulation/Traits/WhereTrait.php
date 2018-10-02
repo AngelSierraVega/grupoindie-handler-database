@@ -1,28 +1,35 @@
 <?php
 
-namespace GIndie\DBHandler\MySQL56\Statement\DataManipulation\Traits;
-
-use GIndie\DBHandler\MySQL56\Statement\ExpressionSyntax;
-
 /**
- * DVLP-DBHandler - whereTrait
- * 
- * @link <https://dev.mysql.com/doc/refman/5.6/en/select.html>
+ * GI-DBHandler-DVLP - WhereTrait
  *
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
  * @package GIndie\DBHandler\MySQL56\Statement
  *
+ * @version 00.A7
  * @since 18-02-15
- * @edit
+ */
+
+namespace GIndie\DBHandler\MySQL56\Statement\DataManipulation\Traits;
+
+use GIndie\DBHandler\MySQL56\Statement\ExpressionSyntax;
+
+/**
+ * 
+ * @link <https://dev.mysql.com/doc/refman/5.6/en/select.html>
+
+ * @edit 18-02-15
  * - Created addCondition(), renderWhereClause(), $conditions
- * @version A0
  * @edit 18-05-03
  * - Moved file from [base_dir]\MySQL\Statement to [base_dir]\MySQL56\Statement\DataManipulation\Traits
  * - Updated namespace
  * - Updated trait name due to PSR-0 Violation
- * @version 0A.10
+ * @edit 18-10-01
+ * - Created addConditionIsNull()
+ * @edit 18-10-02
+ * - Upgraded version
  */
 trait WhereTrait
 {
@@ -54,6 +61,19 @@ trait WhereTrait
     public function addConditionEquals($expr1, $expr2, $concatOperator = "AND")
     {
         $this->conditions[] = [$concatOperator => ExpressionSyntax::compEqual($expr1, $expr2)];
+        return $this;
+    }
+
+    /**
+     * 
+     * @param mixed $expr1
+     * @param string $concatOperator
+     * @return $this
+     * @since 18-10-01
+     */
+    public function addConditionIsNull($expr1, $concatOperator = "AND")
+    {
+        $this->conditions[] = [$concatOperator => ExpressionSyntax::boolIsNull($expr1)];
         return $this;
     }
 

@@ -15,8 +15,10 @@ namespace GIndie\DBHandler\MySQL56\DataDefinition\Identifiers;
  * @package GIndie\DBHandler\DataDefinition\MySQL56\
  * @subpackage MySQL56
  *
- * @version 0A.F0
+ * @version 00.A0
  * @since 18-04-27
+ * @edit 18-10-02
+ * - Upgraded version
  */
 interface Database
 {

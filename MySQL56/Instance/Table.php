@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL56\Instance
  *
- * @version 0A.3A
+ * @version 00.A4
  * @since 18-04-30
  */
 
@@ -22,9 +22,37 @@ use GIndie\DBHandler\MySQL56\DataDefinition;
  * - Implements GIndie\DBHandler\HandlerDefinition\Instance\Table
  * @edit 18-08-26
  * - Added defaultRecord()
+ * @edit 18-09-02
+ * - Added getPKDataType()
+ * @edit 18-10-02
+ * - Upgraded version
  */
 abstract class Table implements Instance\Table, DataDefinition\Identifiers\Table
 {
+
+    /**
+     * Gets the DataType object of the primary key of a given Table
+     * 
+     * @param type $className
+     * @return \GIndie\DBHandler\MySQL56\Instance\DataType
+     * @since 18-09-02
+     */
+    protected static function getPKDataType($className)
+    {
+        if (!\is_subclass_of($className, \GIndie\DBHandler\MySQL56\Instance\Table::class)) {
+            \trigger_error("{$className} Is not subclass of \\GIndie\\DBHandler\\MySQL56\\Instance\\Table", \E_USER_ERROR);
+        }
+        $instance = $className::instance();
+        $instance->columns();
+        $dataType = $instance::columnDefinition($instance::PRIMARY_KEY)->getDataType();
+        switch ($dataType->getDatatype())
+        {
+            case DataType::DATATYPE_SERIAL:
+                $dataType = DataType::serializedBigint();
+                break;
+        }
+        return $dataType;
+    }
 
     /**
      * Sets data from an associative array
@@ -61,9 +89,9 @@ abstract class Table implements Instance\Table, DataDefinition\Identifiers\Table
     public static function databaseName()
     {
 //        if (!isset(static::$database)) {
-            $tmpName = static::databaseClassname();
-            static::$database = new $tmpName();
-            unset($tmpName);
+        $tmpName = static::databaseClassname();
+        static::$database = new $tmpName();
+        unset($tmpName);
 //        }
         return static::$database->name();
     }
@@ -137,13 +165,14 @@ abstract class Table implements Instance\Table, DataDefinition\Identifiers\Table
         }
         return static::$referenceDefinition[static::class];
     }
-    
+
     /**
      * 
      * @return array
      * @since 18-08-26
      */
-    public static function defaultRecord(){
+    public static function defaultRecord()
+    {
         return [];
     }
 

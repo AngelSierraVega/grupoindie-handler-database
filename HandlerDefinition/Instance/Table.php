@@ -14,7 +14,9 @@ namespace GIndie\DBHandler\HandlerDefinition\Instance;
  * @edit 18-05-01
  * - Moved file from [base_dir]\Instances to [base_dir]\HandlerDefinition\Instance
  * - Updated namespace
- * @version 0A.F0
+ * @version 00.90
+ * @edit 18-10-02
+ * - Upgraded version
  */
 interface Table
 {

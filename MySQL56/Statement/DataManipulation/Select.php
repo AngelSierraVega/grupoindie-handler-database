@@ -18,7 +18,9 @@ namespace GIndie\DBHandler\MySQL56\Statement\DataManipulation;
  * @edit 18-05-03
  * - Moved file from [base_dir]\MySQL\Statement to [base_dir]\MySQL56\Statement\DataManipulation
  * - Updated namespace
- * @version 0A.30
+ * @version 00.A3
+ * @edit 18-10-02
+ * - Upgraded version
  */
 class Select extends DataManipulationStatement
 {

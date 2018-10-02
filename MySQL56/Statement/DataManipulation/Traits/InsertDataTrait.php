@@ -6,9 +6,9 @@
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package GIndie\DBHandler
+ * @package GIndie\DBHandler\MySQL56\Statement
  *
- * @version 0A.00
+ * @version 00.A3
  * @since 18-08-26
  */
 
@@ -17,7 +17,10 @@ namespace GIndie\DBHandler\MySQL56\Statement\DataManipulation\Traits;
 /**
  * Description of InsertDataTrait
  *
- * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
+ * @edit 18-08-27
+ * - Updated insertRecordData()
+ * @edit 18-10-02
+ * - Upgraded version
  */
 trait InsertDataTrait
 {
@@ -89,6 +92,8 @@ trait InsertDataTrait
      * @return $this
      * 
      * @since 18-08-26
+     * @edit 18-08-27
+     * - Bug on columnames
      */
     public function insertRecordData(array $recordData)
     {
@@ -97,7 +102,7 @@ trait InsertDataTrait
             {
                 case \is_string($key):
                     //$this->columnNames["`{$key}_test`"] = true;
-                    $this->columnNames["{$key}"] = true;
+                    $this->columnNames["`{$key}`"] = true;
                     $recordData[$key] = $this->getFormattedValue($value);
                     break;
                 default:

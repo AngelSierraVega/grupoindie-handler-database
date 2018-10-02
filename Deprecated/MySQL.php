@@ -10,19 +10,20 @@ use GIndie\DBHandler\INIHandler;
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package GIndie\DBHandler\Deprecated
+ * @package GIndie\DBHandler
  *
  * @since 18-02-14
  * @edit
  * - Added openConnection(), query(), $connection from DPR-DBHandler
  * - Created getConnection()
- * @version 0A.00
  * 
  * @todo Class extends MySQL56
  * @deprecated since 18-05-01
  * @edit 18-05-02
  * - Moved file from [base_dir] to [base_dir]\Deprecated
- * @version 0A.10
+ * @version DEPRECATED
+ * @edit 18-10-02
+ * - Upgraded version
  */
 class MySQL
 {

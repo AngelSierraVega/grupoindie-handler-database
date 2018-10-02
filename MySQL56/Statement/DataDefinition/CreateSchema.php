@@ -21,7 +21,9 @@ namespace GIndie\DBHandler\MySQL56\Statement\DataDefinition;
  * - Moved file from [base_dir]\MySQL\Statement to [base_dir]\MySQL56\Statement\DataDefinition
  * - Updated namespace
  * - Class extends DataDefinitionStatement
- * @version 0A.10
+ * @edit 18-10-02
+ * - Upgraded version
+ * @version 00.AA
  */
 class CreateSchema extends DataDefinitionStatement
 {

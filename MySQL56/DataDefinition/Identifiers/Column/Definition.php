@@ -42,11 +42,13 @@ namespace GIndie\DBHandler\MySQL56\DataDefinition\Identifiers\Column;
  *
  * @package GIndie\DBHandler\DataDefinition\MySQL56\
  *
- * @version 0A.F0
+ * @version 00.AF
  * @since 18-04-29
  * - Added methods from GIndie\DBHandler\MySQL56\DataDefinition\Column
  * @edit 18-05-01
  * - Defined constructor and main setters and getters
+ * @edit 18-10-02
+ * - Upgraded version
  */
 interface Definition //extends Definition\Indexes
 {

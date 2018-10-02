@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL56\
  *
- * @version 0A.90
+ * @version 00.A5
  * @since 18-08-05
  */
 
@@ -19,7 +19,10 @@ use GIndie\DBHandler\MySQL56\Statement;
 use GIndie\DBHandler\MySQL56\Instance;
 
 /**
- * 
+ * @edit 18-10-01
+ * - Upgraded delete()
+ * @edit 18-10-02
+ * - Upgraded version
  */
 class Table
 {
@@ -118,7 +121,64 @@ class Table
 
     /**
      * 
+     * @param type $conditions
+     * @return boolean
+     * @throws \Exception
+     * @since 18-08-29
+     * @edit 18-10-01
+     * - Graciously handle IS NULL condition
+     */
+    public function delete($conditions)
+    {
+        $query = Statement\DataManipulation::delete($this->getTableReference());
+        foreach ($conditions as $key => $value) {
+            if (\is_null($value)) {
+                $query->addConditionIsNull($key);
+//                $value = "NULL";
+            } else {
+                $query->addConditionEquals($key, $value);
+            }
+        }
+        //throw new \Exception($query);
+        $result = \GIndie\DBHandler\MySQL56::query($query);
+        if (\GIndie\DBHandler\MySQL56::getConnection()->affected_rows < 1) {
+            throw new \Exception("QUERY: {$query}<br>NO AFFECTED ROWS");
+        }
+//        $this->getTable()->columns();
+//        var_dump($this->getTable()->referenceDefinition());
+//        var_dump($this->getTable()->referenceDefinition()->getPrimaryKeyName());
+//        var_dump($value);
+        if ($result === false) {
+            throw new \Exception("QUERY: {$query}<br>ERROR: " . \GIndie\DBHandler\MySQL56::getConnection()->error);
+        }
+        return true;
+    }
+
+    /**
+     * @param mixed $value
+     * @return boolean
+     * @since 18-08-26
+     * @edit 18-08-29
+     */
+    public function deleteById($value)
+    {
+        $query = Statement\DataManipulation::delete($this->getTableReference());
+        $query->addConditionEquals($this->getTable()->referenceDefinition()->getPrimaryKeyName(), $value);
+        $result = \GIndie\DBHandler\MySQL56::query($query);
+        $this->getTable()->columns();
+        var_dump($this->getTable()->referenceDefinition());
+        var_dump($this->getTable()->referenceDefinition()->getPrimaryKeyName());
+        var_dump($value);
+        if ($result === false) {
+            throw new \Exception("QUERY: {$query}<br>ERROR: " . \GIndie\DBHandler\MySQL56::getConnection()->error);
+        }
+        return true;
+    }
+
+    /**
+     * 
      * @param type $insertData
+     * @since 18-08-26
      */
     public function insert($insertData)
     {
@@ -149,6 +209,8 @@ class Table
      * @since 18-08-15
      * @edit 18-08-20
      * - Added reference definition
+     * @edit 18-08-26
+     * - Formatted column name
      * @todo
      * - ¿Throw exception?
      */
@@ -157,9 +219,10 @@ class Table
         $query = Statement\DataDefinition::createTable($this->getTable()->name());
         $query->setDatabaseName($this->getTable()->databaseName());
         foreach ($this->getTable()->columns() as $columnName => $columnDefinition) {
-            $query->addColumnDefinition($columnName . " " . $columnDefinition->getColumnDefinition());
+            $query->addColumnDefinition("`{$columnName}` " . $columnDefinition->getColumnDefinition());
         }
         $query->setReferenceDefinition($this->getTable()->referenceDefinition()->getReferences());
+        //var_dump($query . "");
         return \GIndie\DBHandler\MySQL56::query($query);
     }
 

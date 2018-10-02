@@ -6,9 +6,9 @@
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package GIndie\DBHandler
+ * @package GIndie\DBHandler\MySQL56\Instance
  *
- * @version 0A.70
+ * @version 00.AA
  * @since 18-08-20
  */
 
@@ -16,7 +16,10 @@ namespace GIndie\DBHandler\MySQL56\Instance;
 
 /**
  * Description of ReferenceDefinition
- * 
+ * @edit 18-08-27
+ * - Updated formatedReference()
+ * @edit 18-10-02
+ * - Upgraded version
  */
 class ReferenceDefinition
 {
@@ -85,6 +88,7 @@ class ReferenceDefinition
                 $rtnStr .= "(`{$columnName}`)";
                 break;
             default:
+                var_dump($columnName);
                 throw new \Exception("Unrecognized type for {$columnName}");
         }
         return $rtnStr;
@@ -94,11 +98,14 @@ class ReferenceDefinition
      * 
      * @param \GIndie\DBHandler\MySQL56\Instance\Table $tableInstance
      * @return string
+     * @since 18-08-20
+     * @edit 18-08-27
      */
     private function formatedReference(Table $tableInstance)
     {
         $rtnStr = " REFERENCES `" . $tableInstance->name() . "` ";
-        $rtnStr .= $this->formatedColName($tableInstance::referenceDefinition()->getPrimaryKeyName());
+        $pkName = $tableInstance::referenceDefinition()->getPrimaryKeyName();
+        $rtnStr .= $this->formatedColName($pkName);
         return $rtnStr;
     }
 

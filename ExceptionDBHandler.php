@@ -16,7 +16,9 @@ namespace GIndie\DBHandler;
  * @todo
  * - Custom DBHandler exception
  * - Extend from GIException
- * @version 0A.10
+ * @version 00.A0
+ * @edit 18-10-02
+ * - Upgraded version
  */
 class ExceptionDBHandler extends \Exception
 {

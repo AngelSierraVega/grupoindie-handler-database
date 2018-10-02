@@ -1,4 +1,15 @@
 <?php
+/**
+ * GI-DBHandler-DVLP - DataType
+ *
+ * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
+ * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
+ *
+ * @package GIndie\DBHandler\DataDefinition\MySQL56
+ *
+ * @version 00.AF
+ * @since 18-04-30
+ */
 
 namespace GIndie\DBHandler\MySQL56\DataDefinition\Identifiers\Column\Definition;
 
@@ -36,20 +47,19 @@ namespace GIndie\DBHandler\MySQL56\DataDefinition\Identifiers\Column\Definition;
  * 
  * Only the InnoDB and MyISAM storage engines support indexing on BLOB and TEXT columns. 
  * For example: CREATE TABLE test (blob_col BLOB, INDEX(blob_col(10)));
+ * 
+ * @edit 18-09-02
+ * - Created decimal()
+ * @edit 18-10-02
+ * - Upgraded DocBlock
+ * - Upgraded version
  *
- * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
- * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
- *
- * @package GIndie\DBHandler\DataDefinition\MySQL56\
- *
- * @version 0A.F4
- * @since 18-04-30
  * @todo 
- * - setter and getter for D
+ * - getter for D
  */
 interface DataType
 {
-    
+
     /**
      * BLOB[(M)]
      * 
@@ -62,7 +72,7 @@ interface DataType
      * @param int|null $m
      * @since 18-08-02
      */
-    public static function blob($m=null);
+    public static function blob($m = null);
 
     /**
      * TINYINT[(M)] [UNSIGNED] [ZEROFILL]
@@ -83,7 +93,7 @@ interface DataType
      * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\DataTypes\Numeric
      */
     public static function tinyint($m, $unsigned = false, $zerofill = false);
-    
+
     /**
      * TIMESTAMP[(fsp)]
      * 
@@ -175,6 +185,32 @@ interface DataType
      * - Added default null
      */
     public static function datetime($fsp = null);
+
+    /**
+     * DECIMAL[(M[,D])] [UNSIGNED] [ZEROFILL]
+     * 
+     * @link <https://dev.mysql.com/doc/refman/5.6/en/numeric-type-overview.html>
+     * 
+     * A packed “exact” fixed-point number. M is the total number of digits (the precision) 
+     * and D is the number of digits after the decimal point (the scale). The decimal point 
+     * and (for negative numbers) the - sign are not counted in M. If D is 0, values have no 
+     * decimal point or fractional part. The maximum number of digits (M) for DECIMAL is 65. 
+     * The maximum number of supported decimals (D) is 30. If D is omitted, the default is 0. 
+     * If M is omitted, the default is 10.
+     * 
+     * UNSIGNED, if specified, disallows negative values.
+     * 
+     * All basic calculations (+, -, *, /) with DECIMAL columns are done with a precision of 65 digits.
+     * 
+     * @param int $m
+     * @param int $d
+     * @param boolean $unsigned
+     * @param boolean $zerofill
+     * 
+     * @return \GIndie\DBHandler\MySQL56\Instance\DataType
+     * @since 18-09-02
+     */
+    public static function decimal($m = 10, $d = 0, $unsigned = false, $zerofill = false);
 
     /**
      * DATE

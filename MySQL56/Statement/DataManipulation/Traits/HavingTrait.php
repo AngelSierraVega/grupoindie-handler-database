@@ -23,7 +23,9 @@ namespace GIndie\DBHandler\MySQL56\Statement\DataManipulation\Traits;
  * @version 00.10
  * @edit 18-05-05
  * - Return empty string on all methods.
- * @version 00.20
+ * @version 00.07
+ * @edit 18-10-02
+ * - Upgraded version
  */
 trait HavingTrait
 {

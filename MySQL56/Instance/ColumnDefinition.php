@@ -8,18 +8,35 @@
  *
  * @package GIndie\DBHandler\MySQL56\Instance
  *
- * @version 0A.80
+ * @version 00.A9
  * @since 18-04-30
  */
 
 namespace GIndie\DBHandler\MySQL56\Instance;
 
 /**
+ * 
+ * column_definition:
+ *    data_type [NOT NULL | NULL] [DEFAULT default_value]
+ *      [AUTO_INCREMENT] [UNIQUE [KEY]] [[PRIMARY] KEY]
+ *      [COMMENT 'string']
+ *      [COLUMN_FORMAT {FIXED|DYNAMIC|DEFAULT}]
+ *      [STORAGE {DISK|MEMORY|DEFAULT}]
+ *      [reference_definition]
+ *  | data_type [GENERATED ALWAYS] AS (expression)
+ *      [VIRTUAL | STORED] [NOT NULL | NULL]
+ *      [UNIQUE [KEY]] [[PRIMARY] KEY]
+ *      [COMMENT 'string']
  * @edit 18-05-01
  * - Added methods from defined interterface(s)
  * @edit 18-05-15
  * - Class implements \GIndie\DBHandler\MySQL56\DataDefinition\Identifiers\Column\Definition
  * - Added code from temp class Column
+ * @edit 18-10-02
+ * - Created getColumnDefinitionDataType(), getColumnDefinitionDefault(), 
+ *   getColumnDefinitionComment()
+ * @edit 18-10-02
+ * - Upgraded version
  */
 class ColumnDefinition
         implements \GIndie\DBHandler\MySQL56\DataDefinition\Identifiers\Column\Definition
@@ -282,13 +299,42 @@ class ColumnDefinition
      * @edit 18-08-26
      * - Deprecated indexes
      * - Handle DataType::DATATYPE_BIGINT 
+     * @edit 18-09-02
+     * - Added COMMENT
+     * @edit 18-10-02
+     * - Exploded content into getColumnDefinitionDataType(),
+     *   getColumnDefinitionDefault(), getColumnDefinitionComment()
      */
     public function getColumnDefinition()
     {
-        $rtnStr = $this->dataType->getDatatype();
+        $rtnStr = $this->getColumnDefinitionDataType();
+        if ($this->getNotNull() === true) {
+            $rtnStr .= " NOT NULL";
+        }
+        $rtnStr .= $this->getColumnDefinitionDefault();
+        if ($this->getAutoIncrement() === true) {
+            $rtnStr .= " AUTO_INCREMENT";
+        }
+        $rtnStr .= $this->getColumnDefinitionComment();
+//        if (\array_count_values($this->indexes) > 0) {
+//            $rtnStr .= " " . \join(" ", $this->indexes);
+//        }
+        return $rtnStr;
+    }
 
+    /**
+     * 
+     * @return string
+     * @since 18-10-02
+     */
+    protected function getColumnDefinitionDataType()
+    {
+        $rtnStr = $this->dataType->getDatatype();
         switch ($this->dataType->getDatatype())
         {
+            case DataType::DATATYPE_ENUM:
+                $rtnStr .= "(" . (\join(",", $this->dataType->getValues())) . ")";
+                break;
             case DataType::DATATYPE_INT:
             case DataType::DATATYPE_TINYINT:
             case DataType::DATATYPE_BIGINT:
@@ -302,36 +348,77 @@ class ColumnDefinition
                 break;
             case DataType::DATATYPE_DECIMAL:
                 $rtnStr .= "({$this->dataType->getM()},{$this->dataType->getD()})";
+                $rtnStr .= ($this->dataType->getUnsigned()) ? " UNSIGNED" : "";
+                $rtnStr .= ($this->dataType->getZerofill()) ? " ZEROFILL" : "";
                 break;
+            case DataType::DATATYPE_CHAR:
             case DataType::DATATYPE_VARCHAR:
                 $rtnStr .= "({$this->dataType->getM()})";
                 $rtnStr .= !\is_null($this->dataType->getCharsetName()) ? " CHARACTER SET {$this->dataType->getCharsetName()}" : "";
                 $rtnStr .= !\is_null($this->dataType->getCollationName()) ? " COLLATE {$this->dataType->getCollationName()}" : "";
                 break;
             default:
+//                var_dump($this->dataType->getDatatype());
+                \trigger_error("@todo handle datatype", \E_USER_ERROR);
                 break;
         }
-        if ($this->getNotNull() === true) {
-            $rtnStr .= " NOT NULL";
-        }
+        return $rtnStr;
+    }
+
+    /**
+     * 
+     * @return string
+     * @since 18-10-02
+     */
+    protected function getColumnDefinitionDefault()
+    {
+        $rtnStr = "";
         if (!is_null($this->default)) {
             switch (true)
             {
                 case \is_int($this->default) === true:
                     $rtnStr .= " DEFAULT " . $this->default;
                     break;
+                case \is_string($this->default) === true:
+                    switch ($this->default)
+                    {
+                        case "NULL":
+                            $rtnStr .= " DEFAULT " . $this->default;
+                            break;
+                        default:
+                            $rtnStr .= " DEFAULT '" . $this->default . "'";
+                            break;
+                    }
+                    break;
                 default:
-                    var_dump($this->default);
-                    throw new \Exception("todo handle type");
+//                    var_dump($this->default);
+                    \trigger_error("@todo handle type", \E_USER_ERROR);
                     break;
             }
         }
-        if ($this->getAutoIncrement() === true) {
-            $rtnStr .= " AUTO_INCREMENT";
+        return $rtnStr;
+    }
+
+    /**
+     * 
+     * @return string
+     * @since 18-10-02
+     */
+    protected function getColumnDefinitionComment()
+    {
+        $rtnStr = "";
+        if (!\is_null($this->comment)) {
+            switch (true)
+            {
+                case (\is_string($this->comment) === true):
+                    $rtnStr .= " COMMENT '" . \addslashes($this->comment) . "'";
+                    break;
+                default:
+//                    var_dump($this->comment);
+                    \trigger_error("Comment must be string", \E_USER_ERROR);
+                    break;
+            }
         }
-//        if (\array_count_values($this->indexes) > 0) {
-//            $rtnStr .= " " . \join(" ", $this->indexes);
-//        }
         return $rtnStr;
     }
 

@@ -6,9 +6,9 @@
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package GIndie\DBHandler
+ * @package GIndie\DBHandler\Components\Framework
  *
- * @version 0A.A0
+ * @version 00.A0
  * @since 18-07-26
  */
 
@@ -16,26 +16,50 @@ namespace GIndie\DBHandler\Components\Framework;
 
 use GIndie\Framework\View;
 use GIndie\ScriptGenerator\Bootstrap3\Javascript\Tooltip;
+use GIndie\ScriptGenerator\Bootstrap3;
 
 /**
  * Description of Deployer
  *
- * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
+ * @edit 18-09-28
+ * - Added getDOM(), runFrameworkFormRequest()
+ * - Upgraded config(), contentHandler(), createTable(), widgetDatabase(),
+ * @edit 18-09-29
+ * - Upgraded dsplyTables(), createDatabase(), dropDatabase()
+ * @edit 18-10-02
+ * - Upgraded version
+ * 
  */
 abstract class Deployer extends \GIndie\Framework\Controller
 {
 
     /**
+     * 
+     * @return type
+     * @since 18-09-28
+     */
+    protected static function getDOM()
+    {
+        $dom = parent::getDOM();
+        $dom->getTopbar()->setHeader("Framework deploy for DBHandler");
+        return $dom;
+    }
+
+    /**
      * @since 18-04-07
      * @edit 18-08-14
      * - Added selectTable, createTable, dropTable
+     * @edit 18-09-28
+     * - Database actions point to same widget
+     * @todo Table actions point to same widget
      */
     public static function config()
     {
         static::configGetRequest(static::class . "::widgetDBHandler");
         static::configPostRequest(static::class . "::widgetDatabase", "selectDatabase");
-        static::configPostRequest(static::class . "::createDatabase", "createDatabase");
-        static::configPostRequest(static::class . "::dropDatabase", "dropDatabase");
+        static::configPostRequest(static::class . "::widgetDatabase", "createTableFromDatabase");
+        static::configPostRequest(static::class . "::widgetDatabase", "createDatabase");
+        static::configPostRequest(static::class . "::widgetDatabase", "dropDatabase");
         static::configPostRequest(static::class . "::widgetTable", "selectTable");
         static::configPostRequest(static::class . "::createTable", "createTable");
         static::configPostRequest(static::class . "::dropTable", "dropTable");
@@ -43,18 +67,45 @@ abstract class Deployer extends \GIndie\Framework\Controller
 
     /**
      * 
+     * @return type
+     * @since 18-09-28
+     */
+    private static function runFrameworkFormRequest()
+    {
+        $requestCode = isset(static::$requestParameters["GI-FRMWRK-FRM-RQST"]) ? static::$requestParameters["GI-FRMWRK-FRM-RQST"] : null;
+        if (!\is_callable(static::class . "::{$requestCode}")) {
+            switch ($requestCode)
+            {
+                case "createTableFromDatabase":
+                    return static::createTable();
+                    break;
+                default:
+                    return null;
+                    break;
+            }
+        }
+        return \call_user_func(static::class . "::{$requestCode}");
+    }
+
+    /**
+     * 
      * @return \GIndie\ScriptGenerator\Bootstrap3\Grid
      * @since 18-08-14
+     * @edit 18-09-28
+     * - Renamed from gridTableHandler to contentHandler
      */
-    public static function gridTableHandler()
+    public static function contentHandler()
     {
+        //var_dump(static::$requestParameters); //
         $grid = new \GIndie\ScriptGenerator\Bootstrap3\Grid();
         $grid->removeAttribute("class");
-        $row1 = $grid->addRowGP();
-        $col_i_ii_i = $row1->addColumnGP("col-sm", 6);
-        $col_i_ii_i->addContent(static::widgetDatabase());
-        $col_i_ii_ii = $row1->addColumnGP("col-sm", 6);
-        $col_i_ii_ii->addContent("@todo");
+
+        $navigator = $grid->addRowGP();
+        $widget = $grid->addRowGP();
+//        $col_i_ii_i = $row1->addColumnGP("col-sm", 6);
+//        $col_i_ii_i->addContent(static::widgetDatabase());
+//        $col_i_ii_ii = $row1->addColumnGP("col-sm", 6);
+//        $col_i_ii_ii->addContent("@todo");
         return $grid;
     }
 
@@ -82,7 +133,7 @@ abstract class Deployer extends \GIndie\Framework\Controller
      * @return 
      * @since 18-08-15
      * @edit 18-08-26
-     * - Added insert of default record if defined
+     * - Handle insert of default record(s) if defined
      */
     public static function createTable()
     {
@@ -93,8 +144,19 @@ abstract class Deployer extends \GIndie\Framework\Controller
         if ($tmp !== true) {
             $error = View\Alert::danger(\GIndie\DBHandler\MySQL56::getConnection()->error);
         }
-        if (\count($tmpTableClass->defaultRecord()) > 0) {
-            $tmpTableHandler->insert($tmpTableClass->defaultRecord());
+        if (\count($tmpTableHandler->getTable()->defaultRecord()) > 0) {
+            $tmpArray = $tmpTableHandler->getTable()->defaultRecord();
+            if (isset($tmpArray[0])) {
+                if (\is_array($tmpArray[0])) {
+                    foreach ($tmpArray as $tmpRecord) {
+                        $tmpTableHandler->insert($tmpRecord);
+                    }
+                } else {
+                    throw new \Exception("todo handle defaultRecord definition");
+                }
+            } else {
+                $tmpTableHandler->insert($tmpArray);
+            }
         }
         $rtnWidget = static::widgetTable();
         if (isset($error)) {
@@ -276,9 +338,12 @@ abstract class Deployer extends \GIndie\Framework\Controller
      * @edit 18-08-15
      * - Removed try catch
      * - Used dsplyValidatorDatabase(), dsplyTables()
+     * @edit 18-09-28
+     * - Use runFrameworkFormRequest()
      */
     public static function widgetDatabase()
     {
+        static::runFrameworkFormRequest();
         $tmpDBclass = \urldecode($_POST["databaseId"]);
         $tmpDBclass = new $tmpDBclass();
         $tmpDBHandler = new \GIndie\DBHandler\MySQL56\Handler\Database($tmpDBclass);
@@ -472,31 +537,40 @@ abstract class Deployer extends \GIndie\Framework\Controller
      * @since 18-08-02
      * @edit 18-08-15
      * - Upgraded code
+     * @edit 18-09-28
+     * - Added functional create (table) button.
+     * @edit 18-09-29
+     * - Use View\FormInput::buttonSubmitForm
      */
     private static function dsplyTables(\GIndie\DBHandler\MySQL56\Handler\Database $dbHandler)
     {
         $table = View\Table::selectable();
         $table->addHeader(["", "Table", "Validator"]);
         $table->addContent(View\FormInput::formPostOnSelf("selectTable"));
+        $formTemp = View\FormInput::formPostOnSelf("createTableFromDatabase");
+        $formTemp->addInput(\GIndie\Platform\View\Input::hidden("databaseId", \urlencode(\get_class($dbHandler->getDatabase()))));
+        $table->addContent($formTemp);
         foreach ($dbHandler->getTables() as $classname => $tableHandler) {
+            $buttonSelect = View\FormInput::buttonSubmitForm("selectTable", "Select", "tableId", \urlencode($classname));
             try {
                 $tableHandler->execValidation();
-                $button = new \GIndie\ScriptGenerator\Bootstrap3\Component\Button("Select", "submit");
-                $button->addClass("btn-sm");
-                $button->setForm("selectTable");
-                $button->setAttribute("name", "tableId");
-                $button->setValue(\urlencode($classname));
+//                $buttonSelect = new \GIndie\ScriptGenerator\Bootstrap3\Component\Button("Select", "submit");
+//                $buttonSelect->addClass("btn-sm");
+//                $buttonSelect->setForm("selectTable");
+//                $buttonSelect->setAttribute("name", "tableId");
+//                $buttonSelect->setValue(\urlencode($classname));
+//                $buttonSelect->setContext("primary");
                 //$row = $table->addRowGetPointer(static::constructRow($tableHandler));
-                $row = $table->addRowGetPointer([$button, $tableHandler->getTable()->name(), "OK"]);
+                $row = $table->addRowGetPointer([$buttonSelect, $tableHandler->getTable()->name(), "OK"]);
                 $row->setAttribute("class", "success");
                 //$row->addClass("bg-success");
             } catch (\GIndie\DBHandler\ExceptionDBHandler $exc) {
-                $button = new \GIndie\ScriptGenerator\Bootstrap3\Component\Button("Select", "submit");
-                $button->addClass("btn-sm");
-                $button->setForm("selectTable");
-                $button->setAttribute("name", "tableId");
-                $button->setValue(\urlencode($classname));
-                $row = $table->addRowGetPointer([$button, $tableHandler->getTable()->name(), $exc->getMessage()]);
+
+                //$buttonSelect->setContext("primary");
+
+                $buttonCreateTable = View\FormInput::buttonSubmitForm("createTableFromDatabase", "Create", "tableId", \urlencode($classname));
+                $buttonCreateTable->setContext("success");
+                $row = $table->addRowGetPointer([[$buttonSelect, $buttonCreateTable], $tableHandler->getTable()->name(), $exc->getMessage()]);
                 $row->setAttribute("class", "danger");
             }
         }
@@ -527,39 +601,49 @@ abstract class Deployer extends \GIndie\Framework\Controller
     /**
      * 
      * @since 18-04-07
-     * @return \GIndie\ScriptGenerator\Bootstrap3\Grid
+     * @return \mysqli_result|boolean <b>FALSE</b> on failure. For successful SELECT, 
+     * SHOW, DESCRIBE or EXPLAIN queries <b>mysqli_query</b> will return a 
+     * <b>mysqli_result</b> object. For other successful queries <b>mysqli_query</b> 
+     * will return <b>TRUE</b>.
      * @edit 18-08-02
      * - Use static::databaseHandler()
      * @edit 18-08-14
      * - Return grid()
      * @edit 18-08-15
      * - Return widgetDatabase()
+     * @edit 18-09-29
+     * - Return query
      */
     public static function createDatabase()
     {
         $tmpDBclass = \urldecode($_POST["databaseId"]);
         $tmpDBclass = new $tmpDBclass();
         $tmpDBHandler = new \GIndie\DBHandler\MySQL56\Handler\Database($tmpDBclass);
-        \GIndie\DBHandler\MySQL56::query($tmpDBHandler->stmCreate());
-        return static::widgetDatabase();
+        return \GIndie\DBHandler\MySQL56::query($tmpDBHandler->stmCreate());
+//        return static::widgetDatabase();
     }
 
     /**
      * 
      * @since 18-08-02
-     * @return \GIndie\ScriptGenerator\Bootstrap3\Grid
+     * @return \mysqli_result|boolean <b>FALSE</b> on failure. For successful SELECT, 
+     * SHOW, DESCRIBE or EXPLAIN queries <b>mysqli_query</b> will return a 
+     * <b>mysqli_result</b> object. For other successful queries <b>mysqli_query</b> 
+     * will return <b>TRUE</b>.
      * @edit 18-08-14
      * - Return grid()
      * @edit 18-08-15
      * - Return widgetDatabase()
+     * @edit 18-09-29
+     * - Return query
      */
     public static function dropDatabase()
     {
         $tmpDBclass = \urldecode($_POST["databaseId"]);
         $tmpDBclass = new $tmpDBclass();
         $tmpDBHandler = new \GIndie\DBHandler\MySQL56\Handler\Database($tmpDBclass);
-        \GIndie\DBHandler\MySQL56::query($tmpDBHandler->stmDrop());
-        return static::widgetDatabase();
+        return \GIndie\DBHandler\MySQL56::query($tmpDBHandler->stmDrop());
+//        return static::widgetDatabase();
     }
 
 }

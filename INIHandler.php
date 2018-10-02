@@ -10,7 +10,7 @@
  * @package GIndie\DBHandler\Components
  *
  * @since 18-02-14
- * @version 0A.30
+ * @version 00.AA
  */
 
 namespace GIndie\DBHandler;
@@ -22,6 +22,8 @@ namespace GIndie\DBHandler;
  * - Created fileName(), requiredVars(), getHost()
  * @edit 18-07-26
  * - Created getMainUsername(), getMainPassword(), 
+ * @edit 18-10-02
+ * - Upgraded version
  * @todo
  * - Handle different users (including root)
  */

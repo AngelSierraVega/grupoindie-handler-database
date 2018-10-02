@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler
  *
- * @version 0A.30
+ * @version 00.A3
  * @since 18-08-02
  */
 
@@ -38,8 +38,8 @@ namespace GIndie\DBHandler\MySQL56\Statement\DataDefinition;
  * 
  * @link <https://dev.mysql.com/doc/refman/5.6/en/drop-database.html>
  * 
- *
- * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
+ * @edit 18-10-02
+ * - Upgraded version
  */
 class DropDatabase extends DataDefinitionStatement
 {

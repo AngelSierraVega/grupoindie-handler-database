@@ -6,9 +6,9 @@
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package GIndie\DBHandler
+ * @package GIndie\DBHandler\MySQL56\Statement
  *
- * @version 0A.30
+ * @version 00.A3
  * @since 18-08-26
  */
 
@@ -24,7 +24,8 @@ namespace GIndie\DBHandler\MySQL56\Statement\DataManipulation;
  * 
  * @link <https://dev.mysql.com/doc/refman/5.6/en/insert.html>
  *
- * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
+ * @edit 18-10-02
+ * - Upgraded version
  */
 class Insert extends DataManipulationStatement
 {

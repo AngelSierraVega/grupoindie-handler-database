@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\Components\Platform
  *
- * @version 0A.23
+ * @version 00.A2
  * @since 18-05-21
  */
 
@@ -20,6 +20,10 @@ use GIndie\Platform\View;
 /**
  * Module that handles the administration of predefined classes representing
  * Databases and Tables
+ * @edit 18-10-02
+ * - Upgraded version
+ * @todo
+ * - Check implementation
  */
 class ModuleDataModel extends \GIndie\Platform\Controller\Module
 {

@@ -1,28 +1,35 @@
 <?php
 
-namespace GIndie\DBHandler\MySQL56\Statement;
-
-use GIndie\DBHandler\MySQL\Statement\DataManipulation AS Traits;
-
 /**
- * DVLP-DBHandler - DataManipulation
+ * GI-DBHandler-DVLP - DataManipulation
  *
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
  * @package GIndie\DBHandler\MySQL56\Statement
  *
+ * @version 00.60
  * @since 18-02-15
+ */
+
+namespace GIndie\DBHandler\MySQL56\Statement;
+
+use GIndie\DBHandler\MySQL\Statement\DataManipulation AS Traits;
+
+/**
+ * 
  * @edit 18-02-15
  * - Defined traits
- * @version A0
  * @edit 18-05-03
  * - Factory class
  * - Created select()
  * - Moved traits to [current]\DataManipulation\DataManipulationStatement
- * @version 0A.30
  * @edit 18-08-26
- * - Added insert()
+ * - Created insert()
+ * @since 18-08-29
+ * - Created delete()
+ * @edit 18-10-02
+ * - Upgraded version
  */
 class DataManipulation
 {
@@ -82,6 +89,17 @@ class DataManipulation
     public static function insert(array $tableReferences, array $insertData)
     {
         return new DataManipulation\Insert($tableReferences, $insertData);
+    }
+
+    /**
+     * 
+     * @param array $tableReferences
+     * @return \GIndie\DBHandler\MySQL56\Statement\DataManipulation\Delete
+     * @since 18-08-29
+     */
+    public static function delete(array $tableReferences)
+    {
+        return new DataManipulation\Delete($tableReferences);
     }
 
 }
