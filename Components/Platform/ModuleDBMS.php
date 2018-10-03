@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\Components\Platform
  * 
- * @version 00.A2
+ * @version 00.A3
  * @since 18-03-21
  */
 
@@ -130,7 +130,7 @@ class ModuleDBMS extends \GIndie\Platform\Controller\Module
         $form->addSubmitOnChange();
         $tableSelectable = new \GIndie\ScriptGenerator\Dashboard\Tables\Selectable();
         $tableSelectable->addHeader(["#", "Database"]);
-        $query = \GIndie\DBHandler\MySQL56\Statement\DataManipulation\Show::databases();
+        $query = \GIndie\DBHandler\MySQL57\Statement\DataManipulation\Show::databases();
         $result = \GIndie\DBHandler\MySQL::query($query);
         foreach ($result->fetch_all(\MYSQLI_ASSOC) as $rowNumber => $assocArray) {
             $tableSelectable->addSelectableRow($assocArray["Database"], [$assocArray["Database"]]);

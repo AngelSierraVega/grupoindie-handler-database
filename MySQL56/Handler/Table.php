@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL56\
  *
- * @version 00.A5
+ * @version 00.A6
  * @since 18-08-05
  */
 
@@ -23,6 +23,9 @@ use GIndie\DBHandler\MySQL56\Instance;
  * - Upgraded delete()
  * @edit 18-10-02
  * - Upgraded version
+ * @edit 18-11-01
+ * - Moved stmSelect(), getAssocByAttribute(), getAssocById() from Deprecated\Mysql\Table
+ * @todo Validate moved methods
  */
 class Table
 {
@@ -222,7 +225,7 @@ class Table
             $query->addColumnDefinition("`{$columnName}` " . $columnDefinition->getColumnDefinition());
         }
         $query->setReferenceDefinition($this->getTable()->referenceDefinition()->getReferences());
-        //var_dump($query . "");
+//        var_dump($query . "");
         return \GIndie\DBHandler\MySQL56::query($query);
     }
 
@@ -247,6 +250,71 @@ class Table
     public function getTable()
     {
         return $this->table;
+    }
+
+    /**
+     * 
+     * @return \GIndie\DBHandler\MySQL\Statement\Select
+     * @since 18-02-15
+     * @edit 18-11-01
+     * - Moved from Deprecated\Mysql\Table
+     * @todo Upgrade
+     * @todo ¿deprecated?
+     */
+    public static function stmSelect()
+    {
+        return Statement::select(["*"], [static::schemaName() => static::name()]);
+    }
+
+    /**
+     * 
+     * @param string $attributeName
+     * @param mixed $attributeValue
+     * @return array
+     * 
+     * @since 18-02-22
+     * @edit 18-05-05
+     * - Simple error handling
+     * @edit 18-11-01
+     * - Moved from Deprecated\Mysql\Table
+     * @todo Upgrade
+     * @todo ¿deprecated?
+     */
+    public static function getAssocByAttribute($attributeName, $attributeValue)
+    {
+        $rtnArray = null;
+        $Select = static::stmSelect();
+        $Select->addConditionEquals($attributeName, $attributeValue);
+        $Query = \GIndie\DBHandler\MySQL::query($Select);
+        if ($Query) {
+            switch ($Query->num_rows)
+            {
+                case 0:
+                    break;
+                default:
+                    $rtnArray = $Query->fetch_assoc();
+            }
+        } else {
+            \trigger_error(\GIndie\DBHandler\MySQL::getConnection()->error, \E_USER_ERROR);
+        }
+        return $rtnArray;
+    }
+
+    /**
+     * 
+     * @param mixed $id
+     * @return array
+     * 
+     * @since 18-02-22
+     * @deprecated since 18-05-02
+     * @edit 18-11-01
+     * - Moved from Deprecated\Mysql\Table
+     * @todo Upgrade
+     * @todo ¿deprecated?
+     */
+    public static function getAssocById($id)
+    {
+        return static::getAssocByAttribute(static::primaryKeyName(), $id);
     }
 
 }

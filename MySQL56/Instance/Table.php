@@ -8,13 +8,13 @@
  *
  * @package GIndie\DBHandler\MySQL56\Instance
  *
- * @version 00.A4
+ * @version 00.A6
  * @since 18-04-30
  */
 
 namespace GIndie\DBHandler\MySQL56\Instance;
 
-use GIndie\DBHandler\HandlerDefinition\Instance;
+use GIndie\DBHandler\MySQL\DataDefinition\Identifiers;
 use GIndie\DBHandler\MySQL56\DataDefinition;
 
 /**
@@ -27,7 +27,7 @@ use GIndie\DBHandler\MySQL56\DataDefinition;
  * @edit 18-10-02
  * - Upgraded version
  */
-abstract class Table implements Instance\Table, DataDefinition\Identifiers\Table
+abstract class Table implements Identifiers\Table, DataDefinition\Identifiers\Table
 {
 
     /**

@@ -13,7 +13,7 @@ namespace GIndie\DBHandler;
  * @since 18-02-24
  * @edit 18-02-24
  * - Added code from GI-CMMN
- * @version 00.A9
+ * @version 00.93
  * @edit 18-05-19
  * - extends \GIndie\ProjectHandler\AbstractProjectHandler
  * @edit 18-10-02
@@ -54,6 +54,11 @@ class ProjectHandler extends \GIndie\ProjectHandler\AbstractProjectHandler
         $rtnArray[\hexdec("00.8D")]["description"] = "Functional framework implementation for deployer.";
         $rtnArray[\hexdec("00.8D")]["code"] = "DPLYR-Funct";
         $rtnArray[\hexdec("00.8D")]["threshold"] = "00.8D";
+        
+        //00.8D
+        $rtnArray[\hexdec("00.93")]["description"] = "Upgrade from MySQL56 to MySQL57.";
+        $rtnArray[\hexdec("00.93")]["code"] = "PGRD-MySQL57";
+        $rtnArray[\hexdec("00.93")]["threshold"] = "00.93";
 
         $rtnArray[\hexdec("00.B0")]["description"] = "Functional project for MMR-PRDL";
         $rtnArray[\hexdec("00.B0")]["code"] = "FP-MMR-PRDL";

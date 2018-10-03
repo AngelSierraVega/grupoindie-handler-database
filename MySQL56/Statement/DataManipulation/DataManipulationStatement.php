@@ -2,6 +2,8 @@
 
 namespace GIndie\DBHandler\MySQL56\Statement\DataManipulation;
 
+use GIndie\DBHandler\MySQL\Statement\Traits;
+
 /**
  * GI-DBHandler-DVLP - DataManipulationStatement
  * 
@@ -15,7 +17,7 @@ namespace GIndie\DBHandler\MySQL56\Statement\DataManipulation;
  * @since 18-05-03
  * - Abstract class
  * - Added traits
- * @version 00.A3
+ * @version 00.A4
  * @edit 18-10-02
  * - Upgraded version
  */

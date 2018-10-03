@@ -13,7 +13,7 @@ namespace GIndie\DBHandler\MySQL56\DataDefinition;
  * @package GIndie\DBHandler\DataDefinition\MySQL56\
  *
  * @since 18-04-29
- * @version UNDEFINED
+ * @version DEPRECATED
  */
 interface Column_References
 {

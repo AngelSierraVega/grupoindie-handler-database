@@ -332,6 +332,9 @@ class ColumnDefinition
         $rtnStr = $this->dataType->getDatatype();
         switch ($this->dataType->getDatatype())
         {
+            case DataType::DATATYPE_SERIAL:
+            case DataType::DATATYPE_DATE:
+                break;
             case DataType::DATATYPE_ENUM:
                 $rtnStr .= "(" . (\join(",", $this->dataType->getValues())) . ")";
                 break;
@@ -354,11 +357,12 @@ class ColumnDefinition
             case DataType::DATATYPE_CHAR:
             case DataType::DATATYPE_VARCHAR:
                 $rtnStr .= "({$this->dataType->getM()})";
+            case DataType::DATATYPE_TEXT:
                 $rtnStr .= !\is_null($this->dataType->getCharsetName()) ? " CHARACTER SET {$this->dataType->getCharsetName()}" : "";
                 $rtnStr .= !\is_null($this->dataType->getCollationName()) ? " COLLATE {$this->dataType->getCollationName()}" : "";
                 break;
             default:
-//                var_dump($this->dataType->getDatatype());
+                var_dump($this->dataType->getDatatype());
                 \trigger_error("@todo handle datatype", \E_USER_ERROR);
                 break;
         }

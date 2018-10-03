@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler
  *
- * @version 00.0A
+ * @version UNDEFINED
  * @since 18-08-16
  */
 

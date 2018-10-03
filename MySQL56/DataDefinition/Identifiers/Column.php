@@ -16,18 +16,22 @@ namespace GIndie\DBHandler\MySQL56\DataDefinition;
  *
  * @package GIndie\DBHandler\DataDefinition\MySQL56\
  *
- * @version 00.30
+ * @version DEPRECATED
  * @since 18-04-27
  * @edit 18-04-29
  * - Created interface
  * - Defined attributes
  * @edit 18-10-02
  * - Upgraded version
+ * @edit 18-11-02
+ * - Upgraded version
+ * @deprecated since 18-11-02
+ * 
  * @todo
  * - Verify deprecate
  * - Define references
  */
-interface Column
+interface ColumnDPR
 {
 
     /**
@@ -50,5 +54,4 @@ interface Column
      * @return string
      */
     public static function columnDefinition();
-    
 }

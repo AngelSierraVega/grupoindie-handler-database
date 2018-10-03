@@ -9,7 +9,7 @@
  * @package GIndie\DBHandler
  *
  * @since 18-05-01
- * @version 00.30
+ * @version 00.A0
  */
 
 namespace GIndie\DBHandler;

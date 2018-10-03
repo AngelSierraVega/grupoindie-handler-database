@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL56\Statement
  *
- * @version 00.A2
+ * @version 00.AA
  * @since 18-05-20
  */
 
@@ -58,10 +58,12 @@ class Show extends DataManipulationStatement
      * include names of directories that do not correspond to actual databases. 
      * 
      * @since 18-05-20
+     * @edit 18-11-02
+     * - Use constant
      */
     public static function databases()
     {
-        return new Show("DATABASES");
+        return new Show(static::DATABASES);
     }
 
     /**
@@ -70,8 +72,10 @@ class Show extends DataManipulationStatement
      * @param array $tableReferences
      * 
      * @since 18-05-20
+     * @edit 18-11-02
+     * - Changed method visibility
      */
-    public function __construct($showType)
+    private function __construct($showType)
     {
         $this->showType = $showType;
     }

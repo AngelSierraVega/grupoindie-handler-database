@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\DataDefinition\MySQL56\Statements
  *
- * @version 00.03
+ * @version 00.30
  * @since 18-05-20
  */
 
@@ -79,7 +79,7 @@ namespace GIndie\DBHandler\MySQL56\DataDefinition\Statements\DataManipulationSta
  * LIKE 'pattern'
  * | WHERE expr
  */
-interface Show
+interface Show extends Show\Databases
 {
 
     /**

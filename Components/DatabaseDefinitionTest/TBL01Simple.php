@@ -4,15 +4,15 @@
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (C) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package GIndie\DBHandler\Components\Test
+ * @package GIndie\DBHandler\Components
  * 
- * @version 00.70
+ * @version 00.AF
  * @since 18-04-30
  */
 
 namespace GIndie\DBHandler\Components\DatabaseDefinitionTest;
 
-use GIndie\DBHandler\MySQL56;
+use GIndie\DBHandler\MySQL57;
 
 /**
  *
@@ -25,7 +25,7 @@ use GIndie\DBHandler\MySQL56;
  * @todo 
  * - Functional columns()
  */
-class TBL01Simple extends MySQL56\Instance\Table
+class TBL01Simple extends MySQL57\Instance\Table
 {
 
     /**

@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL56\Instance
  *
- * @version 00.AA
+ * @version 00.AB
  * @since 18-08-20
  */
 
@@ -52,10 +52,21 @@ class ReferenceDefinition
      * @param string $reference
      * @return \GIndie\DBHandler\MySQL56\Instance\ReferenceDefinition
      * @since 18-08-20
+     * @edit 18-11-02
+     * - Handle array on reference
      */
     public function setPrimaryKey($reference)
     {
         $this->primaryKeyName = $reference;
+        switch (true)
+        {
+            case \is_array($reference):
+                $reference = \join("`,`", $reference);
+                break;
+
+            default:
+                break;
+        }
         $this->references[] = "PRIMARY KEY (`{$reference}`)";
         return $this;
     }

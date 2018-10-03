@@ -11,7 +11,7 @@ namespace GIndie\DBHandler\MySQL56\DataDefinition\Identifiers\Table\References;
  * @package GIndie\DBHandler\DataDefinition\MySQL56\
  *
  * @since 18-04-30
- * @version UNDEFINED
+ * @version DEPRECATED
  */
 interface ForeignKey
 {

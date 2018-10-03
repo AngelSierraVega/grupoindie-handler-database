@@ -11,7 +11,7 @@ namespace GIndie\DBHandler\MySQL56\Statement\DataDefinition;
  * @package GIndie\DBHandler\MySQL56\Statement
  *
  * @since 18-05-03
- * @version 00.0A
+ * @version UNDEFINED
  * @edit 18-10-02
  * - Upgraded version
  * @todo [Implement traits ]

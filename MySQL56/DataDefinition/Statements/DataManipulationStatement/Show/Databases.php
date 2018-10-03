@@ -37,11 +37,23 @@ namespace GIndie\DBHandler\MySQL56\DataDefinition\Statements\DataManipulationSta
  * @since 18-05-20
  * @edit 18-10-02
  * - Upgraded version
+ * @edit 18-11-02
+ * - Added constants
  * @todo
  * SHOW {DATABASES | SCHEMAS}
  *  [LIKE 'pattern' | WHERE expr]
  */
 interface Databases
 {
-    //put your code here
+
+    /**
+     * @since 18-11-02
+     */
+    const SCHEMAS = "SCHEMAS";
+
+    /**
+     * @since 18-11-02
+     */
+    const DATABASES = "DATABASES";
+
 }

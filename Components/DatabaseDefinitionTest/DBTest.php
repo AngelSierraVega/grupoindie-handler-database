@@ -4,15 +4,15 @@
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (C) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package GIndie\DBHandler\Components\Test
+ * @package GIndie\DBHandler\Components
  * 
- * @version 00.A3
+ * @version 00.AF
  * @since 18-04-30
  */
 
 namespace GIndie\DBHandler\Components\DatabaseDefinitionTest;
 
-use GIndie\DBHandler\MySQL56;
+use GIndie\DBHandler\MySQL57;
 
 /**
  * 
@@ -24,7 +24,7 @@ use GIndie\DBHandler\MySQL56;
  * - Upgraded version
  * - Created getTableClassnames()
  */
-class DBTest extends MySQL56\Instance\Database
+class DBTest extends MySQL57\Instance\Database
 {
 
     /**

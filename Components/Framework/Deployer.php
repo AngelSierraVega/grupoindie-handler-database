@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\Components\Framework
  *
- * @version 00.A0
+ * @version 00.A7
  * @since 18-07-26
  */
 
@@ -28,7 +28,8 @@ use GIndie\ScriptGenerator\Bootstrap3;
  * - Upgraded dsplyTables(), createDatabase(), dropDatabase()
  * @edit 18-10-02
  * - Upgraded version
- * 
+ * @edit 18-11-02
+ * - Upgraded use of MySQL57 instead of MySQL56
  */
 abstract class Deployer extends \GIndie\Framework\Controller
 {
@@ -118,11 +119,11 @@ abstract class Deployer extends \GIndie\Framework\Controller
     {
         $tmpTableClass = \urldecode($_POST["tableId"]);
         $tmpTableClass = $tmpTableClass::instance();
-        $tmpTableHandler = new \GIndie\DBHandler\MySQL56\Handler\Table($tmpTableClass);
+        $tmpTableHandler = new \GIndie\DBHandler\MySQL57\Handler\Table($tmpTableClass);
         $tmp = $tmpTableHandler->dropTable();
         $rtnWidget = static::widgetTable();
         if ($tmp !== true) {
-            $error = View\Alert::danger(\GIndie\DBHandler\MySQL56::getConnection()->error);
+            $error = View\Alert::danger(\GIndie\DBHandler\MySQL57::getConnection()->error);
             $rtnWidget->getHeadingBody()->addContent($error);
         }
         return $rtnWidget;
@@ -139,27 +140,34 @@ abstract class Deployer extends \GIndie\Framework\Controller
     {
         $tmpTableClass = \urldecode($_POST["tableId"]);
         $tmpTableClass = $tmpTableClass::instance();
-        $tmpTableHandler = new \GIndie\DBHandler\MySQL56\Handler\Table($tmpTableClass);
+        $tmpTableHandler = new \GIndie\DBHandler\MySQL57\Handler\Table($tmpTableClass);
         $tmp = $tmpTableHandler->createTable();
+        $error = null;
         if ($tmp !== true) {
-            $error = View\Alert::danger(\GIndie\DBHandler\MySQL56::getConnection()->error);
-        }
-        if (\count($tmpTableHandler->getTable()->defaultRecord()) > 0) {
-            $tmpArray = $tmpTableHandler->getTable()->defaultRecord();
-            if (isset($tmpArray[0])) {
-                if (\is_array($tmpArray[0])) {
-                    foreach ($tmpArray as $tmpRecord) {
-                        $tmpTableHandler->insert($tmpRecord);
+//            var_dump($tmp);
+            
+//            throw new \Exception(\GIndie\DBHandler\MySQL57::getConnection()->error);
+            $error = View\Alert::danger(\GIndie\DBHandler\MySQL57::getConnection()->error);
+        } else {
+            if (\count($tmpTableHandler->getTable()->defaultRecord()) > 0) {
+                $tmpArray = $tmpTableHandler->getTable()->defaultRecord();
+                if (isset($tmpArray[0])) {
+                    if (\is_array($tmpArray[0])) {
+                        foreach ($tmpArray as $tmpRecord) {
+                            $tmpTableHandler->insert($tmpRecord);
+                        }
+                    } else {
+                        throw new \Exception("todo handle defaultRecord definition");
                     }
                 } else {
-                    throw new \Exception("todo handle defaultRecord definition");
+                    $tmpTableHandler->insert($tmpArray);
                 }
-            } else {
-                $tmpTableHandler->insert($tmpArray);
             }
         }
+//        return "TEST";
         $rtnWidget = static::widgetTable();
-        if (isset($error)) {
+        if (!\is_null($error)) {
+//            return $error;
             $rtnWidget->getHeadingBody()->addContent($error);
         }
         return $rtnWidget;
@@ -185,7 +193,7 @@ abstract class Deployer extends \GIndie\Framework\Controller
             $row1 = $grid->addRowGP();
             $col_DBHandler = $row1->addColumnGP("col-md", 6);
             $col_DBHandler->addContent($dispDBHandler);
-            $connection = \GIndie\DBHandler\MySQL56::getConnection();
+            $connection = \GIndie\DBHandler\MySQL57::getConnection();
             $dispConnection = View\Table::displayArray(
                             ["stat" => $connection->stat()
                         , "get_client_info" => $connection->get_client_info()
@@ -215,7 +223,7 @@ abstract class Deployer extends \GIndie\Framework\Controller
         $table->addContent(View\FormInput::formPostOnSelf("selectDatabase"));
         $table->addHeader(["", "Database", "Validator"]);
         foreach (static::databases() as $databaseInstance) {
-            $manejador = new \GIndie\DBHandler\MySQL56\Handler\Database($databaseInstance);
+            $manejador = new \GIndie\DBHandler\MySQL57\Handler\Database($databaseInstance);
             $table->addRow(static::dsplyRowDatabase($manejador));
         }
         return $table;
@@ -223,11 +231,11 @@ abstract class Deployer extends \GIndie\Framework\Controller
 
     /**
      * 
-     * @param \GIndie\DBHandler\MySQL56\Handler\Database $databaseHandler
+     * @param \GIndie\DBHandler\MySQL57\Handler\Database $databaseHandler
      * @return array
      * @since 18-08-15
      */
-    private static function dsplyRowDatabase(\GIndie\DBHandler\MySQL56\Handler\Database $databaseHandler)
+    private static function dsplyRowDatabase(\GIndie\DBHandler\MySQL57\Handler\Database $databaseHandler)
     {
         $button = new \GIndie\ScriptGenerator\Bootstrap3\Component\Button("Select", "submit");
         $button->addClass("btn-sm");
@@ -293,11 +301,11 @@ abstract class Deployer extends \GIndie\Framework\Controller
 
     /**
      * 
-     * @param \GIndie\DBHandler\MySQL56\Handler\Database $dbHandler
+     * @param \GIndie\DBHandler\MySQL57\Handler\Database $dbHandler
      * @return \GIndie\ScriptGenerator\Dashboard\Alert
      * @since 18-08-15
      */
-    private static function dsplyValidatorDatabase(\GIndie\DBHandler\MySQL56\Handler\Database $dbHandler)
+    private static function dsplyValidatorDatabase(\GIndie\DBHandler\MySQL57\Handler\Database $dbHandler)
     {
         try {
             if ($dbHandler->execValidation()) {
@@ -346,7 +354,7 @@ abstract class Deployer extends \GIndie\Framework\Controller
         static::runFrameworkFormRequest();
         $tmpDBclass = \urldecode($_POST["databaseId"]);
         $tmpDBclass = new $tmpDBclass();
-        $tmpDBHandler = new \GIndie\DBHandler\MySQL56\Handler\Database($tmpDBclass);
+        $tmpDBHandler = new \GIndie\DBHandler\MySQL57\Handler\Database($tmpDBclass);
         $widget = new View\Widget("Database Model <b>" . \get_class($tmpDBclass) . "</b>", true, true, true);
         $dsplyValidator = static::dsplyValidatorDatabase($tmpDBHandler);
         $table = View\Table::displayArray(
@@ -369,11 +377,11 @@ abstract class Deployer extends \GIndie\Framework\Controller
 
     /**
      * 
-     * @param \GIndie\DBHandler\MySQL56\Handler\Table $tableHandler
+     * @param \GIndie\DBHandler\MySQL57\Handler\Table $tableHandler
      * @return \GIndie\Framework\View\Alert
      * @since 18-08-15
      */
-    private static function dsplyValidatorTable(\GIndie\DBHandler\MySQL56\Handler\Table $tableHandler)
+    private static function dsplyValidatorTable(\GIndie\DBHandler\MySQL57\Handler\Table $tableHandler)
     {
         try {
             if ($tableHandler->execValidation()) {
@@ -402,13 +410,13 @@ abstract class Deployer extends \GIndie\Framework\Controller
 
     /**
      * 
-     * @param \GIndie\DBHandler\MySQL56\Handler\Table $tableHandler
+     * @param \GIndie\DBHandler\MySQL57\Handler\Table $tableHandler
      * @return \GIndie\Framework\View\Table
      * @since 18-08-15
      * @edit 18-08-20
      * - Abstracted and renamed method
      */
-    private static function dsplyTableModelDefinition(\GIndie\DBHandler\MySQL56\Instance\Table $tableInstance)
+    private static function dsplyTableModelDefinition(\GIndie\DBHandler\MySQL57\Instance\Table $tableInstance)
     {
 //        $instance = $tableHandler->getTable();
         $tableDefinition = new View\Table();
@@ -421,11 +429,11 @@ abstract class Deployer extends \GIndie\Framework\Controller
 
     /**
      * 
-     * @param \GIndie\DBHandler\MySQL56\Instance\Table $tableInstance
+     * @param \GIndie\DBHandler\MySQL57\Instance\Table $tableInstance
      * @return \GIndie\Framework\View\Table
      * @since 18-08-20
      */
-    private static function dsplyTableModelColumns(\GIndie\DBHandler\MySQL56\Instance\Table $tableInstance)
+    private static function dsplyTableModelColumns(\GIndie\DBHandler\MySQL57\Instance\Table $tableInstance)
     {
         $span = \GIndie\ScriptGenerator\HTML5\Category\StylesSemantics::span();
         $tableColumns = View\Table::displayArray(
@@ -442,11 +450,11 @@ abstract class Deployer extends \GIndie\Framework\Controller
 
     /**
      * 
-     * @param \GIndie\DBHandler\MySQL56\Instance\Table $tableInstance
+     * @param \GIndie\DBHandler\MySQL57\Instance\Table $tableInstance
      * @return \GIndie\ScriptGenerator\HTML5\Category\StylesSemantics\Span
      * @since 18-08-20
      */
-    private static function dsplyTableModelReferenceDefinition(\GIndie\DBHandler\MySQL56\Instance\Table $tableInstance)
+    private static function dsplyTableModelReferenceDefinition(\GIndie\DBHandler\MySQL57\Instance\Table $tableInstance)
     {
         $span = \GIndie\ScriptGenerator\HTML5\Category\StylesSemantics::span();
         $tableColumns = View\Table::displayArray(
@@ -470,7 +478,7 @@ abstract class Deployer extends \GIndie\Framework\Controller
     {
         $tmpTableclass = \urldecode($_POST["tableId"]);
         $tmpTableclass = $tmpTableclass::instance();
-        $tmpTableHandler = new \GIndie\DBHandler\MySQL56\Handler\Table($tmpTableclass);
+        $tmpTableHandler = new \GIndie\DBHandler\MySQL57\Handler\Table($tmpTableclass);
         $widget = new View\Widget("Table Model <b>" . \get_class($tmpTableclass) . "</b>", true, true, true, true);
         $dsplyValidator = static::dsplyValidatorTable($tmpTableHandler);
         $widget->getBody()->addContent(static::dsplyTableModelDefinition($tmpTableclass));
@@ -510,11 +518,11 @@ abstract class Deployer extends \GIndie\Framework\Controller
 
     /**
      * 
-     * @param \GIndie\DBHandler\MySQL56\Handler\Table $tableHandler
+     * @param \GIndie\DBHandler\MySQL57\Handler\Table $tableHandler
      * @return \GIndie\Framework\View\Table
      * @since 18-08-16
      */
-    private static function dsplyTableColumns(\GIndie\DBHandler\MySQL56\Handler\Table $tableHandler)
+    private static function dsplyTableColumns(\GIndie\DBHandler\MySQL57\Handler\Table $tableHandler)
     {
         $table = View\Table::displayArray(
                         [], "DBMS columns"
@@ -542,7 +550,7 @@ abstract class Deployer extends \GIndie\Framework\Controller
      * @edit 18-09-29
      * - Use View\FormInput::buttonSubmitForm
      */
-    private static function dsplyTables(\GIndie\DBHandler\MySQL56\Handler\Database $dbHandler)
+    private static function dsplyTables(\GIndie\DBHandler\MySQL57\Handler\Database $dbHandler)
     {
         $table = View\Table::selectable();
         $table->addHeader(["", "Table", "Validator"]);
@@ -580,20 +588,20 @@ abstract class Deployer extends \GIndie\Framework\Controller
 
     /**
      * 
-     * @param \GIndie\DBHandler\MySQL56\Handler\Table $tableHandler
+     * @param \GIndie\DBHandler\MySQL57\Handler\Table $tableHandler
      * @return type
      * @since 18-08-07
      * @todo
      * - Upgrade row creation
      */
-    private static function constructRowDPR(\GIndie\DBHandler\MySQL56\Handler\Table $tableHandler)
+    private static function constructRowDPR(\GIndie\DBHandler\MySQL57\Handler\Table $tableHandler)
     {
         $tableHandler->execValidation();
         return [$tableHandler->getTable()->name(), "@todo"];
     }
 
     /**
-     * @return \GIndie\DBHandler\MySQL56\Instance\Database
+     * @return \GIndie\DBHandler\MySQL57\Instance\Database
      * @since 18-08-02
      */
     abstract protected static function databases();
@@ -618,8 +626,8 @@ abstract class Deployer extends \GIndie\Framework\Controller
     {
         $tmpDBclass = \urldecode($_POST["databaseId"]);
         $tmpDBclass = new $tmpDBclass();
-        $tmpDBHandler = new \GIndie\DBHandler\MySQL56\Handler\Database($tmpDBclass);
-        return \GIndie\DBHandler\MySQL56::query($tmpDBHandler->stmCreate());
+        $tmpDBHandler = new \GIndie\DBHandler\MySQL57\Handler\Database($tmpDBclass);
+        return \GIndie\DBHandler\MySQL57::query($tmpDBHandler->stmCreate());
 //        return static::widgetDatabase();
     }
 
@@ -641,8 +649,8 @@ abstract class Deployer extends \GIndie\Framework\Controller
     {
         $tmpDBclass = \urldecode($_POST["databaseId"]);
         $tmpDBclass = new $tmpDBclass();
-        $tmpDBHandler = new \GIndie\DBHandler\MySQL56\Handler\Database($tmpDBclass);
-        return \GIndie\DBHandler\MySQL56::query($tmpDBHandler->stmDrop());
+        $tmpDBHandler = new \GIndie\DBHandler\MySQL57\Handler\Database($tmpDBclass);
+        return \GIndie\DBHandler\MySQL57::query($tmpDBHandler->stmDrop());
 //        return static::widgetDatabase();
     }
 

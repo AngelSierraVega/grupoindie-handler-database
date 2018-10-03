@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\Components\Platform
  *
- * @version 00.A2
+ * @version 00.A3
  * @since 18-05-21
  */
 
@@ -24,6 +24,7 @@ use GIndie\Platform\View;
  * - Upgraded version
  * @todo
  * - Check implementation
+ * 
  */
 class ModuleDataModel extends \GIndie\Platform\Controller\Module
 {
@@ -66,7 +67,7 @@ class ModuleDataModel extends \GIndie\Platform\Controller\Module
     }
 
     /**
-     * @var GIndie\DBHandler\MySQL56\DataDefinition\Identifiers\Database|null The instance of the
+     * @var GIndie\DBHandler\MySQL57\DataDefinition\Identifiers\Database|null The instance of the
      * currently selected database.
      */
     private $currentDatabase;

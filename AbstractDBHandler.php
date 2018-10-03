@@ -8,8 +8,8 @@
  *
  * @package GIndie\DBHandler
  *
- * @version 00.A3
- * @since 18-07-26
+ * @version 00.A5
+ * @since 18-02-14
  */
 
 namespace GIndie\DBHandler;
@@ -20,7 +20,7 @@ namespace GIndie\DBHandler;
  * 
  * @abstract
  * @edit 18-07-26
- * - Added code from Deprecated/MySQL
+ * - Moved code from Deprecated/MySQL
  * @edit 18-10-02
  * - Upgraded version
  */
