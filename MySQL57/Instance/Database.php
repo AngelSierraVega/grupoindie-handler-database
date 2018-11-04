@@ -40,23 +40,29 @@ abstract class Database implements DataDefinition\Identifiers\Database
     }
 
     /**
+     * 
+     * @return string
      * @since 18-04-06
      * - Added from ..\MySQL\Schema
-     * @return string
+     * @edit 18-11-11
+     * - Default to utf8mb4
      */
     public static function charset()
     {
-        return "utf8";
+        return "utf8mb4";//utf8
     }
 
     /**
+     * 
+     * @return string
      * @since 18-04-06
      * - Added from ..\MySQL\Schema
-     * @return string
+     * @edit 18-11-11
+     * - Default to utf8mb4_unicode_ci
      */
     public static function collation()
     {
-        return "utf8_general_ci";
+        return "utf8mb4_unicode_ci";//utf8_general_ci
     }
 
     /**

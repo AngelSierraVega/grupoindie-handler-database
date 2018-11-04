@@ -6,7 +6,7 @@
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
  * @package GIndie\DBHandler\MySQL\Statement
- * 
+ * @version 00.B0
  */
 
 namespace GIndie\DBHandler\MySQL\Statement\Traits;
@@ -20,12 +20,10 @@ namespace GIndie\DBHandler\MySQL\Statement\Traits;
  * @since 18-02-15
  * @edit 18-02-15
  * - Created $orderBy, renderOrderBy(), addOrderBy()
- * @version A0
  * @edit 18-05-03
  * - Moved file from [base_dir]\MySQL\Statement to [base_dir]\MySQL56\Statement\DataManipulation\Traits
  * - Updated namespace
  * - Updated trait name due to PSR-0 Violation
- * @version 00.AA
  * @edit 18-10-02
  * - Upgraded version
  * @edit 18-11-02
@@ -37,15 +35,30 @@ trait OrderByTrait
     /**
      * 
      * @param mixed $expr
-     * @param boolean $asc
+     * @param boolean|null $asc
      * 
      * @return $this
      * 
      * @since 18-02-15
+     * @edit 18-12-24
+     * - Handle null $asc value
      */
     public function addOrderBy($expr, $asc = true)
     {
-        $this->orderBy[] = $asc ? "{$expr} ASC" : "{$expr} DESC";
+        $tmpOrder;
+        switch (true)
+        {
+            case \is_null($asc):
+                $tmpOrder = "";
+                break;
+            case $asc:
+                $tmpOrder = " ASC";
+                break;
+            default:
+                $tmpOrder = " DESC";
+                break;
+        }
+        $this->orderBy[] = "{$expr}{$tmpOrder}";
         return $this;
     }
 

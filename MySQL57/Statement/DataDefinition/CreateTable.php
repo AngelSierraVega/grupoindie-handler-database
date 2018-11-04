@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL57\Statement
  *
- * @version 00.90
+ * @version 00.97
  * @since 18-08-15
  * @todo Upgrade DocBlock to MySQL57
  */
@@ -109,15 +109,18 @@ class CreateTable extends DataDefinitionStatement
      * 
      * @return string
      * @since 18-08-15
+     * @edit 18-11-11
+     * - Remove [IF NOT EXISTS] 
+     * @todo Charset and collate from database
      */
     public function __toString()
     {
-        $rtnStr = "CREATE TABLE IF NOT EXISTS ";
+        $rtnStr = "CREATE TABLE ";
         $rtnStr .= isset($this->databaseName) ? "`{$this->databaseName}`.`{$this->tableName}` " : "`{$this->tableName}` ";
         $rtnStr .= "(" . \join(",", $this->columnDefinition);
         $rtnStr .= \count($this->referenceDefinition) > 0 ? "," . \join(",", $this->referenceDefinition) : "";
         $rtnStr .= ") ";
-        $rtnStr .= "ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+        $rtnStr .= "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;";
         return $rtnStr;
     }
 

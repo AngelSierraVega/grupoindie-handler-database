@@ -63,9 +63,9 @@ class Database
                 throw \GIndie\DBHandler\ExceptionDBHandler::databaseNotFound($this->database->name());
             //check if charset and collation are correctly defined
             case (\strcmp($array["DEFAULT_CHARACTER_SET_NAME"], $this->database->charset()) == 0):
-                throw \GIndie\DBHandler\ExceptionDBHandler::invalidDefinition("DEFAULT_CHARACTER_SET_NAME", static::charset(), $array["DEFAULT_CHARACTER_SET_NAME"]);
+                throw \GIndie\DBHandler\ExceptionDBHandler::invalidDefinition("DEFAULT_CHARACTER_SET_NAME", $this->database->charset(), $array["DEFAULT_CHARACTER_SET_NAME"]);
             case (\strcmp($array["DEFAULT_COLLATION_NAME"], $this->database->collation()) == 0):
-                throw \GIndie\DBHandler\ExceptionDBHandler::invalidDefinition("DEFAULT_COLLATION_NAME", static::collation(), $array["DEFAULT_COLLATION_NAME"]);
+                throw \GIndie\DBHandler\ExceptionDBHandler::invalidDefinition("DEFAULT_COLLATION_NAME", $this->database->collation(), $array["DEFAULT_COLLATION_NAME"]);
         }
         return true;
     }

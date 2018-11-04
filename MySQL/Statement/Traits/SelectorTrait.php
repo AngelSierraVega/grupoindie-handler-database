@@ -52,6 +52,8 @@ trait SelectorTrait
      * @return $this
      * 
      * @since 18-02-15
+     * @edit 18-11-15
+     * - Upgraded behaviour when is nested array
      */
     public function setSelectors(array $selectors)
     {
@@ -60,8 +62,12 @@ trait SelectorTrait
             switch (true)
             {
                 case \is_array($value):
-                    foreach ($value as $tmpValue) {
-                        $this->selectors["{$key}.{$tmpValue}"] = "`{$key}`.`{$tmpValue}`";
+                    foreach ($value as $tmpKey => $tmpValue) {
+                        if(\is_int($key)){
+                            $this->selectors["{$tmpKey}.{$tmpValue}"] = "`{$tmpKey}`.`{$tmpValue}`";
+                        }else{
+                            $this->selectors["{$key}.{$tmpValue}"] = "`{$key}`.`{$tmpValue}`";
+                        }
                     }
                     break;
                 case \is_int($key):

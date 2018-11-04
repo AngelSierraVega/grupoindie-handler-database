@@ -6,7 +6,7 @@
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
  * @package GIndie\DBHandler\MySQL\Statement
- * @version 00.10
+ * @version 00.B0
  */
 
 namespace GIndie\DBHandler\MySQL\Statement\Traits;
@@ -31,6 +31,8 @@ namespace GIndie\DBHandler\MySQL\Statement\Traits;
  * - Upgraded version
  * @edit 18-11-02
  * - Moved from MySQL56\...
+ * @edit 18-12-24
+ * - Funciontal trait
  */
 trait HavingTrait
 {
@@ -38,21 +40,32 @@ trait HavingTrait
     /**
      * 
      * @since 18-02-15
-     * @todo
+     * @edit 18-12-24
+     * - Funciontal method
      */
-    public function setHaving()
+    public function setHaving($expr)
     {
-        return "";
+        $this->having[] = "{$expr}";
+        return $this;
     }
 
     /**
      * 
      * @return string
      * @since 18-02-15
+     * @edit 18-12-24
+     * - Funciontal method
      */
     public function renderHaving()
     {
-        return "";
+        return \count($this->having) == 0 ? "" : " HAVING " . \join(", ", $this->having);
     }
+
+    /**
+     *
+     * @var array 
+     * @since 18-12-24
+     */
+    private $having = [];
 
 }

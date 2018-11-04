@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL57\Instance
  *
- * @version 00.AA
+ * @version 00.C0
  * @since 18-11-02
  * @todo Upgrade DocBlock
  */
@@ -23,6 +23,10 @@ namespace GIndie\DBHandler\MySQL57\Instance;
  * - Upgraded version
  * @edit 18-11-02
  * - Copied code from \GIndie\DBHandler\MySQL56\...
+ * @edit 18-11-06
+ * - Handles foreing keys on custom column
+ * @edit 18-11-07
+ * - Created addIndex()
  */
 class ReferenceDefinition
 {
@@ -58,7 +62,7 @@ class ReferenceDefinition
      * @edit 18-11-02
      * - Handle array on reference
      */
-    public function setPrimaryKey($reference)
+    public function setPrimaryKey($reference, $orderIndex = false)
     {
         $this->primaryKeyName = $reference;
         switch (true)
@@ -70,7 +74,9 @@ class ReferenceDefinition
             default:
                 break;
         }
-        $this->references[] = "PRIMARY KEY (`{$reference}`)";
+        $tmp = "PRIMARY KEY (`{$reference}`";
+        $tmp .= $orderIndex !== false ? " {$orderIndex})" : ")";
+        $this->references[] = $tmp;
         return $this;
     }
 
@@ -111,15 +117,22 @@ class ReferenceDefinition
     /**
      * 
      * @param \GIndie\DBHandler\MySQL56\Instance\Table $tableInstance
+     * @param string|array $columnName
+     * 
      * @return string
+     * 
      * @since 18-08-20
      * @edit 18-08-27
+     * @edit 18-11-06
+     * - Added param $columnName
+     * - Use new param $columnName
      */
-    private function formatedReference(Table $tableInstance)
+    private function formatedReference(Table $tableInstance, $columnName)
     {
-        $rtnStr = " REFERENCES `" . $tableInstance->name() . "` ";
-        $pkName = $tableInstance::referenceDefinition()->getPrimaryKeyName();
-        $rtnStr .= $this->formatedColName($pkName);
+        $dbName = $tableInstance->databaseName();
+        $rtnStr = " REFERENCES `{$dbName}`.`" . $tableInstance->name() . "` ";
+//        $pkName = $tableInstance::referenceDefinition()->getPrimaryKeyName();
+        $rtnStr .= $this->formatedColName($columnName);
         return $rtnStr;
     }
 
@@ -127,14 +140,37 @@ class ReferenceDefinition
      * [CONSTRAINT [symbol]] FOREIGN KEY
      * [index_name] (col_name,...) reference_definition
      * @param string $colName
-     * @param \GIndie\DBHandler\MySQL57\Instance\Table $tableInstance
+     * @param string|array $tableClass If string construct foreing key of class
+     *      if array [$tableClass => $referenceColumn]
      * @param boolean|string $symbol
      * @return \GIndie\DBHandler\MySQL57\Instance\ReferenceDefinition
      * @throws \Exception
      * @since 18-08-20
+     * @edit 18-11-03
+     * - Param $tableInstance is now string
+     * @edit 18-11-06
+     * - Renamed param from $tableInstance to $tableClass
+     * - Handles $tableClass is array
+     * @edit 18-12-03
+     * - Debuged foreign key
      */
-    public function addForeignKey($colName, Table $tableInstance, $symbol = false, $onDelete = "RESTRICT", $onUpdate = "NO ACTION")
+    public function addForeignKey($colName, $tableClass, $symbol = false, $onDelete = "RESTRICT", $onUpdate = "NO ACTION")
     {
+        if (\is_array($tableClass)) {
+//            var_dump($tableClass);
+            $referenceColumn = \array_values($tableClass)[0];
+            $tableClass = \array_keys($tableClass)[0];
+//            var_dump($tableClass);
+        }
+        if (\is_string($tableClass)) {
+            if (\is_a($tableClass, Table::class, true)) {
+                $tableInstance = $tableClass::instance();
+                $tableInstance->columns();
+            }
+        } else {
+            \trigger_error("tableClass should be string, called in " . \get_called_class(),
+                \E_USER_ERROR);
+        }
         $formatedColumn = "(`{$colName}`)";
         switch (true)
         {
@@ -142,16 +178,41 @@ class ReferenceDefinition
                 throw new \Exception("@todo");
                 break;
             case ($symbol === false):
-                $this->references[] = "FOREIGN KEY {$formatedColumn}" . $this->formatedReference($tableInstance) . " ON DELETE {$onDelete} ON UPDATE {$onUpdate}";
+                if (!isset($referenceColumn)) {
+                    $referenceColumn = $tableInstance::referenceDefinition()->getPrimaryKeyName();
+                }
+                $this->references[] = "FOREIGN KEY {$formatedColumn}" .
+                    $this->formatedReference($tableInstance, $referenceColumn) .
+                    " ON DELETE {$onDelete} ON UPDATE {$onUpdate}";
                 break;
             case \is_string($symbol):
-                $this->references[] = "CONSTRAINT `{$symbol}` FOREIGN KEY {$formatedColumn}" . $this->formatedReference($tableInstance) . " ON DELETE {$onDelete} ON UPDATE {$onUpdate}";
+                if (!isset($referenceColumn)) {
+                    $referenceColumn = $tableInstance::referenceDefinition()->getPrimaryKeyName();
+                }
+                if (!isset($referenceColumn)) {
+                    \trigger_error("PK not found for {$tableClass}", \E_USER_ERROR);
+                }
+                $this->references[] = "CONSTRAINT `{$symbol}` FOREIGN KEY {$formatedColumn}" .
+                    $this->formatedReference($tableInstance, $referenceColumn) .
+                    " ON DELETE {$onDelete} ON UPDATE {$onUpdate}";
                 break;
             default:
                 throw new \Exception("Unrecognized type for {$symbol}");
                 break;
         }
         return $this;
+    }
+
+    /**
+     * 
+     * @param type $columnName
+     * @param type $indexName
+     * @since 18-11-07
+     */
+    public function addIndex($columnName, $indexName)
+    {
+        $this->references[] = "INDEX `{$indexName}` (`{$columnName}`)";
+        //`predio_n_cta` (`id_cuenta`)
     }
 
     /**

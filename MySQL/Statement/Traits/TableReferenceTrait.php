@@ -39,7 +39,7 @@ trait TableReferenceTrait
      */
     protected function renderTableReferences()
     {
-        return "" . \join(", ", $this->tableReferences);
+        return "" . \join(" ", $this->tableReferences);
     }
 
     /**
@@ -51,12 +51,19 @@ trait TableReferenceTrait
     public function setTableReferences(array $tableReferences)
     {
         $this->tableReferences = [];
+//        var_dump($tableReferences);
         foreach ($tableReferences as $key => $value) {
             switch (true)
             {
                 case \is_array($value):
                     foreach ($value as $tmpValue) {
-                        $this->tableReferences["{$key}.{$tmpValue}"] = "`{$key}`.`{$tmpValue}`";
+                        if (\substr_count($tmpValue, "LEFT JOIN") > 0) {
+                            $this->tableReferences["{$key}.{$tmpValue}"] = "{$tmpValue}";
+//                        }if (\substr_count($tmpValue, "LEFT OUTER JOIN") > 0) {
+//                            $this->tableReferences["{$key}.{$tmpValue}"] = "{$tmpValue}";
+                        } else {
+                            $this->tableReferences["{$key}.{$tmpValue}"] = "`{$key}`.`{$tmpValue}`";
+                        }
                     }
                     break;
                 case \is_int($key):
@@ -67,6 +74,7 @@ trait TableReferenceTrait
                     break;
             }
         }
+//        var_dump($this->tableReferences);
         return $this;
     }
 

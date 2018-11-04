@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL57\Instance
  *
- * @version 00.50
+ * @version 00.60
  * @since 18-10-03
  */
 
@@ -320,6 +320,8 @@ class ColumnDefinition
      * 
      * @return string
      * @since 18-10-02
+     * @edit 18-11-04
+     * - Handle DATATYPE_DATETIME
      */
     protected function getColumnDefinitionDataType()
     {
@@ -339,6 +341,7 @@ class ColumnDefinition
                 $rtnStr .= ($this->dataType->getUnsigned()) ? " UNSIGNED" : "";
                 $rtnStr .= ($this->dataType->getZerofill()) ? " ZEROFILL" : "";
                 break;
+            case Datatype::DATATYPE_DATETIME:
             case DataType::DATATYPE_TIMESTAMP:
             case DataType::DATATYPE_TIME:
                 $rtnStr .= !\is_null($this->dataType->getFSP()) ? "({$this->dataType->getFSP()})" : "";
@@ -367,6 +370,8 @@ class ColumnDefinition
      * 
      * @return string
      * @since 18-10-02
+     * @edit 18-11-02
+     * - Handle default value now()
      */
     protected function getColumnDefinitionDefault()
     {
@@ -380,6 +385,7 @@ class ColumnDefinition
                 case \is_string($this->default) === true:
                     switch ($this->default)
                     {
+                        case "now()":
                         case "NULL":
                             $rtnStr .= " DEFAULT " . $this->default;
                             break;

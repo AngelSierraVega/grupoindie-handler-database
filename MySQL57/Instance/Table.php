@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL57\Instance
  *
- * @version 00.AA
+ * @version 00.BA
  * @since 18-10-11
  */
 
@@ -16,6 +16,7 @@ namespace GIndie\DBHandler\MySQL57\Instance;
 
 use GIndie\DBHandler\MySQL\DataDefinition\Identifiers;
 use GIndie\DBHandler\MySQL57\DataDefinition;
+use GIndie\DBHandler\MySQL57\Statement;
 
 /**
  * @edit 18-07-31
@@ -28,9 +29,121 @@ use GIndie\DBHandler\MySQL57\DataDefinition;
  * - Upgraded version
  * @edit 18-11-02
  * - Copied code from \GIndie\DBHandler\MySQL56\...
+ * @edit 18-11-15
+ * - Created sttmtSelect(), getTableReference(), groupBy()
+ * @todo validate created methods
  */
 abstract class Table implements Identifiers\Table, DataDefinition\Identifiers\Table
 {
+
+    /**
+     * 
+     * @param array $selectors
+     * @param array $conditions
+     * @param array $params
+     * @return type
+     * @since 18-11-16
+     * @todo Handle conditions
+     * @edit 18-12-24
+     * - Handle params
+     */
+    public static function fetchAssoc(array $selectors = ["*"], array $conditions = [], array $params = [])
+    {
+        $select = static::sttmtSelect($selectors);
+        foreach ($conditions as $condition) {
+            switch (true)
+            {
+                case \is_array($condition):
+                    $expr1 = \array_keys($condition)[0];
+                    $expr2 = \array_values($condition)[0];
+                    $select->addConditionEquals($expr1, $expr2);
+                    break;
+                default:
+//                    var_dump($condition."");
+                    $select->addCondition($condition);
+                    break;
+            }
+        }
+        foreach ($params as $type => $expr) {
+            switch (true)
+            {
+                case $type === "GROUP BY":
+                    $select->addGroupBy($expr);
+                    break;
+                case $type === "ORDER BY":
+                    $select->addOrderBy($expr, null);
+                    break;
+                case $type === "HAVING":
+                    $select->setHaving($expr);
+                    break;
+                case $type === "LIMIT":
+                    $select->setLimit($expr);
+                    break;
+                default:
+                    $select->appendText($expr);
+//                    \trigger_error("@todo", \E_USER_ERROR);
+                    break;
+            }
+        }
+//        var_dump($select . "");
+        $result = \GIndie\DBHandler\MySQL57::query($select);
+        if ($result == false) {
+
+            \trigger_error(\GIndie\DBHandler\MySQL57::getConnection()->error . " query " . $select,
+                \E_USER_ERROR);
+        }
+        $rtnArray = [];
+        while ($row = $result->fetch_assoc()) {
+            $rtnArray[$row[static::PRIMARY_KEY]] = $row;
+        }
+        unset($select);
+        unset($result);
+        return $rtnArray;
+    }
+
+    /**
+     * 
+     * @return \GIndie\DBHandler\MySQL57\Statement\DataManipulation\Select
+     * @since 18-11-15
+     */
+    public static function sttmtSelect($selectors = ["*"])
+    {
+//        Statement\DataManipulation::
+        return Statement\DataManipulation::select($selectors, static::getTableReference());
+    }
+
+    /**
+     * 
+     * @return array
+     * @since 18-11-15
+     */
+    public static function getTableReference()
+    {
+        return [static::databaseName() => static::name()];
+    }
+
+    /**
+     * 
+     * @return type
+     * @since 18-11-15
+     */
+    public static function groupBy()
+    {
+        return null;
+    }
+
+    /**
+     * Alias for columnDefinition()
+     * 
+     * @param string $name
+     * @param \GIndie\DBHandler\MySQL57\DataDefinition\Identifiers\Column\Definition\DataType $dataType
+     * @return \GIndie\DBHandler\MySQL57\Instance\ColumnDefinition
+     * @since 18-11-03
+     */
+    public static function clmnDfntn($name, \GIndie\DBHandler\MySQL57\DataDefinition\Identifiers\Column\Definition\DataType $dataType = null)
+    {
+        return static::columnDefinition($name, $dataType);
+    }
 
     /**
      * 
@@ -58,18 +171,27 @@ abstract class Table implements Identifiers\Table, DataDefinition\Identifiers\Ta
     /**
      * Gets the DataType object of the primary key of a given Table
      * 
-     * @param type $className
-     * @return \GIndie\DBHandler\MySQL56\Instance\DataType
+     * @param string|null $className
+     * @return \GIndie\DBHandler\MySQL57\Instance\DataType
      * @since 18-09-02
+     * @edit 18-11-19
+     * - Default $className = null
      */
-    protected static function getPKDataType($className)
+    protected static function getPKDataTypeDPR($className = null)
     {
-        if (!\is_subclass_of($className, \GIndie\DBHandler\MySQL57\Instance\Table::class)) {
-            \trigger_error("{$className} Is not subclass of \\GIndie\\DBHandler\\MySQL57\\Instance\\Table", \E_USER_ERROR);
+        if (!\is_null($className)) {
+            if (!\is_subclass_of($className, \GIndie\DBHandler\MySQL57\Instance\Table::class)) {
+                \trigger_error("{$className} Is not subclass of \\GIndie\\DBHandler\\MySQL57\\Instance\\Table",
+                    \E_USER_ERROR);
+            }
+            $instance = $className::instance();
+//            $instance->columns();
+//            $dataType = $instance::columnDefinition($instance::PRIMARY_KEY)->getDataType();
+        } else {
+            $instance = static::instance();
+//            $instance->columns();
         }
-        $instance = $className::instance();
-        $instance->columns();
-        $dataType = $instance::columnDefinition($instance::PRIMARY_KEY)->getDataType();
+        $dataType = static::columnDefinition($instance::PRIMARY_KEY)->getDataType();
         switch ($dataType->getDatatype())
         {
             case DataType::DATATYPE_SERIAL:
@@ -157,11 +279,27 @@ abstract class Table implements Identifiers\Table, DataDefinition\Identifiers\Ta
     protected static $referenceDefinition = [];
 
     /**
+     * Alias for referenceDefinition()
+     * 
+     * @return \GIndie\DBHandler\MySQL57\Instance\ReferenceDefinition
+     * @since 18-11-03
+     */
+    public static function rfrncDfntn()
+    {
+        return static::referenceDefinition();
+    }
+
+    /**
      * @return \GIndie\DBHandler\MySQL57\Instance\ReferenceDefinition
      * @since 18-08-20
+     * @edit 18-12-03
+     * - Execute tableDefinition() if undefined
      */
     public static function referenceDefinition()
     {
+        if (!isset(static::$columns[static::class])) {
+            static::tableDefinition();
+        }
         if (!isset(static::$referenceDefinition[static::class])) {
             static::$referenceDefinition[static::class] = new ReferenceDefinition();
         }

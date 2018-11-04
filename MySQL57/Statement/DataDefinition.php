@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL57\Statement
  *
- * @version 00.75
+ * @version 00.7A
  * @since 18-04-07
  * @todo Upgrade DocBlock
  */
@@ -34,6 +34,18 @@ namespace GIndie\DBHandler\MySQL57\Statement;
  */
 class DataDefinition
 {
+
+    /**
+     * 
+     * @param string $tableName
+     * @return \GIndie\DBHandler\MySQL57\Statement\DataDefinition\AlterTable
+     * 
+     * @since 18-11-16
+     */
+    public static function alterTable($tableName)
+    {
+        return new DataDefinition\AlterTable($tableName);
+    }
 
     /**
      * 

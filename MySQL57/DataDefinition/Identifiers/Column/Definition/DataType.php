@@ -10,7 +10,7 @@
  *
  * @version 00.90
  * @since 18-11-02
- * @todo Upgrade DocBlock to MySQL57
+ * @todo Move back constructors into DataDefinition\DataTypes\...
  */
 
 namespace GIndie\DBHandler\MySQL57\DataDefinition\Identifiers\Column\Definition;
@@ -19,15 +19,11 @@ namespace GIndie\DBHandler\MySQL57\DataDefinition\Identifiers\Column\Definition;
  * 
  * @edit 18-11-02
  * - Copied code from GIndie\DBHandler\MySQL56\...
+ * @edit 18-11-11
+ * - Moved back constructors to DataDefinition\DataTypes\StringDataTypes
  */
 interface DataType
 {
-
-    /**
-     * @param int|null $m
-     * @since 18-08-02
-     */
-    public static function blob($m = null);
 
     /**
      * @param int $m
@@ -101,78 +97,6 @@ interface DataType
      * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\DataTypes\DateTime
      */
     public static function date();
-
-    /**
-     * @param int $m
-     * @param string|null $charsetName
-     * @param string|null $collationName
-     * 
-     * @since 18-02-14
-     * - Added from \GIndie\DBHandler\MySQL\Table\Column
-     * @edit 18-04-27
-     * - Defined interface
-     * @edit 18-04-30
-     * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\DataTypes\String
-     */
-    public static function char($m, $charsetName = null, $collationName = null);
-
-    /**
-     * @param int $m
-     * @param string|null $charsetName
-     * @param string|null $collationName
-     * 
-     * @since 18-02-14
-     * - Added from \GIndie\DBHandler\MySQL\Table\Column
-     * @edit 18-04-27
-     * - Defined interface
-     * @edit 18-04-30
-     * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\DataTypes\String
-     */
-    public static function varchar($m, $charsetName = null, $collationName = null);
-
-    /**
-     * @param int $m
-     * @param string|null $charsetName
-     * @param string|null $collationName
-     * 
-     * @since 18-02-14
-     * - Added from \GIndie\DBHandler\MySQL\Table\Column
-     * @edit 18-04-27
-     * - Defined interface
-     * @edit 18-04-30
-     * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\DataTypes\String
-     */
-    public static function tinytext($m, $charsetName = null, $collationName = null);
-
-    /**
-     * @param int|null $m
-     * @param string|null $charsetName
-     * @param string|null $collationName
-     * 
-     * @since 18-02-14
-     * - Added from \GIndie\DBHandler\MySQL\Table\Column
-     * @edit 18-04-27
-     * - Defined interface
-     * @edit 18-04-30
-     * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\DataTypes\string
-     * @edit 18-08-15
-     * - Default null value for $m
-     */
-    public static function text($m = null, $charsetName = null, $collationName = null);
-
-    /**
-     * @param array $values
-     * @param null|string $charsetName
-     * @param null|string $collationName
-     * 
-     * @since 18-02-14
-     * - Added from \GIndie\DBHandler\MySQL\Table\Column
-     * @edit 18-04-27
-     * - Defined interface
-     * @edit 18-04-30
-     * - Added from \GIndie\DBHandler\MySQL56\DataDefinition\DataTypes\string
-     */
-    public static function enum(array $values, $charsetName = null, $collationName = null);
 
     /**
      * @since 18-04-30

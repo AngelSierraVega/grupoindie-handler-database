@@ -8,9 +8,10 @@
  *
  * @package GIndie\DBHandler\MySQL57\Statement
  *
- * @version 00.90
+ * @version 00.BA
  * @since 18-02-14
  * @todo Upgrade DocBlock
+ * @todo select must not require table references
  */
 
 namespace GIndie\DBHandler\MySQL57\Statement\DataManipulation;
@@ -45,6 +46,26 @@ class Select extends DataManipulationStatement
     }
 
     /**
+     *
+     * @var string Temporal appended text
+     * @since 18-12-25
+     * @todo Deprecate
+     */
+    private $appendedText = "";
+
+    /**
+     * 
+     * @param string $text
+     * @return \GIndie\DBHandler\MySQL57\Statement\DataManipulation\Select
+     * @since 18-12-25
+     */
+    public function appendText($text)
+    {
+        $this->appendedText .= " " . $text;
+        return $this;
+    }
+
+    /**
      * 
      * @return string
      * 
@@ -55,8 +76,8 @@ class Select extends DataManipulationStatement
     public function __toString()
     {
         return "SELECT" . $this->renderSelectors() . " FROM " . $this->renderTableReferences() .
-                $this->renderWhereClause() . $this->renderGroupBy() . $this->renderHaving() .
-                $this->renderOrderBy() . $this->renderLimit() . ";";
+            $this->renderWhereClause() . $this->renderGroupBy() . $this->renderHaving() .
+            $this->renderOrderBy() . $this->renderLimit() . $this->appendedText . ";";
     }
 
 }

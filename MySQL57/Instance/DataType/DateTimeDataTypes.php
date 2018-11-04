@@ -1,40 +1,49 @@
 <?php
 
 /**
- * GI-DBHandler-DVLP - DateTime
+ * GI-DBHandler-DVLP - DateTimeDataTypes
  *
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (c) 2018 Angel Sierra Vega. Grupo INDIE.
  *
- * @package GIndie\DBHandler\MySQL57\DataDefinition
+ * @package GIndie\DBHandler\MySQL57\Instance
  *
- * @version 00.B0
- * @since 18-11-02
- * @todo ? Move back methods from Column\Definition\DataTypes
+ * @version 00.9A
+ * @since 18-11-11
  */
 
-namespace GIndie\DBHandler\MySQL57\DataDefinition\DataTypes;
+namespace GIndie\DBHandler\MySQL57\Instance\DataType;
+
+use GIndie\DBHandler\MySQL57\DataDefinition;
 
 /**
- * 
- * @edit 18-11-02
- * - Copied code from GIndie\DBHandler\MySQL56\...
+ *
+ * @edit 18-11-11
+ * - Moved methods from Instance\DataType
  */
-interface DateTime
+abstract class DateTimeDataTypes extends CommonMethods
+        implements DataDefinition\DataTypes\DateTime
 {
 
     /**
      * DATE A date. 
+     * 
      * The supported range is '1000-01-01' to '9999-12-31'. MySQL displays DATE 
      * values in 'YYYY-MM-DD' format, but permits assignment of values to DATE 
      * columns using either strings or numbers.
      * 
      * @link <https://dev.mysql.com/doc/refman/5.7/en/date-and-time-type-overview.html>
      * 
-     * @since 18-04-26 
-     * @edit 18-05-01
+     * @return \GIndie\DBHandler\MySQL57\Instance\DataType
+     * @since 18-08-01
+     * @edit 18-11-04
+     * - Added DocBlock
      */
-    const DATATYPE_DATE = "DATE";
+    public static function date()
+    {
+        $rtnData = new \GIndie\DBHandler\MySQL57\Instance\DataType(static::DATATYPE_DATE);
+        return $rtnData;
+    }
 
     /**
      * DATETIME[(fsp)] A date and time combination. 
@@ -54,10 +63,72 @@ interface DateTime
      * 
      * @link <https://dev.mysql.com/doc/refman/5.7/en/date-and-time-type-overview.html>
      * 
-     * @since 18-04-26 
-     * @edit 18-05-01
+     * @param null|string $fsp 
+     * 
+     * @return \GIndie\DBHandler\MySQL57\Instance\DataType
+     * @since 18-08-01
+     * @edit 18-11-04
+     * - Added DocBlock
      */
-    const DATATYPE_DATETIME = "DATETIME";
+    public static function datetime($fsp = null)
+    {
+        $rtnData = new \GIndie\DBHandler\MySQL57\Instance\DataType(static::DATATYPE_DATETIME);
+        $rtnData->setFSP($fsp);
+        return $rtnData;
+    }
+
+    /**
+     * 
+     * TIME[(fsp)] A time. 
+     * 
+     * The range is '-838:59:59.000000' to '838:59:59.000000'. MySQL displays 
+     * TIME values in 'HH:MM:SS[.fraction]' format, but permits assignment of 
+     * values to TIME columns using either strings or numbers.
+     * 
+     * An optional fsp value in the range from 0 to 6 may be given to specify 
+     * fractional seconds precision. A value of 0 signifies that there is no 
+     * fractional part. If omitted, the default precision is 0.
+     * 
+     * @link <https://dev.mysql.com/doc/refman/5.7/en/date-and-time-type-overview.html>
+     * 
+     * @return \GIndie\DBHandler\MySQL57\Instance\DataType
+     * @since 18-08-01
+     * @edit 18-11-04
+     * - Added DocBlock
+     */
+    public static function time($fsp = null)
+    {
+        $rtnData = new \GIndie\DBHandler\MySQL57\Instance\DataType(static::DATATYPE_TIME);
+        $rtnData->setFSP($fsp);
+        return $rtnData;
+    }
+
+    /**
+     * YEAR[(4)] A year in four-digit format. 
+     * 
+     * MySQL displays YEAR values in YYYY format, but permits assignment of 
+     * values to YEAR columns using either strings or numbers. Values display as
+     * 1901 to 2155, and 0000.
+     * 
+     * Note: The YEAR(2) data type is deprecated and support for it is removed 
+     * in MySQL 5.7.5. To convert YEAR(2) columns to YEAR(4), see 
+     * Section 11.3.4, “YEAR(2) Limitations and Migrating to YEAR(4)”.
+     * 
+     * For additional information about YEAR display format and interpretation 
+     * of input values, see Section 11.3.3, “The YEAR Type”.
+     * 
+     * @link <https://dev.mysql.com/doc/refman/5.7/en/date-and-time-type-overview.html>
+     * 
+     * @return \GIndie\DBHandler\MySQL57\Instance\DataType
+     * @since 18-11-04
+     * @edit 18-11-04
+     * - Added DocBlock
+     */
+    public static function year()
+    {
+        $rtnData = new \GIndie\DBHandler\MySQL57\Instance\DataType(static::DATATYPE_YEAR);
+        return $rtnData;
+    }
 
     /**
      * TIMESTAMP[(fsp)] A timestamp. 
@@ -102,48 +173,18 @@ interface DateTime
      * 
      * @link <https://dev.mysql.com/doc/refman/5.7/en/date-and-time-type-overview.html>
      * 
-     * @since 18-04-26 
-     * @edit 18-05-01
+     * @param null|int $fsp
+     * @return \GIndie\DBHandler\MySQL57\Instance\DataType
+     * 
+     * @since 18-08-02
+     * @edit 18-11-04
+     * - Added DocBlock
      */
-    const DATATYPE_TIMESTAMP = "TIMESTAMP";
-
-    /**
-     * TIME[(fsp)] A time. 
-     * 
-     * The range is '-838:59:59.000000' to '838:59:59.000000'. MySQL displays 
-     * TIME values in 'HH:MM:SS[.fraction]' format, but permits assignment of 
-     * values to TIME columns using either strings or numbers.
-     * 
-     * An optional fsp value in the range from 0 to 6 may be given to specify 
-     * fractional seconds precision. A value of 0 signifies that there is no 
-     * fractional part. If omitted, the default precision is 0.
-     * 
-     * @link <https://dev.mysql.com/doc/refman/5.7/en/date-and-time-type-overview.html>
-     * 
-     * @since 18-04-26 
-     * @edit 18-05-01
-     */
-    const DATATYPE_TIME = "TIME";
-
-    /**
-     * YEAR[(4)] A year in four-digit format. 
-     * 
-     * MySQL displays YEAR values in YYYY format, but permits assignment of 
-     * values to YEAR columns using either strings or numbers. Values display as
-     * 1901 to 2155, and 0000.
-     * 
-     * Note: The YEAR(2) data type is deprecated and support for it is removed 
-     * in MySQL 5.7.5. To convert YEAR(2) columns to YEAR(4), see 
-     * Section 11.3.4, “YEAR(2) Limitations and Migrating to YEAR(4)”.
-     * 
-     * For additional information about YEAR display format and interpretation 
-     * of input values, see Section 11.3.3, “The YEAR Type”.
-     * 
-     * @link <https://dev.mysql.com/doc/refman/5.7/en/date-and-time-type-overview.html>
-     * 
-     * @since 18-04-26 
-     * @edit 18-05-01
-     */
-    const DATATYPE_YEAR = "YEAR";
+    public static function timestamp($fsp = null)
+    {
+        $rtnData = new \GIndie\DBHandler\MySQL57\Instance\DataType(static::DATATYPE_TIMESTAMP);
+        $rtnData->setFSP($fsp);
+        return $rtnData;
+    }
 
 }

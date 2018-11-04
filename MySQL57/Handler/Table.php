@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL57
  *
- * @version 00.90
+ * @version 00.BA
  * @since 18-11-02
  */
 
@@ -199,10 +199,14 @@ class Table
      * 
      * @return array
      * @since 18-08-26
+     * @edit 18-11-02
      */
-    public function selectAll()
+    public function selectAll($limit = null)
     {
         $query = Statement\DataManipulation::select(["*"], [$this->getTable()->databaseName() => $this->getTable()->name()]);
+        if($limit != null){
+            $query->setLimit($limit);
+        }
         $result = \GIndie\DBHandler\MySQL57::query($query);
         return $result->fetch_all(\MYSQLI_ASSOC);
     }
