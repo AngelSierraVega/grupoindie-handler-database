@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler
  *
- * @version 00.AA
+ * @version 00.BA
  * @since 18-02-14
  */
 
@@ -25,7 +25,9 @@ namespace GIndie\DBHandler;
  * - Upgraded version
  * @edit 18-11-10
  * - Created __construct()
- * @todo Handle Character Set Variables
+ * @edit 19-01-09
+ * - Handle definition of global/session vars based on user privileges
+ * - Handle Character Set Variables
  */
 abstract class AbstractDBHandler
 {
@@ -51,19 +53,11 @@ abstract class AbstractDBHandler
      */
     protected static function openConnection()
     {
-        $connection = new \mysqli("p:" . INIHandler::getHost(), INIHandler::getMainUsername(), INIHandler::getMainPassword());
+        $connection = new \mysqli("p:" . INIHandler::getHost(), INIHandler::getMainUsername(),
+            INIHandler::getMainPassword());
         if (\mysqli_connect_errno()) {
             throw ExceptionDBHandler::invalidConnection(\mysqli_connect_error());
         }
-//        switch ($connection->get_charset())
-//        {
-//            case "utf8bm4":
-//                break;
-//            default:
-//                
-//                break;
-//        }
-//        $connection->set_charset("utf8mb4");
         return $connection;
     }
 
@@ -90,9 +84,13 @@ abstract class AbstractDBHandler
     {
         return static::getConnection()->query($query);
     }
-    
-    public static function querySelect(){
-        $select= new MySQL57\Statement\DataManipulation\Select($selectors, $tableReferences);
+
+    /**
+     * @deprecated since 19-01-09
+     */
+    public static function querySelectDPR()
+    {
+        $select = new MySQL57\Statement\DataManipulation\Select($selectors, $tableReferences);
         $select->addCondition($expresion);
         $select;
     }
@@ -104,15 +102,21 @@ abstract class AbstractDBHandler
      * @since 18-02-14
      * @edit 18-11-10
      * - Use handleDefaultSqlMode() if no connection exists
+     * @edit 19-01-09
+     * - Handle definition of global/session vars based on user privileges
+     * - use autodefineSessionVars()
      */
     final public static function getConnection()
     {
         if (\is_null(static::$connection)) {
             static::$connection = static::openConnection();
-//            static::handleDefaultSqlMode();
-            static::autodefineGlobalVars();
-//            static::$connection->refresh();
-//            static::$connection = static::openConnection();
+            switch (static::getSuperPrivilege())
+            {
+                case "Y":
+                    static::autodefineGlobalVars();
+                    break;
+            }
+            static::autodefineSessionVars();
         }
         return static::$connection;
     }

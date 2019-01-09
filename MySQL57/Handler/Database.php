@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL57
  *
- * @version 00.90
+ * @version 00.A0
  * @since 18-11-02
  */
 
@@ -48,24 +48,37 @@ class Database
      * @throws \GIndie\DBHandler\ExceptionDBHandler
      * @since 18-04-07
      * @edit 18-04-30
+     * @edit 19-01-09
+     * - Validation from \GIndie\DBHandler\MySQL57::defaultGlobalVars() 
      */
     public function execValidation()
     {
-        $statement = Statement\DataManipulation::select(["DEFAULT_CHARACTER_SET_NAME", "DEFAULT_COLLATION_NAME"], ["INFORMATION_SCHEMA" => "SCHEMATA"]);
+        $statement = Statement\DataManipulation::select(["DEFAULT_CHARACTER_SET_NAME", "DEFAULT_COLLATION_NAME"],
+                ["INFORMATION_SCHEMA" => "SCHEMATA"]);
         $statement->addConditionEquals("SCHEMA_NAME", $this->database->name());
         $query = \GIndie\DBHandler\MySQL57::query($statement);
-        $array = $query->fetch_assoc();
+//        $array = $query->fetch_assoc();
+//        $array = \GIndie\DBHandler\MySQL57::defaultGlobalVars();
         switch (false)
         {
             //check if schema exists
             case ($query->num_rows > 0):
                 //$this->exists = false;
                 throw \GIndie\DBHandler\ExceptionDBHandler::databaseNotFound($this->database->name());
-            //check if charset and collation are correctly defined
-            case (\strcmp($array["DEFAULT_CHARACTER_SET_NAME"], $this->database->charset()) == 0):
-                throw \GIndie\DBHandler\ExceptionDBHandler::invalidDefinition("DEFAULT_CHARACTER_SET_NAME", $this->database->charset(), $array["DEFAULT_CHARACTER_SET_NAME"]);
-            case (\strcmp($array["DEFAULT_COLLATION_NAME"], $this->database->collation()) == 0):
-                throw \GIndie\DBHandler\ExceptionDBHandler::invalidDefinition("DEFAULT_COLLATION_NAME", $this->database->collation(), $array["DEFAULT_COLLATION_NAME"]);
+            /**
+             * Check if charset and collation are correctly defined
+             * @edit 19-01-09
+             */
+            case (\strcmp(\GIndie\DBHandler\MySQL57::defaultGlobalVars()["character_set_database"],
+                $this->database->charset()) == 0):
+                throw \GIndie\DBHandler\ExceptionDBHandler::invalidDefinition("DEFAULT_CHARACTER_SET_NAME",
+                    $this->database->charset(),
+                    \GIndie\DBHandler\MySQL57::defaultGlobalVars()["character_set_database"]);
+            case (\strcmp(\GIndie\DBHandler\MySQL57::defaultGlobalVars()["collation_database"],
+                $this->database->collation()) == 0):
+                throw \GIndie\DBHandler\ExceptionDBHandler::invalidDefinition("DEFAULT_COLLATION_NAME",
+                    $this->database->collation(),
+                    \GIndie\DBHandler\MySQL57::defaultGlobalVars()["collation_database"]);
         }
         return true;
     }
@@ -81,7 +94,8 @@ class Database
      */
     public function stmCreate()
     {
-        return Statement\DataDefinition::createDatabase($this->database->name(), $this->database->charset(), $this->database->collation());
+        return Statement\DataDefinition::createDatabase($this->database->name(),
+                $this->database->charset(), $this->database->collation());
     }
 
     /**

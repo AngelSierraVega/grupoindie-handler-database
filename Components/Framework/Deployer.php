@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\Components\Framework
  *
- * @version 00.B7
+ * @version 00.BB
  * @since 18-07-26
  */
 
@@ -33,9 +33,16 @@ use GIndie\DBHandler\MySQL57;
  * - Upgraded use of MySQL57 instead of MySQL56
  * @edit 18-11-16
  * - Added functional addColumn
+ * @edit 19-01-29
+ * - Added functional updateField
  */
 abstract class Deployer extends \GIndie\Framework\Controller
 {
+
+    /**
+     * @since 19-01-09
+     */
+    use DisplayTraits;
 
     /**
      * 
@@ -57,6 +64,8 @@ abstract class Deployer extends \GIndie\Framework\Controller
      * - Database actions point to same widget
      * @edit 18-12-02
      * - Added setSessionVariable
+     * @edit 19-01-29
+     * - Added updateField
      * @todo Table actions point to same widget
      */
     public static function config()
@@ -72,6 +81,32 @@ abstract class Deployer extends \GIndie\Framework\Controller
         static::configPostRequest(static::class . "::dropTable", "dropTable");
         static::configPostRequest(static::class . "::setSqlMode", "setSqlMode");
         static::configPostRequest(static::class . "::addColumn", "addColumn");
+        static::configPostRequest(static::class . "::updateField", "updateField");
+    }
+
+    /**
+     * 
+     * @return \GIndie\Framework\View\Widget
+     * @since 19-01-29
+     */
+    public static function updateField()
+    {
+        $tmpDatabaseClass = \urldecode($_POST["databaseId"]);
+        $tmpDatabaseClass = new $tmpDatabaseClass();
+        $tmpTableClass = \urldecode($_POST["tableId"]);
+        $tableHandler = new MySQL57\Handler\Table($tmpTableClass::instance());
+        $statement = MySQL57\Statement\DataDefinition::alterTable($tableHandler->getTable()->name());
+        $statement->setDatabaseName($tmpDatabaseClass->name());
+        $column = $tableHandler->getTable()->columnDefinition($_POST["fieldName"]);
+        $statement->modifyColumn($_POST["fieldName"], $column->getColumnDefinition());
+        $result = MySQL57::query($statement);
+        $rtnWidget = static::widgetTable();
+        if ($result) {
+            $rtnWidget->getHeadingBody()->addContent(View\Alert::success($statement . ""));
+        } else {
+            $rtnWidget->getHeadingBody()->addContent(View\Alert::danger($statement . ""));
+        }
+        return $rtnWidget;
     }
 
     /**
@@ -264,6 +299,8 @@ abstract class Deployer extends \GIndie\Framework\Controller
      * - Updated display
      * @edit 18-08-15
      * - use dsplyDatabases()
+     * @edit 19-01-09
+     * - Use DisplayTraits
      */
     public static function widgetDBHandler()
     {
@@ -277,14 +314,14 @@ abstract class Deployer extends \GIndie\Framework\Controller
             $row1 = $grid->addRowGP();
             $col_DBHandler = $row1->addColumnGP("col-md", 6);
             $col_DBHandler->addContent($dispDBHandler);
-            $connection = \GIndie\DBHandler\MySQL57::getConnection();
-            $dispConnection = View\Table::displayArray(
-                    ["stat" => $connection->stat()
-                    , "get_client_info" => $connection->get_client_info()
-                    , "get_server_info" => $connection->get_server_info()
-                    ], "PHP Connection data")->addClass("table table-condensed");
+//            $connection = \GIndie\DBHandler\MySQL57::getConnection();
+//            $dispConnection = View\Table::displayArray(
+//                    ["stat" => $connection->stat()
+//                    , "get_client_info" => $connection->get_client_info()
+//                    , "get_server_info" => $connection->get_server_info()
+//                    ], "PHP Connection data")->addClass("table table-condensed");
             $col_Connection = $row1->addColumnGP("col-md", 6);
-            $col_Connection->addContent($dispConnection);
+            $col_Connection->addContent(static::phpConnectionData());
             /**
              * Row sql mode
              * SELECT @@GLOBAL.sql_mode;
@@ -321,13 +358,10 @@ abstract class Deployer extends \GIndie\Framework\Controller
 //                        , "@@SESSION.sql_mode" => $result->fetch_assoc()["@@SESSION.sql_mode"]
 //                        , "Actions" => [$button1, $btn2, $btn3]
 //                            ], "SQL mode")->addClass("table table-condensed");
-
-
-            $dispSqlMode = View\Table::displayArray(
-                    \GIndie\DBHandler\MySQL57::getCurrentGlobalVars()
-                    , "Global variables")->addClass("table table-condensed");
-
-            $colSqlMode->addContent($dispSqlMode);
+//            $dispSqlMode = View\Table::displayArray(
+//                    \GIndie\DBHandler\MySQL57::getCurrentGlobalVars()
+//                    , "Global variables")->addClass("table table-condensed");
+            $colSqlMode->addContent(static::globalVars());
 
             $result = \GIndie\DBHandler\MySQL57::query("SELECT @@SESSION.foreign_key_checks;");
             $tmpGlobalSqlMode = $result->fetch_assoc()["@@SESSION.foreign_key_checks"];
@@ -343,10 +377,12 @@ abstract class Deployer extends \GIndie\Framework\Controller
             $btnFKC->setForm("setSessionVariable");
             $btnFKC->setAttribute("name", "foreign_key_checks");
             $btnFKC->setValue("0"); //
-            $dispSqlMode2 = View\Table::displayArray(
-                    ["foreign_key_checks" => [$tmpGlobalSqlMode]
-                    ], "Session variables")->addClass("table table-condensed");
-            $grid->addContent($dispSqlMode2);
+//            $dispSqlMode2 = View\Table::displayArray(
+//                    ["foreign_key_checks" => [$tmpGlobalSqlMode]
+//                    ], "Session variables")->addClass("table table-condensed");
+//            $grid->addContent($dispSqlMode2);
+            $grid->addContent(static::sessionVars());
+            $grid->addContent(static::userPrivileges());
 
             /**
              * @todo handle character_set_....
@@ -375,7 +411,7 @@ abstract class Deployer extends \GIndie\Framework\Controller
         $table = View\Table::selectable();
         $table->addContent(View\FormInput::formPostOnSelf("selectDatabase"));
         $table->addContent(View\FormInput::formPostOnSelf("setSqlMode"));
-        $table->addHeader(["", "Database", "Validator"]);
+        $table->addHeader(["", "Class", "Database", "Validator"]);
         foreach (static::databases() as $databaseInstance) {
             $manejador = new \GIndie\DBHandler\MySQL57\Handler\Database($databaseInstance);
             $table->addRow(static::dsplyRowDatabase($manejador));
@@ -398,48 +434,23 @@ abstract class Deployer extends \GIndie\Framework\Controller
         $button->setValue(\urlencode(\get_class($databaseHandler->getDatabase())));
         try {
             $databaseHandler->execValidation();
-            $rtnRow = new \GIndie\ScriptGenerator\Bootstrap3\Tables\Row([$button, $databaseHandler->getDatabase()->name(), "---"]);
+            $rtnRow = new \GIndie\ScriptGenerator\Bootstrap3\Tables\Row([$button, \get_class($databaseHandler->getDatabase()), $databaseHandler->getDatabase()->name(), "---"]);
             $rtnRow->setAttribute("class", "success");
         } catch (\GIndie\DBHandler\ExceptionDBHandler $exc) {
             switch ($exc->getCode())
             {
                 case \GIndie\DBHandler\ExceptionDBHandler::NO_DATABASE:
-                    $rtnRow = new \GIndie\ScriptGenerator\Bootstrap3\Tables\Row([$button, $databaseHandler->getDatabase()->name(), $exc->getMessage()]);
+                    $rtnRow = new \GIndie\ScriptGenerator\Bootstrap3\Tables\Row([$button, \get_class($databaseHandler->getDatabase()), $databaseHandler->getDatabase()->name(), $exc->getMessage()]);
                     $rtnRow->setAttribute("class", "bg-danger");
                     break;
                 default:
-                    $rtnRow = new \GIndie\ScriptGenerator\Bootstrap3\Tables\Row([$button, $databaseHandler->getDatabase()->name(), $exc->getMessage()]);
+                    $rtnRow = new \GIndie\ScriptGenerator\Bootstrap3\Tables\Row([$button, \get_class($databaseHandler->getDatabase()), $databaseHandler->getDatabase()->name(), $exc->getMessage()]);
                     $rtnRow->setAttribute("class", "bg-danger");
 //                    \trigger_error("test ".$exc->getCode(), \E_USER_ERROR);
                     break;
             }
         }
         return $rtnRow;
-    }
-
-    /**
-     * 
-     * @return \GIndie\Framework\View\Table
-     * @since 18-08-14
-     */
-    public static function dsplyDBHandlerINI()
-    {
-        $passwordValue = \GIndie\DBHandler\INIHandler::getMainPassword();
-        switch ($passwordValue)
-        {
-            case "":
-                $passwordValue = "Empty string!";
-                break;
-        }
-        $passwordNode = Tooltip::tooltipOnLeft(\GIndie\ScriptGenerator\HTML5\Category\Basic::paragraph("********"),
-                $passwordValue);
-        return View\Table::displayArray(
-                [
-                "server_prefix" => \GIndie\DBHandler\INIHandler::getServerPrefix(),
-                "host" => \GIndie\DBHandler\INIHandler::getHost(),
-                "main_username" => \GIndie\DBHandler\INIHandler::getMainUsername(),
-                "main_password" => $passwordNode
-                ], "DBHandler.ini")->addClass("table");
     }
 
     /**
@@ -739,14 +750,24 @@ abstract class Deployer extends \GIndie\Framework\Controller
      * @since 18-08-16
      * @edit 18-11-15
      * - Stores the dbms's columns.
+     * @edit 19-01-29
+     * - Added Column for actions
+     * - Functional "Update field" button
      */
     private static function dsplyTableColumns(\GIndie\DBHandler\MySQL57\Handler\Table $tableHandler)
     {
         $table = View\Table::displayArray(
                 [], "DBMS columns"
             )->addClass("table");
+//        $table->addContent(View\FormInput::formPostOnSelf("updateField"));
+        $formTemp = View\FormInput::formPostOnSelf("updateField");
+        $formTemp->addInput(\GIndie\Platform\View\Input::hidden("databaseId",
+                \urlencode($tableHandler->getTable()->databaseClassname())));
+        $formTemp->addInput(\GIndie\Platform\View\Input::hidden("tableId",
+                \urlencode(\get_class($tableHandler->getTable()))));
+        $table->addContent($formTemp);
         $result = $tableHandler->showColumns();
-        $headerTmp = [];
+        $headerTmp = ["Actions"];
         foreach ($result->fetch_fields() as $field) {
             $headerTmp[] = $field->name;
         }
@@ -754,7 +775,14 @@ abstract class Deployer extends \GIndie\Framework\Controller
         static::$dbmsColumns = [];
         foreach ($result->fetch_all(\MYSQLI_ASSOC) as $definition) {
             static::$dbmsColumns[$definition["Field"]] = $definition;
-            $table->addRow($definition);
+            $button = new Bootstrap3\Component\Button("Update field", "submit");
+            $button->addClass("btn-sm pull-right");
+            $button->setForm("updateField");
+            $button->setContext("success");
+            $button->setAttribute("name", "fieldName");
+            $button->setValue($definition["Field"]);
+            $rowActions = $button;
+            $table->addRow(\array_merge([$rowActions], $definition));
         }
         return $table;
     }
@@ -773,7 +801,7 @@ abstract class Deployer extends \GIndie\Framework\Controller
     private static function dsplyTables(\GIndie\DBHandler\MySQL57\Handler\Database $dbHandler)
     {
         $table = View\Table::selectable();
-        $table->addHeader(["", "Table", "Validator"]);
+        $table->addHeader(["", "Class", "Table", "Validator"]);
         $table->addContent(View\FormInput::formPostOnSelf("selectTable"));
         $formTemp = View\FormInput::formPostOnSelf("createTableFromDatabase");
         $formTemp->addInput(\GIndie\Platform\View\Input::hidden("databaseId",
@@ -791,7 +819,7 @@ abstract class Deployer extends \GIndie\Framework\Controller
 //                $buttonSelect->setValue(\urlencode($classname));
 //                $buttonSelect->setContext("primary");
                 //$row = $table->addRowGetPointer(static::constructRow($tableHandler));
-                $row = $table->addRowGetPointer([$buttonSelect, $tableHandler->getTable()->name(), "OK"]);
+                $row = $table->addRowGetPointer([$buttonSelect, \get_class($tableHandler->getTable()), $tableHandler->getTable()->name(), "OK"]);
                 $row->setAttribute("class", "success");
                 //$row->addClass("bg-success");
             } catch (\GIndie\DBHandler\ExceptionDBHandler $exc) {
@@ -801,7 +829,7 @@ abstract class Deployer extends \GIndie\Framework\Controller
                 $buttonCreateTable = View\FormInput::buttonSubmitForm("createTableFromDatabase",
                         "Create", "tableId", \urlencode($classname));
                 $buttonCreateTable->setContext("success");
-                $row = $table->addRowGetPointer([[$buttonSelect, $buttonCreateTable], $tableHandler->getTable()->name(), $exc->getMessage()]);
+                $row = $table->addRowGetPointer([[$buttonSelect, $buttonCreateTable], \get_class($tableHandler->getTable()), $tableHandler->getTable()->name(), $exc->getMessage()]);
                 $row->setAttribute("class", "danger");
             }
         }

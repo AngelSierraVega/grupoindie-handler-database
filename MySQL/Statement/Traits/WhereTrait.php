@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL\Statement
  *
- * @version 00.90
+ * @version 00.A0
  * @since 18-02-15
  * @todo Resolve ExpressionSyntax
  */
@@ -64,6 +64,21 @@ trait WhereTrait
     public function addConditionEquals($expr1, $expr2, $concatOperator = "AND")
     {
         $this->conditions[] = [$concatOperator => ExpressionSyntax::compEqual($expr1, $expr2)];
+        return $this;
+    }
+    
+    /**
+     * 
+     * @param array $expresion
+     * @param string $concatOperator
+     * 
+     * @return $this
+     * 
+     * @since 19-01-06
+     */
+    public function addConditionDiff($expr1, $expr2, $concatOperator = "AND")
+    {
+        $this->conditions[] = [$concatOperator => ExpressionSyntax::compDiff($expr1, $expr2)];
         return $this;
     }
 

@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\Components\Platform
  * 
- * @version 00.A3
+ * @version 00.A7
  * @since 18-03-21
  */
 
@@ -39,11 +39,31 @@ class ModuleDBMS extends \GIndie\Platform\Controller\Module
 {
 
     /**
+     * 
+     * @return string
+     * @since 19-01-09
+     */
+    public static function description()
+    {
+        return "ModuleDBMS";
+    }
+
+    /**
+     * 
+     * @return string
+     * @since 19-01-09
+     */
+    public static function name()
+    {
+        return "DBMS Manager";
+    }
+
+    /**
      * @since 18-03-21
      * @edit 18-05-06
      * @edit 18-05-20
+     * const NAME = ;
      */
-    const NAME = "DBMS Manager";
 
     /**
      * @since 18-03-21
@@ -51,39 +71,49 @@ class ModuleDBMS extends \GIndie\Platform\Controller\Module
      * - Upgraded placeholder structure
      * @edit 18-05-20
      * - Defined [some] slaves
+     * @edit 19-01-09
      */
-    public function config()
+    public function configPlaceholders()
     {
         /**
          * [DBMSInfo                 ]
          * [EventScheduler][Databases]
          */
-        $this->config("i-i-i")->typeHTMLString("[DBMSInfo]");
-        $this->config("i-ii-i")->typeHTMLString("[EventScheduler]");
-        $this->config("i-ii-ii")->typeHTMLString("[Databases]");
+        $this->placeholder("i-i-i")->typeHTMLString("[DBMSInfo]");
+        $this->placeholder("i-ii-i")->typeHTMLString("[EventScheduler]");
+        $this->placeholder("i-ii-ii")->typeHTMLString("[Databases]");
 
         /**
          * [DatabaseInfo            ]
          * [Events][Routines][Tables]
          */
-        $this->config("ii-i-i")->typeHTMLString("[DatabaseInfo]");
-        $this->config("ii-iii-i")->typeHTMLString("[Events]");
-        $this->config("ii-iii-ii")->typeHTMLString("[Routines]");
-        $this->config("ii-iii-iii")->typeHTMLString("[Tables]");
+        $this->placeholder("ii-i-i")->typeHTMLString("[DatabaseInfo]");
+        $this->placeholder("ii-iii-i")->typeHTMLString("[Events]");
+        $this->placeholder("ii-iii-ii")->typeHTMLString("[Routines]");
+        $this->placeholder("ii-iii-iii")->typeHTMLString("[Tables]");
 
         /**
          * [TableInfo               ]
          * [Attributes][Restrictions]
          */
-        $this->config("iii-i-i")->typeHTMLString("[TableInfo]");
-        $this->config("iii-ii-i")->typeHTMLString("[Attributes]");
-        $this->config("iii-ii-ii")->typeHTMLString("[Restrictions]");
+        $this->placeholder("iii-i-i")->typeHTMLString("[TableInfo]");
+        $this->placeholder("iii-ii-i")->typeHTMLString("[Attributes]");
+        $this->placeholder("iii-ii-ii")->typeHTMLString("[Restrictions]");
 
         /**
          * Define slaves
          */
-        $this->config("i-ii-ii")->addSlave("ii-i-i");
-        $this->config("i-ii-ii")->addSlave("ii-iii-iii");
+        $this->placeholder("i-ii-ii")->addSlave("ii-i-i");
+        $this->placeholder("i-ii-ii")->addSlave("ii-iii-iii");
+    }
+    
+    /**
+     * {@inheritdoc}
+     * @since 19-01-29
+     */
+    public static function configActions()
+    {
+//        static::setActionModel("@createTbl01", Tbl01Autoincremented::class, "gip-create");
     }
 
     /**
@@ -131,7 +161,7 @@ class ModuleDBMS extends \GIndie\Platform\Controller\Module
         $tableSelectable = new \GIndie\ScriptGenerator\Dashboard\Tables\Selectable();
         $tableSelectable->addHeader(["#", "Database"]);
         $query = \GIndie\DBHandler\MySQL57\Statement\DataManipulation\Show::databases();
-        $result = \GIndie\DBHandler\MySQL::query($query);
+        $result = \GIndie\DBHandler\MySQL57::query($query);
         foreach ($result->fetch_all(\MYSQLI_ASSOC) as $rowNumber => $assocArray) {
             $tableSelectable->addSelectableRow($assocArray["Database"], [$assocArray["Database"]]);
         }
@@ -322,7 +352,7 @@ class ModuleDBMS extends \GIndie\Platform\Controller\Module
         $rtnWidget = new View\Widget("MySQL", true, true);
         $rtnWidget->addButtonHeading(\GIndie\Platform\View\Widget\Buttons::Reload());
         $rtnWidget->setContext("primary");
-        $link = \GIndie\DBHandler\MySQL::getConnection();
+        $link = \GIndie\DBHandler\MySQL57::getConnection();
         $rtnWidget->getBody()->addContent("<b>MySQL version:</b> " . \mysqli_get_server_info($link)); //mysqli_stat
         $rtnWidget->getBody()->addContent("<br>");
         $rtnWidget->getBody()->addContent("<b>Status:</b> " . \mysqli_stat($link));
@@ -355,143 +385,144 @@ class ModuleDBMS extends \GIndie\Platform\Controller\Module
         <p><small>Archivo de configuración en Ubuntu, Debian y derivados:</small>
             <br><samp>/etc/mysql/my.cnf</samp></p>
         <pre>
-                                                                                                                                ...
-                                                                                                                                [mysqld]
-                                                                                                                                ...
-                                                                                                                                event_scheduler = ON
+                                                                                                                                        ...
+                                                                                                                                        [mysqld]
+                                                                                                                                        ...
+                                                                                                                                        event_scheduler = ON
         </pre>
-        <?php
+            <?php
 
-        $out = \ob_get_contents();
-        \ob_end_clean();
-        return $out;
-    }
+            $out = \ob_get_contents();
+            \ob_end_clean();
+            return $out;
+        }
 
-    /**
-     * 
-     * @param array $array
-     * @return string
-     * @since 18-03-21
-     * @todo
-     * - Remove method from class
-     */
-    private function parseAssoc(array $array)
-    {
-        $rtnStr = "";
-        foreach ($array as $key => $value) {
-            switch (true)
+        /**
+         * 
+         * @param array $array
+         * @return string
+         * @since 18-03-21
+         * @todo
+         * - Remove method from class
+         */
+        private function parseAssoc(array $array)
+        {
+            $rtnStr = "";
+            foreach ($array as $key => $value) {
+                switch (true)
+                {
+                    case \is_null($value):break;
+                    default:
+                        $rtnStr .= "<b>{$key}</b>: {$value}<br>";
+                        break;
+                }
+            }
+            return $rtnStr;
+        }
+
+        /**
+         * @since 18-03-21
+         * @return \GIndie\Platform\View\Widget
+         * @edit 18-05-07
+         * - Upgraded widget, action targets
+         * - Renamed method from widgetEventScheduler() to wdgtEventScheduler()
+         * @todo
+         * - Rename actions
+         */
+        protected function wdgtEventScheduler()
+        {
+            $rtnWidget = new View\Widget("Event Scheduler", true, true);
+            $result = \GIndie\DBHandler\MySQL57::query("SELECT @@event_scheduler;")->fetch_assoc();
+            switch ($result["@@event_scheduler"])
             {
-                case \is_null($value):break;
-                default:
-                    $rtnStr .= "<b>{$key}</b>: {$value}<br>";
+                case "ON":
+                case "on":
+                case "1":
+                case 1:
+                    $rtnWidget->setContext("primary");
+                    $result = \GIndie\DBHandler\MySQL57::query("SELECT * FROM information_schema.processlist WHERE USER='event_scheduler';");
+                    while ($array = $result->fetch_assoc()) {
+                        $rtnWidget->getBody()->addContent($this->parseAssoc($array));
+                    }
+                    $params = ["target" => "#i-ii-i",
+                        "gip-action" => "desactivar-planificador",
+                        "action-name" => "Desactivar",
+                        "context" => "danger"
+                    ];
+                    $rtnWidget->addActionHeading($params);
+                    break;
+                case "OFF":
+                case "off":
+                case "0":
+                case 0:
+                    $rtnWidget->getBody()->addContent($this->textoPlanificadorDesactivado());
+                    $rtnWidget->setContext("warning");
+                    $params = ["target" => "#i-ii-i",
+                        "gip-action" => "activar-planificador",
+                        "action-name" => "Activar",
+                        "context" => "success"
+                    ];
+                    $rtnWidget->addActionHeading($params);
                     break;
             }
+            $rtnWidget->addButtonHeading(\GIndie\Platform\View\Widget\Buttons::Reload());
+            return $rtnWidget;
         }
-        return $rtnStr;
-    }
 
-    /**
-     * @since 18-03-21
-     * @return \GIndie\Platform\View\Widget
-     * @edit 18-05-07
-     * - Upgraded widget, action targets
-     * - Renamed method from widgetEventScheduler() to wdgtEventScheduler()
-     * @todo
-     * - Rename actions
-     */
-    protected function wdgtEventScheduler()
-    {
-        $rtnWidget = new View\Widget("Event Scheduler", true, true);
-        $result = \GIndie\DBHandler\MySQL::query("SELECT @@event_scheduler;")->fetch_assoc();
-        switch ($result["@@event_scheduler"])
+        /**
+         * 
+         * @since 18-03-21
+         * 
+         * @param string $action
+         * @param string $id
+         * @param string $class
+         * @param string $selected
+         * 
+         * @return mixed
+         * @edit 18-05-07
+         * - Removed deprecated actions
+         * @todo
+         * - Upgrade action names
+         */
+        public function run($action, $id, $class, $selected)
         {
-            case "ON":
-            case "on":
-            case "1":
-            case 1:
-                $rtnWidget->setContext("primary");
-                $result = \GIndie\DBHandler\MySQL::query("SELECT * FROM information_schema.processlist WHERE USER='event_scheduler';");
-                while ($array = $result->fetch_assoc()) {
-                    $rtnWidget->getBody()->addContent($this->parseAssoc($array));
-                }
-                $params = ["target" => "#i-ii-i",
-                    "gip-action" => "desactivar-planificador",
-                    "action-name" => "Desactivar",
-                    "context" => "danger"
-                ];
-                $rtnWidget->addActionHeading($params);
-                break;
-            case "OFF":
-            case "off":
-            case "0":
-            case 0:
-                $rtnWidget->getBody()->addContent($this->textoPlanificadorDesactivado());
-                $rtnWidget->setContext("warning");
-                $params = ["target" => "#i-ii-i",
-                    "gip-action" => "activar-planificador",
-                    "action-name" => "Activar",
-                    "context" => "success"
-                ];
-                $rtnWidget->addActionHeading($params);
-                break;
+            $rtn = null;
+            switch ($action)
+            {
+                case "activar-planificador":
+                    $result = \GIndie\DBHandler\MySQL57::query("SET GLOBAL event_scheduler = ON;");
+                    $rtn = $this->wdgtEventScheduler();
+                    if (!$result) {
+                        $rtn->getHeadingBody()->addContent(
+                            Alert::danger(\GIndie\DBHandler\MySQL57::getConnection()->error)
+                        );
+                    }
+                    break;
+                case "desactivar-planificador":
+                    $result = \GIndie\DBHandler\MySQL57::query("SET GLOBAL event_scheduler = OFF;");
+                    $rtn = $this->wdgtEventScheduler();
+                    if (!$result) {
+                        $rtn->getHeadingBody()->addContent(
+                            Alert::danger(\GIndie\DBHandler\MySQL57::getConnection()->error)
+                        );
+                    }
+                    break;
+                default:
+                    $rtn = parent::run($action, $id, $class, $selected);
+                    break;
+            }
+            return $rtn;
         }
-        $rtnWidget->addButtonHeading(\GIndie\Platform\View\Widget\Buttons::Reload());
-        return $rtnWidget;
-    }
 
-    /**
-     * 
-     * @since 18-03-21
-     * 
-     * @param string $action
-     * @param string $id
-     * @param string $class
-     * @param string $selected
-     * 
-     * @return mixed
-     * @edit 18-05-07
-     * - Removed deprecated actions
-     * @todo
-     * - Upgrade action names
-     */
-    public function run($action, $id, $class, $selected)
-    {
-        $rtn = null;
-        switch ($action)
+        /**
+         * 
+         * @return array
+         * @since 18-03-21
+         */
+        public static function requiredRoles()
         {
-            case "activar-planificador":
-                $result = \GIndie\DBHandler\MySQL::query("SET GLOBAL event_scheduler = ON;");
-                $rtn = $this->wdgtEventScheduler();
-                if (!$result) {
-                    $rtn->getHeadingBody()->addContent(
-                            Alert::danger(\GIndie\DBHandler\MySQL::getConnection()->error)
-                    );
-                }
-                break;
-            case "desactivar-planificador":
-                $result = \GIndie\DBHandler\MySQL::query("SET GLOBAL event_scheduler = OFF;");
-                $rtn = $this->wdgtEventScheduler();
-                if (!$result) {
-                    $rtn->getHeadingBody()->addContent(
-                            Alert::danger(\GIndie\DBHandler\MySQL::getConnection()->error)
-                    );
-                }
-                break;
-            default:
-                $rtn = parent::run($action, $id, $class, $selected);
-                break;
+            return ["AS"];
         }
-        return $rtn;
-    }
 
-    /**
-     * 
-     * @return array
-     * @since 18-03-21
-     */
-    public static function requiredRoles()
-    {
-        return ["AS"];
     }
-
-}
+    

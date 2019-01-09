@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL56\Statement
  *
- * @version 00.A0
+ * @version 00.AA
  * @since 18-02-15
  */
 
@@ -196,9 +196,17 @@ class ExpressionSyntax
      * @return string
      * 
      * @since 18-02-15
+     * @edit 19-06-01
+     * - Handle string on $expr2
      */
     public static function compDiff($expr, $expr2)
     {
+        switch (true)
+        {
+            case (\is_string($expr2) === true):
+                $expr2 = "'{$expr2}'";
+                break;
+        }
         return "{$expr} != {$expr2}";
     }
 

@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler
  *
- * @version 00.AF
+ * @version 00.BA
  * @since 18-11-02
  */
 
@@ -24,8 +24,11 @@ use GIndie\DBHandler\MySQL57\DataDefinition\ServerAdministration\SqlCombinationM
  * - Created setGlobalSqlMode()
  * @edit 18-11-11
  * - defaultGlobalVars()
- * 
- * @todo Handle Character Set Variables
+ * @edit 18-12-??
+ * - Handle Character Set Variables
+ * @edit 19-01-09
+ * - Created defaultSessionVars(), getCurrentSessionVars(), autodefineSessionVars()
+ * - Created getSuperPrivilege()
  */
 class MySQL57 extends AbstractDBHandler
 {
@@ -36,6 +39,8 @@ class MySQL57 extends AbstractDBHandler
      * @return array
      * @since 18-11-11
      * @edit 18-12-02
+     * @edit 19-01-09
+     * - Default time zone to UTC -06:00
      */
     public static function defaultGlobalVars()
     {
@@ -55,12 +60,38 @@ class MySQL57 extends AbstractDBHandler
         //Others
         $rtnArray["sql_mode"] = SqlCombinationModes::TRADITIONAL;
         $rtnArray["system_time_zone"] = null;
-        $rtnArray["time_zone"] = "SYSTEM";
+        $rtnArray["time_zone"] = "-06:00"; //The value can be given as a string indicating an offset from UTC, such as '+10:00' or '-6:00'. 
         //Others 2
         $rtnArray["log_error"] = null;
         $rtnArray["version"] = null;
         $rtnArray["version_compile_os"] = null;
         $rtnArray["foreign_key_checks"] = 1;
+        return $rtnArray;
+    }
+
+    /**
+     * Defines the default session variables for the DBMS.
+     * 
+     * @return array
+     * @since 19-01-09
+     */
+    public static function defaultSessionVars()
+    {
+        $rtnArray = [];
+        foreach (static::defaultGlobalVars() as $key => $value) {
+            switch ($key)
+            {
+                case "character_set_system":
+                case "system_time_zone":
+                case "log_error":
+                case "version":
+                case "version_compile_os":
+                    break; //UTC-06:00
+                default:
+                    $rtnArray[$key] = $value;
+                    break;
+            }
+        }
         return $rtnArray;
     }
 
@@ -83,9 +114,34 @@ class MySQL57 extends AbstractDBHandler
 
     /**
      * 
+     * @return array
+     * @since 19-01-09
+     */
+    public static function getCurrentSessionVars()
+    {
+        $query = [];
+        foreach (static::defaultSessionVars() as $varname => $value) {
+            $query[] = "@@SESSION.{$varname} AS {$varname}";
+        }
+        $query = "SELECT " . \join(", ", $query) . ";";
+        $result = static::query($query);
+        if ($result) {
+            $rtnArray = $result->fetch_assoc();
+            $rtnArray["sql_mode"] = \join(", ", \explode(",", $rtnArray["sql_mode"]));
+            return $rtnArray;
+        } else {
+            \trigger_error(static::$connection->error, \E_USER_ERROR);
+        }
+    }
+
+    /**
+     * 
+     * @edit 19-01-08
+     * - 
      */
     protected static function autodefineGlobalVars()
     {
+        $rtnVal = true;
         $currentVars = static::getCurrentGlobalVars();
         $defaultVars = static::defaultGlobalVars();
         $arrayDiff = \array_diff_assoc($defaultVars, $currentVars);
@@ -96,7 +152,8 @@ class MySQL57 extends AbstractDBHandler
                 case \is_null($defaultVars[$varname]):
                     break;
                 case "sql_mode":
-                    if (!\array_key_exists(SqlCombinationModes::TRADITIONAL, \array_flip(\explode(", ", $currentVars["sql_mode"])))) {
+                    if (!\array_key_exists(SqlCombinationModes::TRADITIONAL,
+                            \array_flip(\explode(", ", $currentVars["sql_mode"])))) {
                         $setValues[] = "GLOBAL {$varname} = '" . SqlCombinationModes::TRADITIONAL . "'";
                     }
                     break;
@@ -107,19 +164,44 @@ class MySQL57 extends AbstractDBHandler
         }
         if (\count($setValues) > 0) {
             static::query("SET " . \join(", ", $setValues) . ";");
-//            static::$connection->close();
-//            static::$connection = static::getConnection();
-//            static::$connection->refresh(\MYSQLI_REFRESH_STATUS);
-//            var_dump();
-//            var_dump(static::getConnection()->error);
-            static::autodefineGlobalVars();
-//            var_dump($setValues);
-//            trigger_error("test", \E_USER_ERROR);
-        } else {
-            return true;
+            $rtnVal = static::autodefineGlobalVars();
         }
+        return $rtnVal;
+    }
 
-        //SELECT @@GLOBAL.character_set_, etc.;
+    /**
+     * 
+     * @return boolean
+     * @since 19-01-09
+     */
+    protected static function autodefineSessionVars()
+    {
+        $rtnVal = true;
+        $currentVars = static::getCurrentSessionVars();
+        $defaultVars = static::defaultSessionVars();
+        $arrayDiff = \array_diff_assoc($defaultVars, $currentVars);
+        $setValues = [];
+        foreach ($arrayDiff as $varname => $value) {
+            switch ($varname)
+            {
+                case \is_null($defaultVars[$varname]):
+                    break;
+                case "sql_mode":
+                    if (!\array_key_exists(SqlCombinationModes::TRADITIONAL,
+                            \array_flip(\explode(", ", $currentVars["sql_mode"])))) {
+                        $setValues[] = "SESSION {$varname} = '" . SqlCombinationModes::TRADITIONAL . "'";
+                    }
+                    break;
+                default:
+                    $setValues[] = "SESSION {$varname} = '" . $defaultVars[$varname] . "'";
+                    break;
+            }
+        }
+        if (\count($setValues) > 0) {
+            static::query("SET " . \join(", ", $setValues) . ";");
+            $rtnVal = static::autodefineSessionVars();
+        }
+        return $rtnVal;
     }
 
     /**
@@ -132,7 +214,8 @@ class MySQL57 extends AbstractDBHandler
     {
         switch (true)
         {
-            case \array_key_exists(SqlCombinationModes::TRADITIONAL, \array_flip(\explode(",", static::getGlobalSqlMode()))):
+            case \array_key_exists(SqlCombinationModes::TRADITIONAL,
+                \array_flip(\explode(",", static::getGlobalSqlMode()))):
                 break;
             default:
                 static::setGlobalSqlMode(SqlCombinationModes::TRADITIONAL);
@@ -171,6 +254,33 @@ class MySQL57 extends AbstractDBHandler
     public static function getGlobalSqlMode()
     {
         return static::selectGlobalSqlMode()->fetch_assoc()["@@GLOBAL.sql_mode"];
+    }
+
+    /**
+     * 'N','Y'
+     * 
+     * @since 19-01-08
+     * @return string|false
+     */
+    public static function getSuperPrivilege()
+    {
+        $query = MySQL57\Statement\DataManipulation::select(["super_priv"], ["mysql" => "user"]);
+        $query->addConditionEquals("user", INIHandler::getMainUsername());
+        $query->addConditionEquals("host", INIHandler::getHost());
+        if (($result = static::query($query)) == true) {
+            return $result->fetch_assoc()["super_priv"];
+        } else {
+            switch (static::$connection->errno)
+            {
+                case 1142:
+                    return "N";
+                    break;
+                default:
+                    \trigger_error(static::$connection->errno . ": " . static::$connection->error,
+                        \E_USER_ERROR);
+                    break;
+            }
+        }
     }
 
 }

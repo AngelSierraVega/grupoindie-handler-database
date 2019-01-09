@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL57\Instance
  *
- * @version 00.BA
+ * @version 00.BD
  * @since 18-10-11
  */
 
@@ -31,6 +31,8 @@ use GIndie\DBHandler\MySQL57\Statement;
  * - Copied code from \GIndie\DBHandler\MySQL56\...
  * @edit 18-11-15
  * - Created sttmtSelect(), getTableReference(), groupBy()
+ * @edit 19-01-08
+    - Created getFormattedReference()
  * @todo validate created methods
  */
 abstract class Table implements Identifiers\Table, DataDefinition\Identifiers\Table
@@ -86,6 +88,7 @@ abstract class Table implements Identifiers\Table, DataDefinition\Identifiers\Ta
             }
         }
 //        var_dump($select . "");
+//        print_r($select . "");
         $result = \GIndie\DBHandler\MySQL57::query($select);
         if ($result == false) {
 
@@ -120,6 +123,16 @@ abstract class Table implements Identifiers\Table, DataDefinition\Identifiers\Ta
     public static function getTableReference()
     {
         return [static::databaseName() => static::name()];
+    }
+
+    /**
+     * 
+     * @return string
+     * @since 19-01-08
+     */
+    public static function getFormattedReference()
+    {
+        return "`" . static::databaseName() . "`.`" . static::name() . "`";
     }
 
     /**
