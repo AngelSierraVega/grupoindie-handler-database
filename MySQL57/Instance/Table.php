@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL57\Instance
  *
- * @version 00.BD
+ * @version 00.BE
  * @since 18-10-11
  */
 
@@ -32,7 +32,9 @@ use GIndie\DBHandler\MySQL57\Statement;
  * @edit 18-11-15
  * - Created sttmtSelect(), getTableReference(), groupBy()
  * @edit 19-01-08
-    - Created getFormattedReference()
+  - Created getFormattedReference()
+ * @edit 19-02-13
+ * - Debuged getPKDataType()
  * @todo validate created methods
  */
 abstract class Table implements Identifiers\Table, DataDefinition\Identifiers\Table
@@ -189,8 +191,11 @@ abstract class Table implements Identifiers\Table, DataDefinition\Identifiers\Ta
      * @since 18-09-02
      * @edit 18-11-19
      * - Default $className = null
+     * @edit 19-02-13
+     * - Undeprecated method.
+     * @todo Deprecate attribute $className
      */
-    protected static function getPKDataTypeDPR($className = null)
+    protected static function getPKDataType($className = null)
     {
         if (!\is_null($className)) {
             if (!\is_subclass_of($className, \GIndie\DBHandler\MySQL57\Instance\Table::class)) {
@@ -199,12 +204,20 @@ abstract class Table implements Identifiers\Table, DataDefinition\Identifiers\Ta
             }
             $instance = $className::instance();
 //            $instance->columns();
-//            $dataType = $instance::columnDefinition($instance::PRIMARY_KEY)->getDataType();
+            $dataType = $instance::columnDefinition($instance::PRIMARY_KEY)->getDataType();
         } else {
             $instance = static::instance();
 //            $instance->columns();
+            $dataType = static::columnDefinition(static::referenceDefinition()->getPrimaryKeyName())->getDataType();
         }
-        $dataType = static::columnDefinition($instance::PRIMARY_KEY)->getDataType();
+//        var_dump(static::referenceDefinition());
+//        foreach (static::referenceDefinition() as $tmpRD) {
+//            var_dump($tmpRD);
+//            if (!\is_null($tmpRD->getPrimaryKeyName())) {
+//                $dataType = static::columnDefinition($tmpRD->getPrimaryKeyName())->getDataType();
+//            }
+//        }
+//        $dataType = static::columnDefinition($instance::PRIMARY_KEY)->getDataType();
         switch ($dataType->getDatatype())
         {
             case DataType::DATATYPE_SERIAL:
@@ -266,6 +279,8 @@ abstract class Table implements Identifiers\Table, DataDefinition\Identifiers\Ta
 
     /**
      * @since 18-04-30
+     * @edit 19-06-30
+     * - Added classname on trigger_error
      * @return array|\GIndie\DBHandler\MySQL57\Instance\ColumnDefinition
      */
     final public static function columns()
@@ -274,7 +289,7 @@ abstract class Table implements Identifiers\Table, DataDefinition\Identifiers\Ta
             static::tableDefinition();
         }
         if (empty(static::$columns[static::class])) {
-            \trigger_error("Columns not defined.", \E_USER_ERROR);
+            \trigger_error("Columns not defined for ".static::class, \E_USER_ERROR);
         }
         return static::$columns[static::class];
     }

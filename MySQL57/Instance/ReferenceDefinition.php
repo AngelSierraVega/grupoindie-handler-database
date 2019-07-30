@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL57\Instance
  *
- * @version 00.C0
+ * @version 00.C7
  * @since 18-11-02
  * @todo Upgrade DocBlock
  */
@@ -27,6 +27,8 @@ namespace GIndie\DBHandler\MySQL57\Instance;
  * - Handles foreing keys on custom column
  * @edit 18-11-07
  * - Created addIndex()
+ * @edit 19-02-15
+ * - Adder $foreignKeys, getForeignKeys()
  */
 class ReferenceDefinition
 {
@@ -37,6 +39,23 @@ class ReferenceDefinition
      * @since 18-08-20
      */
     private $references = [];
+
+    /**
+     *
+     * @var array Stores the foreign key definitions
+     * @since 19-02-15
+     */
+    private $foreignKeys = [];
+
+    /**
+     * 
+     * @return array
+     * @since 19-02-15
+     */
+    public function getForeignKeys()
+    {
+        return $this->getForeignKeys();
+    }
 
     /**
      * 
@@ -153,6 +172,8 @@ class ReferenceDefinition
      * - Handles $tableClass is array
      * @edit 18-12-03
      * - Debuged foreign key
+     * @edit 19-02-15
+     * - Added foreing key
      */
     public function addForeignKey($colName, $tableClass, $symbol = false, $onDelete = "RESTRICT", $onUpdate = "NO ACTION")
     {
@@ -195,6 +216,7 @@ class ReferenceDefinition
                 $this->references[] = "CONSTRAINT `{$symbol}` FOREIGN KEY {$formatedColumn}" .
                     $this->formatedReference($tableInstance, $referenceColumn) .
                     " ON DELETE {$onDelete} ON UPDATE {$onUpdate}";
+                $this->foreignKeys[$colName] = $tableClass;
                 break;
             default:
                 throw new \Exception("Unrecognized type for {$symbol}");

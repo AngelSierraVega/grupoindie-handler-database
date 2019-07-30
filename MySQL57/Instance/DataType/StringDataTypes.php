@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL57\Instance
  *
- * @version 00.AA
+ * @version 00.AC
  * @since 18-11-11
  */
 
@@ -20,9 +20,10 @@ use GIndie\DBHandler\MySQL57\DataDefinition;
  *
  * @edit 18-11-11
  * - Moved methods from Instance\DataType
+ * @edit 19-07-25
+ * - Added set()
  */
-abstract class StringDataTypes extends NumericDataTypes
-        implements DataDefinition\DataTypes\StringDataTypes
+abstract class StringDataTypes extends NumericDataTypes implements DataDefinition\DataTypes\StringDataTypes
 {
 
     /**
@@ -115,6 +116,17 @@ abstract class StringDataTypes extends NumericDataTypes
     public static function enum(array $values, $charsetName = null, $collationName = null)
     {
         $rtnData = new \GIndie\DBHandler\MySQL57\Instance\DataType(static::DATATYPE_ENUM);
+        $rtnData->setValues($values);
+        return $rtnData;
+    }
+
+    /**
+     * {@inheritdoc}
+     * @since 19-07-25
+     */
+    public static function set(array $values, $charsetName = null, $collationName = null)
+    {
+        $rtnData = new \GIndie\DBHandler\MySQL57\Instance\DataType(static::DATATYPE_SET);
         $rtnData->setValues($values);
         return $rtnData;
     }

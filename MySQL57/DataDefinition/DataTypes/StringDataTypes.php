@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL57\DataDefinition
  *
- * @version 00.C0
+ * @version 00.C7
  * @since 18-11-02
  */
 
@@ -21,6 +21,8 @@ namespace GIndie\DBHandler\MySQL57\DataDefinition\DataTypes;
  * @edit 18-11-11
  * - Moved back methods from Identifiers\Column\Definition\DataType
  * - Upgraded DocBlock
+ * @edit 19-07-25
+ * - Added set()
  */
 interface StringDataTypes
 {
@@ -357,5 +359,24 @@ interface StringDataTypes
      * - Upgraded DocBlock
      */
     const DATATYPE_SET = "SET";
+    
+    /**
+     * A set. A string object that can have zero or more values, each of which 
+     * must be chosen from the list of values 'value1', 'value2', ... SETvalues 
+     * are represented internally as integers. 
+     * 
+     * @link <https://dev.mysql.com/doc/refman/5.7/en/string-type-overview.html> 
+     * 
+     * @param array $values A SET column can have amaximum of 64 distinct 
+     * members. A table can have no morethan 255 unique element list definitions 
+     * among its ENUM and SET columns considered as agroup.
+     * @param string|null $charsetName Optional character set name
+     * @param string|null $collationName Optional collation name
+     * 
+     * @return \GIndie\DBHandler\MySQL57\Instance\DataType
+     * 
+     * @since 19-07-25
+     */
+    public static function set(array $values, $charsetName = null, $collationName = null);
 
 }

@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\Components\Framework
  *
- * @version 00.BB
+ * @version 00.BC
  * @since 18-07-26
  */
 
@@ -260,7 +260,9 @@ abstract class Deployer extends \GIndie\Framework\Controller
         $tmpTableClass = \urldecode($_POST["tableId"]);
         $tmpTableClass = $tmpTableClass::instance();
         $tmpTableHandler = new \GIndie\DBHandler\MySQL57\Handler\Table($tmpTableClass);
+        
         $tmp = $tmpTableHandler->createTable();
+//        $lastQueryMsj = \GIndie\DBHandler\MySQL57::$lastQuery;
         $error = null;
         if ($tmp !== true) {
 //            var_dump($tmp);
@@ -282,8 +284,9 @@ abstract class Deployer extends \GIndie\Framework\Controller
                 }
             }
         }
-//        return "TEST";
         $rtnWidget = static::widgetTable();
+//        $lastQuery = View\Alert::success($lastQueryMsj);
+//        $rtnWidget->getHeadingBody()->addContent($lastQuery);
         if (!\is_null($error)) {
 //            return $error;
             $rtnWidget->getHeadingBody()->addContent($error);
@@ -709,6 +712,8 @@ abstract class Deployer extends \GIndie\Framework\Controller
     /**
      * 
      * @param \GIndie\DBHandler\MySQL57\Handler\Table $tableHandler
+     * @edit 19-06-30
+     * - use of View\FormInput
      */
     private static function dsplyTableColumnsMissing(\GIndie\DBHandler\MySQL57\Handler\Table $tableHandler)
     {
@@ -720,9 +725,9 @@ abstract class Deployer extends \GIndie\Framework\Controller
         $missing = \array_diff_key(static::$modelColumns, static::$dbmsColumns);
 //        $table->addContent(View\FormInput::formPostOnSelf("selectTable"));
         $formTemp = View\FormInput::formPostOnSelf("addColumn");
-        $formTemp->addInput(\GIndie\Platform\View\Input::hidden("databaseId",
+        $formTemp->addInput(View\FormInput::inputHidden("databaseId",
                 \urlencode($tableHandler->getTable()->databaseClassname())));
-        $formTemp->addInput(\GIndie\Platform\View\Input::hidden("tableId",
+        $formTemp->addInput(View\FormInput::inputHidden("tableId",
                 \urlencode(\get_class($tableHandler->getTable()))));
         $table->addContent($formTemp);
         foreach ($missing as $column => $columnDefinition) {
@@ -753,17 +758,19 @@ abstract class Deployer extends \GIndie\Framework\Controller
      * @edit 19-01-29
      * - Added Column for actions
      * - Functional "Update field" button
+     * @edit 19-06-30
+     * - use of View\FormInput
      */
     private static function dsplyTableColumns(\GIndie\DBHandler\MySQL57\Handler\Table $tableHandler)
     {
         $table = View\Table::displayArray(
                 [], "DBMS columns"
-            )->addClass("table");
+            )->addClass("table table-condensed table-responsive");
 //        $table->addContent(View\FormInput::formPostOnSelf("updateField"));
         $formTemp = View\FormInput::formPostOnSelf("updateField");
-        $formTemp->addInput(\GIndie\Platform\View\Input::hidden("databaseId",
+        $formTemp->addInput(View\FormInput::inputHidden("databaseId",
                 \urlencode($tableHandler->getTable()->databaseClassname())));
-        $formTemp->addInput(\GIndie\Platform\View\Input::hidden("tableId",
+        $formTemp->addInput(View\FormInput::inputHidden("tableId",
                 \urlencode(\get_class($tableHandler->getTable()))));
         $table->addContent($formTemp);
         $result = $tableHandler->showColumns();
@@ -797,6 +804,8 @@ abstract class Deployer extends \GIndie\Framework\Controller
      * - Added functional create (table) button.
      * @edit 18-09-29
      * - Use View\FormInput::buttonSubmitForm
+     * @edit 19-06-30
+     * - use of View\FormInput
      */
     private static function dsplyTables(\GIndie\DBHandler\MySQL57\Handler\Database $dbHandler)
     {
@@ -804,7 +813,7 @@ abstract class Deployer extends \GIndie\Framework\Controller
         $table->addHeader(["", "Class", "Table", "Validator"]);
         $table->addContent(View\FormInput::formPostOnSelf("selectTable"));
         $formTemp = View\FormInput::formPostOnSelf("createTableFromDatabase");
-        $formTemp->addInput(\GIndie\Platform\View\Input::hidden("databaseId",
+        $formTemp->addInput(View\FormInput::inputHidden("databaseId",
                 \urlencode(\get_class($dbHandler->getDatabase()))));
         $table->addContent($formTemp);
         foreach ($dbHandler->getTables() as $classname => $tableHandler) {

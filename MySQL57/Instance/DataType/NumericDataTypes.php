@@ -22,7 +22,7 @@ use GIndie\DBHandler\MySQL57\DataDefinition;
  * - Moved methods from Instance\DataType
  */
 abstract class NumericDataTypes extends DateTimeDataTypes
-        implements DataDefinition\DataTypes\Numeric
+    implements DataDefinition\DataTypes\Numeric
 {
 
     /**
