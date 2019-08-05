@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL57\DataDefinition
  *
- * @version 00.C7
+ * @version 00.CA
  * @since 18-11-02
  */
 
@@ -283,13 +283,30 @@ interface StringDataTypes
 
     /**
      * MEDIUMTEXT [CHARACTER SET charset_name] [COLLATE collation_name]
-     * A TEXT column with a maximum length of 16,777,215 (224 − 1) characters. The effective maximum length is less if the value contains multibyte characters. Each MEDIUMTEXT value is stored using a 3-byte length prefix that indicates the number of bytes in the value. 
+     * A TEXT column with a maximumlength of 16,777,215 (224 − 1) characters. The effective maximum length is less if thevalue contains multibyte characters. Each MEDIUMTEXT value is storedusing a 3-byte length prefix that indicates the number ofbytes in the value. 
      * @since 18-04-26 
      * @edit 18-05-01
      * @edit 18-11-11
      * - Upgraded DocBlock
      */
     const DATATYPE_MEDIUMTEXT = "MEDIUMTEXT";
+
+    /**
+     * A TEXT column with a maximumlength of 16,777,215 (224 − 1) characters. 
+     * The effective maximum length is less if thevalue contains multibyte 
+     * characters. Each MEDIUMTEXT value is storedusing a 3-byte length prefix 
+     * that indicates the number ofbytes in the value. 
+     * 
+     * @link <https://dev.mysql.com/doc/refman/5.7/en/string-type-overview.html>
+     * 
+     * @param string|null $charsetName Optional character set name
+     * @param string|null $collationName Optional collation name
+     * 
+     * @return \GIndie\DBHandler\MySQL57\Instance\DataType
+     * 
+     * @since 19-08-05
+     */
+    public static function mediumtext($charsetName = null, $collationName = null);
 
     /**
      * LONGBLOB
@@ -359,7 +376,7 @@ interface StringDataTypes
      * - Upgraded DocBlock
      */
     const DATATYPE_SET = "SET";
-    
+
     /**
      * A set. A string object that can have zero or more values, each of which 
      * must be chosen from the list of values 'value1', 'value2', ... SETvalues 
@@ -378,5 +395,4 @@ interface StringDataTypes
      * @since 19-07-25
      */
     public static function set(array $values, $charsetName = null, $collationName = null);
-
 }

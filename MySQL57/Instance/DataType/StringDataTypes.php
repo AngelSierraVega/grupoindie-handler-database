@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL57\Instance
  *
- * @version 00.AC
+ * @version 00.AD
  * @since 18-11-11
  */
 
@@ -102,6 +102,18 @@ abstract class StringDataTypes extends NumericDataTypes implements DataDefinitio
     {
         $rtnData = new \GIndie\DBHandler\MySQL57\Instance\DataType(static::DATATYPE_TEXT);
         $rtnData->setM($m);
+        $rtnData->setCharacterSet($charsetName);
+        $rtnData->setCollation($collationName);
+        return $rtnData;
+    }
+
+    /**
+     * {@inheritdoc}
+     * @since 19-08-05
+     */
+    public static function mediumtext($charsetName = null, $collationName = null)
+    {
+        $rtnData = new \GIndie\DBHandler\MySQL57\Instance\DataType(static::DATATYPE_MEDIUMTEXT);
         $rtnData->setCharacterSet($charsetName);
         $rtnData->setCollation($collationName);
         return $rtnData;

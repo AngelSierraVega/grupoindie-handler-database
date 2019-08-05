@@ -9,7 +9,7 @@
  * @package GIndie\DBHandler\Components
  *
  * @since 18-02-24
- * @version 00.9A
+ * @version 00.9D
  */
 
 namespace GIndie\DBHandler;
@@ -63,17 +63,21 @@ class ProjectHandler extends \GIndie\ProjectHandler\AbstractProjectHandler
         $rtnArray[\hexdec("00.93")]["description"] = "Upgrade from MySQL56 to MySQL57.";
         $rtnArray[\hexdec("00.93")]["code"] = "PGRD-MySQL57";
         $rtnArray[\hexdec("00.93")]["threshold"] = "00.93";
-        
+
         //00.9A
         $rtnArray[\hexdec("00.9A")]["description"] = "Goodbye 2018";
         $rtnArray[\hexdec("00.9A")]["code"] = "GDBYE-2018";
         $rtnArray[\hexdec("00.9A")]["threshold"] = "00.9A";
 
-        
+        //00.9D
+        $rtnArray[\hexdec("00.9D")]["description"] = "Methods for BuscadorRUEyAC (A)";
+        $rtnArray[\hexdec("00.9D")]["code"] = "UPDT-RUEyAC-A";
+        $rtnArray[\hexdec("00.9D")]["threshold"] = "00.9D";
+
         $rtnArray[\hexdec("00.B0")]["description"] = "Upgrade DBHandler for MMR-PRDL";
         $rtnArray[\hexdec("00.B0")]["code"] = "FP-MMR-PRDL";
         $rtnArray[\hexdec("00.B0")]["threshold"] = "00.B0";
-        
+
 
         $rtnArray[\hexdec("01.00")]["description"] = "Release";
         $rtnArray[\hexdec("01.00")]["code"] = "One";
