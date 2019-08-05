@@ -10,6 +10,7 @@
  *
  * @since 18-02-24
  * @version 00.9A
+ *
  */
 
 namespace GIndie\DBHandler;
