@@ -9,7 +9,8 @@
  * @package GIndie\DBHandler\Components
  *
  * @since 18-02-24
- * @version 00.9D
+ * @version 00.9A
+ *
  */
 
 namespace GIndie\DBHandler;
