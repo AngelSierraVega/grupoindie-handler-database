@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL57\Instance
  *
- * @version 00.AD
+ * @version 00.AE
  * @since 18-11-11
  */
 
@@ -120,26 +120,32 @@ abstract class StringDataTypes extends NumericDataTypes implements DataDefinitio
     }
 
     /**
-     * 
      * {@inheritdoc}
-     * 
      * @since 18-08-01
+     * @edit 19-08-06
+     * - Use setCharacterSet(), setCollation()
      */
     public static function enum(array $values, $charsetName = null, $collationName = null)
     {
         $rtnData = new \GIndie\DBHandler\MySQL57\Instance\DataType(static::DATATYPE_ENUM);
         $rtnData->setValues($values);
+        $rtnData->setCharacterSet($charsetName);
+        $rtnData->setCollation($collationName);
         return $rtnData;
     }
 
     /**
      * {@inheritdoc}
      * @since 19-07-25
+     * @edit 19-08-06
+     * - Use setCharacterSet(), setCollation()
      */
     public static function set(array $values, $charsetName = null, $collationName = null)
     {
         $rtnData = new \GIndie\DBHandler\MySQL57\Instance\DataType(static::DATATYPE_SET);
         $rtnData->setValues($values);
+        $rtnData->setCharacterSet($charsetName);
+        $rtnData->setCollation($collationName);
         return $rtnData;
     }
 

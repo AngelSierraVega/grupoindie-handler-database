@@ -9,7 +9,7 @@
  * @package GIndie\DBHandler\Components
  *
  * @since 18-02-24
- * @version 00.9A
+ * @version 00.9E
  *
  */
 
@@ -74,6 +74,11 @@ class ProjectHandler extends \GIndie\ProjectHandler\AbstractProjectHandler
         $rtnArray[\hexdec("00.9D")]["description"] = "Methods for BuscadorRUEyAC (A)";
         $rtnArray[\hexdec("00.9D")]["code"] = "UPDT-RUEyAC-A";
         $rtnArray[\hexdec("00.9D")]["threshold"] = "00.9D";
+        
+        //00.9E
+        $rtnArray[\hexdec("00.9E")]["description"] = "Methods for BuscadorRUEyAC (B)";
+        $rtnArray[\hexdec("00.9E")]["code"] = "UPDT-RUEyAC-B";
+        $rtnArray[\hexdec("00.9E")]["threshold"] = "00.9E";
 
         $rtnArray[\hexdec("00.B0")]["description"] = "Upgrade DBHandler for MMR-PRDL";
         $rtnArray[\hexdec("00.B0")]["code"] = "FP-MMR-PRDL";

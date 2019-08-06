@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL57\Instance
  *
- * @version 00.60
+ * @version 00.70
  * @since 18-10-03
  */
 
@@ -33,8 +33,7 @@ use GIndie\DBHandler\MySQL57;
  *     [UNIQUE [KEY]] [[PRIMARY] KEY]
  *     [COMMENT 'string']
  */
-class ColumnDefinition
-        implements MySQL57\DataDefinition\Identifiers\Column\Definition
+class ColumnDefinition implements MySQL57\DataDefinition\Identifiers\Column\Definition
 {
 
     /**
@@ -322,18 +321,25 @@ class ColumnDefinition
      * @since 18-10-02
      * @edit 18-11-04
      * - Handle DATATYPE_DATETIME
+     * @edit 19-08-06
+     * - Handle DATATYPE_SET
+     * - Handle DATATYPE_SMALLINT
+     * - Handle DATATYPE_FLOAT
      */
     protected function getColumnDefinitionDataType()
     {
         $rtnStr = $this->dataType->getDatatype();
-        switch ($this->dataType->getDatatype())
-        {
+        switch ($this->dataType->getDatatype()) {
             case DataType::DATATYPE_SERIAL:
             case DataType::DATATYPE_DATE:
                 break;
             case DataType::DATATYPE_ENUM:
+            case DataType::DATATYPE_SET:
                 $rtnStr .= "(" . (\join(",", $this->dataType->getValues())) . ")";
+                $rtnStr .= !\is_null($this->dataType->getCharsetName()) ? " CHARACTER SET {$this->dataType->getCharsetName()}" : "";
+                $rtnStr .= !\is_null($this->dataType->getCollationName()) ? " COLLATE {$this->dataType->getCollationName()}" : "";
                 break;
+            case DataType::DATATYPE_SMALLINT:
             case DataType::DATATYPE_INT:
             case DataType::DATATYPE_TINYINT:
             case DataType::DATATYPE_BIGINT:
@@ -347,6 +353,7 @@ class ColumnDefinition
                 $rtnStr .= !\is_null($this->dataType->getFSP()) ? "({$this->dataType->getFSP()})" : "";
                 break;
             case DataType::DATATYPE_DECIMAL:
+            case DataType::DATATYPE_FLOAT:
                 $rtnStr .= "({$this->dataType->getM()},{$this->dataType->getD()})";
                 $rtnStr .= ($this->dataType->getUnsigned()) ? " UNSIGNED" : "";
                 $rtnStr .= ($this->dataType->getZerofill()) ? " ZEROFILL" : "";
@@ -354,13 +361,13 @@ class ColumnDefinition
             case DataType::DATATYPE_CHAR:
             case DataType::DATATYPE_VARCHAR:
                 $rtnStr .= "({$this->dataType->getM()})";
+            case DataType::DATATYPE_MEDIUMTEXT:
             case DataType::DATATYPE_TEXT:
                 $rtnStr .= !\is_null($this->dataType->getCharsetName()) ? " CHARACTER SET {$this->dataType->getCharsetName()}" : "";
                 $rtnStr .= !\is_null($this->dataType->getCollationName()) ? " COLLATE {$this->dataType->getCollationName()}" : "";
                 break;
             default:
-                var_dump($this->dataType->getDatatype());
-                \trigger_error("@todo handle datatype", \E_USER_ERROR);
+                \trigger_error("@todo handle datatype " . $this->dataType->getDatatype(), \E_USER_ERROR);
                 break;
         }
         return $rtnStr;
@@ -377,14 +384,12 @@ class ColumnDefinition
     {
         $rtnStr = "";
         if (!is_null($this->default)) {
-            switch (true)
-            {
+            switch (true) {
                 case \is_int($this->default) === true:
                     $rtnStr .= " DEFAULT " . $this->default;
                     break;
                 case \is_string($this->default) === true:
-                    switch ($this->default)
-                    {
+                    switch ($this->default) {
                         case "now()":
                         case "NULL":
                             $rtnStr .= " DEFAULT " . $this->default;
@@ -412,8 +417,7 @@ class ColumnDefinition
     {
         $rtnStr = "";
         if (!\is_null($this->comment)) {
-            switch (true)
-            {
+            switch (true) {
                 case (\is_string($this->comment) === true):
                     $rtnStr .= " COMMENT '" . \addslashes($this->comment) . "'";
                     break;
@@ -466,8 +470,7 @@ class ColumnDefinition
     public function setGenerated($expression, $columnUse = "VIRTUAL")
     {
         $this->expression = $expression;
-        switch ($columnUse)
-        {
+        switch ($columnUse) {
             case "VIRTUAL":
             case "STORED":
                 $this->generated = $columnUse;

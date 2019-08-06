@@ -1,11 +1,9 @@
-19-08-05 to 
-
-
-
+19-08-05 to 19-08-06
+- Methods for BuscadorRUEyAC (B)
 
 -------------------------------PROJECT---------------------------------|
 \GIndie\DBHandler
-19-08-05 v:00.9D LOC:14960
+19-08-06 v:00.9E LOC:14975
 ABS(15) CLA(55) INT(31) SCR(1) TRA(9) LOG(0) NDF(0) 
 -------------------------------VERSIONS--------------------------------|
 [00.01] Cero.........| Cero
@@ -15,6 +13,7 @@ ABS(15) CLA(55) INT(31) SCR(1) TRA(9) LOG(0) NDF(0)
 [00.93] PGRD-MySQL57.| Upgrade from MySQL56 to MySQL57.
 [00.9A] GDBYE-2018...| Goodbye 2018
 [00.9D] UPDT-RUEyAC-A| Methods for BuscadorRUEyAC (A)
+[00.9E] UPDT-RUEyAC-B| Methods for BuscadorRUEyAC (B)
 [00.B0] FP-MMR-PRDL..| Upgrade DBHandler for MMR-PRDL
 [01.00] One..........| Release
 --------------------------------FILE-----------------------------|--V--|
@@ -40,7 +39,7 @@ ABS(15) CLA(55) INT(31) SCR(1) TRA(9) LOG(0) NDF(0)
 [CLA] Components\Platform\ModuleDataModel.php....................|00.A3|
 [CLA] Components\Platform\ModuleDBMS.php.........................|00.A7|
 [CLA] INIHandler.php.............................................|00.AA|
-[CLA] ProjectHandler.php.........................................|00.9D|
+[CLA] ProjectHandler.php.........................................|00.9E|
 [INT] MySQL\Column.php...........................................|NDFND|
 [INT] MySQL\Connection.php.......................................|NDFND|
 [INT] MySQL\Database.php.........................................|NDFND|
@@ -104,12 +103,12 @@ ABS(15) CLA(55) INT(31) SCR(1) TRA(9) LOG(0) NDF(0)
 [INT] MySQL57\DataDefinition\Statements\DataManipulationStatement\Show.php|00.10|
 [CLA] MySQL57\Handler\Database.php...............................|00.A0|
 [CLA] MySQL57\Handler\Table.php..................................|00.BA|
-[CLA] MySQL57\Instance\ColumnDefinition.php......................|00.60|
+[CLA] MySQL57\Instance\ColumnDefinition.php......................|00.70|
 [ABS] MySQL57\Instance\Database.php..............................|00.AA|
 [ABS] MySQL57\Instance\DataType\CommonMethods.php................|00.B0|
 [ABS] MySQL57\Instance\DataType\DateTimeDataTypes.php............|00.9A|
 [ABS] MySQL57\Instance\DataType\NumericDataTypes.php.............|00.9C|
-[ABS] MySQL57\Instance\DataType\StringDataTypes.php..............|00.AD|
+[ABS] MySQL57\Instance\DataType\StringDataTypes.php..............|00.AE|
 [CLA] MySQL57\Instance\DataType.php..............................|00.B0|
 [CLA] MySQL57\Instance\ReferenceDefinition.php...................|00.C7|
 [ABS] MySQL57\Instance\Table.php.................................|00.BE|
@@ -130,4 +129,4 @@ ABS(15) CLA(55) INT(31) SCR(1) TRA(9) LOG(0) NDF(0)
 [CLA] MySQL57\Statement\DataManipulation.php.....................|00.7A|
 [CLA] MySQL57\Statement\ExpressionSyntax.php.....................|00.30|
 -----------------------------------------------------------------------|
- \GIndie\DBHandler v 00.9D
+ \GIndie\DBHandler v 00.9E
