@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL57\Instance
  *
- * @version 00.BE
+ * @version 00.BF
  * @since 18-10-11
  */
 
@@ -35,6 +35,8 @@ use GIndie\DBHandler\MySQL57\Statement;
   - Created getFormattedReference()
  * @edit 19-02-13
  * - Debuged getPKDataType()
+ * @edit 19-12-29
+ * - Minor revitions
  * @todo validate created methods
  */
 abstract class Table implements Identifiers\Table, DataDefinition\Identifiers\Table
@@ -55,8 +57,7 @@ abstract class Table implements Identifiers\Table, DataDefinition\Identifiers\Ta
     {
         $select = static::sttmtSelect($selectors);
         foreach ($conditions as $condition) {
-            switch (true)
-            {
+            switch (true) {
                 case \is_array($condition):
                     $expr1 = \array_keys($condition)[0];
                     $expr2 = \array_values($condition)[0];
@@ -69,8 +70,7 @@ abstract class Table implements Identifiers\Table, DataDefinition\Identifiers\Ta
             }
         }
         foreach ($params as $type => $expr) {
-            switch (true)
-            {
+            switch (true) {
                 case $type === "GROUP BY":
                     $select->addGroupBy($expr);
                     break;
@@ -193,9 +193,11 @@ abstract class Table implements Identifiers\Table, DataDefinition\Identifiers\Ta
      * - Default $className = null
      * @edit 19-02-13
      * - Undeprecated method.
+     * @edit 19-12-22
+     * - Changed visibility from protected to public
      * @todo Deprecate attribute $className
      */
-    protected static function getPKDataType($className = null)
+    public static function getPKDataType($className = null)
     {
         if (!\is_null($className)) {
             if (!\is_subclass_of($className, \GIndie\DBHandler\MySQL57\Instance\Table::class)) {
@@ -203,23 +205,15 @@ abstract class Table implements Identifiers\Table, DataDefinition\Identifiers\Ta
                     \E_USER_ERROR);
             }
             $instance = $className::instance();
-//            $instance->columns();
+            /**
+             * @todo quitar error de uso PRIMARY_KEY
+             */
             $dataType = $instance::columnDefinition($instance::PRIMARY_KEY)->getDataType();
         } else {
             $instance = static::instance();
-//            $instance->columns();
             $dataType = static::columnDefinition(static::referenceDefinition()->getPrimaryKeyName())->getDataType();
         }
-//        var_dump(static::referenceDefinition());
-//        foreach (static::referenceDefinition() as $tmpRD) {
-//            var_dump($tmpRD);
-//            if (!\is_null($tmpRD->getPrimaryKeyName())) {
-//                $dataType = static::columnDefinition($tmpRD->getPrimaryKeyName())->getDataType();
-//            }
-//        }
-//        $dataType = static::columnDefinition($instance::PRIMARY_KEY)->getDataType();
-        switch ($dataType->getDatatype())
-        {
+        switch ($dataType->getDatatype()) {
             case DataType::DATATYPE_SERIAL:
                 $dataType = DataType::serializedBigint();
                 break;
@@ -232,9 +226,12 @@ abstract class Table implements Identifiers\Table, DataDefinition\Identifiers\Ta
      * @param array $data
      * @since 18-08-18
      * @return \GIndie\Platform\Model\Record
+     * @edit 19-12-26
+     * - Called columns() on creating instance
      */
     public static function instance(array $data = [])
     {
+        static::columns();
 //        static::configAttributes();
 //        \array_key_exists(static::PRIMARY_KEY, $data) ?: $data[static::PRIMARY_KEY] = "GIP-UNDEFINED";
 //        foreach (\array_keys(static::$_attribute[static::class]) as $attribute) {
@@ -289,7 +286,7 @@ abstract class Table implements Identifiers\Table, DataDefinition\Identifiers\Ta
             static::tableDefinition();
         }
         if (empty(static::$columns[static::class])) {
-            \trigger_error("Columns not defined for ".static::class, \E_USER_ERROR);
+            \trigger_error("Columns not defined for " . static::class, \E_USER_ERROR);
         }
         return static::$columns[static::class];
     }

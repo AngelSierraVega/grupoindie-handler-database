@@ -8,8 +8,9 @@
  *
  * @package GIndie\DBHandler\MySQL57\Instance
  *
- * @version 00.9C
+ * @version 00.9D
  * @since 18-11-11
+ * @todo upgrade docblock
  */
 
 namespace GIndie\DBHandler\MySQL57\Instance\DataType;
@@ -81,6 +82,12 @@ abstract class NumericDataTypes extends DateTimeDataTypes implements DataDefinit
     }
 
     /**
+     * TINYINT[(M)] [UNSIGNED] [ZEROFILL]
+     *
+     * A very small integer. The signed range is -128 to 127. The unsigned range is 0 to 255.
+     * 
+     * @link <https://dev.mysql.com/doc/refman/5.7/en/numeric-type-syntax.html>
+     * 
      * @param int $m
      * @param boolean $unsigned
      * @param boolean $zerofill 
@@ -100,6 +107,9 @@ abstract class NumericDataTypes extends DateTimeDataTypes implements DataDefinit
     }
 
     /**
+     * SERIAL is an alias for BIGINT UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE. 
+     * 
+     * @link <https://dev.mysql.com/doc/refman/5.7/en/numeric-type-syntax.html>
      * 
      * @return \GIndie\DBHandler\MySQL57\Instance\DataType
      * @since 18-08-01

@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL57\Instance
  *
- * @version 00.70
+ * @version 00.76
  * @since 18-10-03
  */
 
@@ -32,6 +32,8 @@ use GIndie\DBHandler\MySQL57;
  *     [VIRTUAL | STORED] [NOT NULL | NULL]
  *     [UNIQUE [KEY]] [[PRIMARY] KEY]
  *     [COMMENT 'string']
+ * @edit 19-12-20
+ * - Added getDataTypeName()
  */
 class ColumnDefinition implements MySQL57\DataDefinition\Identifiers\Column\Definition
 {
@@ -82,6 +84,17 @@ class ColumnDefinition implements MySQL57\DataDefinition\Identifiers\Column\Defi
     public function getDataType()
     {
         return $this->dataType;
+    }
+
+    /**
+     * Returns the datatype name of the column definition
+     * 
+     * @return string
+     * @since 19-12-20
+     */
+    public function getDataTypeName()
+    {
+        return $this->dataType->getDatatype();
     }
 
     /**

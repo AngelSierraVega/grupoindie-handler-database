@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\Components\Framework
  *
- * @version 00.BC
+ * @version 00.BD
  * @since 18-07-26
  */
 
@@ -663,6 +663,8 @@ abstract class Deployer extends \GIndie\Framework\Controller
      * 
      * @return \GIndie\Framework\View\Widget
      * @since 18-08-15
+     * @edit 19-12-20
+     * - Added automatic form creation
      */
     public static function widgetTable()
     {
@@ -682,6 +684,7 @@ abstract class Deployer extends \GIndie\Framework\Controller
             $widget->setContext("primary");
             $widget->addContent(static::dsplyTableColumns($tmpTableHandler));
             $widget->addContent(static::dsplyTableColumnsMissing($tmpTableHandler));
+            $widget->addContent(View\FormInput\InstanceFromDBHandler::getForm($tmpTableclass));
         }
 
         //$widget->addActionPost($formId, $params);

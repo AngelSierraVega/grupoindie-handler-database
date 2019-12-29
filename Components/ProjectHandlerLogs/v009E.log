@@ -1,4 +1,7 @@
-19-12-29 a 
+19-08-05 a 19-12-29
+- Minor revisions
+- ReferenceDefinition handles foreign keys and unique columns
+- Methods for BuscadorRUEyAC (B)
 
 -------------------------------PROJECT---------------------------------|
 \GIndie\DBHandler

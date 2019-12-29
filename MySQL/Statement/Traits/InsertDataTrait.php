@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL\Statement
  *
- * @version 00.AA
+ * @version 00.AB
  * @since 18-08-26
  */
 
@@ -31,8 +31,10 @@ trait InsertDataTrait
      * 
      * @param array $insertData
      * @return $this
-     * @throws \Exception
+     * @throwsDPR \Exception
      * @since 18-08-26
+     * @edit 19-12-21
+     * - Removed exception
      */
     public function setInsertData(array $insertData)
     {
@@ -40,8 +42,7 @@ trait InsertDataTrait
         $this->columnNames = [];
         $tmpEval = false;
         foreach ($insertData as $key => $value) {
-            switch (true)
-            {
+            switch (true) {
                 case \is_string($key) === true:
                     $tmpEval = true;
                     break;
@@ -51,7 +52,8 @@ trait InsertDataTrait
                     $this->insertRecordData($value);
                     break;
                 default:
-                    throw new \Exception("todo setInsertData of type NOT array");
+                    \trigger_error("Error on data: key not defined. " . print_r($insertData), \E_USER_ERROR);
+                    //throw new \Exception("todo setInsertData of type NOT array");
                     break;
             }
         }
@@ -72,8 +74,7 @@ trait InsertDataTrait
     protected function getFormattedValue($value)
     {
         $rtnValue;
-        switch (true)
-        {
+        switch (true) {
             case \is_string($value) === true:
                 $rtnValue = "\"{$value}\"";
                 break;
@@ -100,8 +101,7 @@ trait InsertDataTrait
     public function insertRecordData(array $recordData)
     {
         foreach ($recordData as $key => $value) {
-            switch (true)
-            {
+            switch (true) {
                 case \is_string($key):
                     //$this->columnNames["`{$key}_test`"] = true;
                     $this->columnNames["`{$key}`"] = true;

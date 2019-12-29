@@ -8,7 +8,7 @@
  *
  * @package GIndie\DBHandler\MySQL57\Instance
  *
- * @version 00.C7
+ * @version 00.CA
  * @since 18-11-02
  * @todo Upgrade DocBlock
  */
@@ -28,7 +28,10 @@ namespace GIndie\DBHandler\MySQL57\Instance;
  * @edit 18-11-07
  * - Created addIndex()
  * @edit 19-02-15
- * - Adder $foreignKeys, getForeignKeys()
+ * - Added $foreignKeys, getForeignKeys()
+ * @edit 19-12-29
+ * - Added $uniqueColumns , getUniqueColumns(), getUniqueKeyName()
+ * - Handle use of unique columns
  */
 class ReferenceDefinition
 {
@@ -48,13 +51,29 @@ class ReferenceDefinition
     private $foreignKeys = [];
 
     /**
+     *
+     * @var array Stores the unique column names
+     * @since 19-12-29
+     */
+    private $uniqueColumns = [];
+
+    /**
+     * Gets an array with the column names defined as unique
+     * @return array
+     */
+    public function getUniqueColumns()
+    {
+        return $this->uniqueColumns;
+    }
+
+    /**
      * 
      * @return array
      * @since 19-02-15
      */
     public function getForeignKeys()
     {
-        return $this->getForeignKeys();
+        return $this->foreignKeys;
     }
 
     /**
@@ -80,12 +99,13 @@ class ReferenceDefinition
      * @since 18-08-20
      * @edit 18-11-02
      * - Handle array on reference
+     * @edit 19-12-29
+     * - Handle unique columns
      */
     public function setPrimaryKey($reference, $orderIndex = false)
     {
         $this->primaryKeyName = $reference;
-        switch (true)
-        {
+        switch (true) {
             case \is_array($reference):
                 $reference = \join("`,`", $reference);
                 break;
@@ -96,10 +116,12 @@ class ReferenceDefinition
         $tmp = "PRIMARY KEY (`{$reference}`";
         $tmp .= $orderIndex !== false ? " {$orderIndex})" : ")";
         $this->references[] = $tmp;
+        $this->uniqueColumns[] = $this->primaryKeyName;
         return $this;
     }
 
     /**
+     * Gets the defined primary key name
      * 
      * @return string
      * @since 18-08-20
@@ -107,6 +129,17 @@ class ReferenceDefinition
     public function getPrimaryKeyName()
     {
         return $this->primaryKeyName;
+    }
+
+    /**
+     * Gets the (last) defined unique key name
+     * 
+     * @return string
+     * @since 19-12-29
+     */
+    public function getUniqueKeyName()
+    {
+        return $this->uniqueColumns[\count($this->uniqueColumns) - 1];
     }
 
     /**
@@ -118,8 +151,7 @@ class ReferenceDefinition
     private function formatedColName($columnName)
     {
         $rtnStr = "";
-        switch (true)
-        {
+        switch (true) {
             case \is_array($columnName):
                 $rtnStr .= "(`" . \join("`,`", $columnName) . "`)";
                 break;
@@ -193,8 +225,7 @@ class ReferenceDefinition
                 \E_USER_ERROR);
         }
         $formatedColumn = "(`{$colName}`)";
-        switch (true)
-        {
+        switch (true) {
             case ($symbol === true):
                 throw new \Exception("@todo");
                 break;
@@ -244,12 +275,13 @@ class ReferenceDefinition
      * @return \GIndie\DBHandler\MySQL57\Instance\ReferenceDefinition
      * @throws \Exception
      * @since 18-08-20
+     * @edit 19-12-29
+     * - Handle unique columns
      */
     public function addUniqueKey($columnName, $fullKeyname = false)
     {
         $formatedColumn = $this->formatedColName($columnName);
-        switch (true)
-        {
+        switch (true) {
             case ($fullKeyname === true):
                 throw new \Exception("@todo");
                 $this->references[] = "UNIQUE KEY `idxnq_{$columnName}` {$formatedColumn}";
@@ -264,6 +296,7 @@ class ReferenceDefinition
                 throw new \Exception("Unrecognized type for {$fullKeyname}");
                 break;
         }
+        $this->uniqueColumns[] = $columnName;
         return $this;
     }
 

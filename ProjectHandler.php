@@ -74,11 +74,14 @@ class ProjectHandler extends \GIndie\ProjectHandler\AbstractProjectHandler
         $rtnArray[\hexdec("00.9D")]["description"] = "Methods for BuscadorRUEyAC (A)";
         $rtnArray[\hexdec("00.9D")]["code"] = "UPDT-RUEyAC-A";
         $rtnArray[\hexdec("00.9D")]["threshold"] = "00.9D";
-        
-        //00.9E
-        $rtnArray[\hexdec("00.9E")]["description"] = "Methods for BuscadorRUEyAC (B)";
-        $rtnArray[\hexdec("00.9E")]["code"] = "UPDT-RUEyAC-B";
+
+        /**
+         * GDBYE-2019 00.9E
+         */
+        $rtnArray[\hexdec("00.9E")]["description"] = "19-12-29 Goodbye 2019";
+        $rtnArray[\hexdec("00.9E")]["code"] = "GDBYE-2019";
         $rtnArray[\hexdec("00.9E")]["threshold"] = "00.9E";
+        
 
         $rtnArray[\hexdec("00.B0")]["description"] = "Upgrade DBHandler for MMR-PRDL";
         $rtnArray[\hexdec("00.B0")]["code"] = "FP-MMR-PRDL";
