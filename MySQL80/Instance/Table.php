@@ -9,7 +9,7 @@
  *
  * @package GIndie\DBHandler\MySQL57\Instance
  *
- * @version 00.C0
+ * @version DOING
  * @since 18-10-11
  */
 
@@ -53,7 +53,6 @@ abstract class Table implements Identifiers\Table, DataDefinition\Identifiers\Ta
      * @todo Handle conditions
      * @edit 18-12-24
      * - Handle params
-     * @edit 21-06-25
      */
     public static function fetchAssoc(array $selectors = ["*"], array $conditions = [], array $params = [])
     {
@@ -101,7 +100,7 @@ abstract class Table implements Identifiers\Table, DataDefinition\Identifiers\Ta
         }
         $rtnArray = [];
         while ($row = $result->fetch_assoc()) {
-            $rtnArray[$row[static::referenceDefinition()->getPrimaryKeyName()]] = $row;
+            $rtnArray[$row[static::PRIMARY_KEY]] = $row;
         }
         unset($select);
         unset($result);
@@ -175,6 +174,7 @@ abstract class Table implements Identifiers\Table, DataDefinition\Identifiers\Ta
     {
         if (\is_null($dataType)) {
             if (!isset(static::$columns[static::class][$name])) {
+//                static::tableDefinition();
                 \trigger_error("Column '$name' not defined.", \E_USER_ERROR);
             }
         } elseif (\is_bool($dataType) && ($dataType === false)) {

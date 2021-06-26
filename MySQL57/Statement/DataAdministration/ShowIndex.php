@@ -1,41 +1,43 @@
 <?php
 
 /**
- * GI-DBHandler-DVLP - ShowColumns
+ * GI-HNDLR-DB - ShowIndex
  *
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
- * @copyright (CC) 2020 Angel Sierra Vega. Grupo INDIE.
+ * @copyright (c) 2021 Angel Sierra Vega. Grupo INDIE.
  * @license file://LICENSE
  *
  * @package GIndie\DBHandler\MySQL57\Statement
  *
- * @version 00.A6
- * @since 18-11-02
- * @todo Upgrade DocBlock to MySQL57
+ * @version 00.A0
+ * @since 21-06-28
  */
 
 namespace GIndie\DBHandler\MySQL57\Statement\DataAdministration;
 
 /**
+ * SHOW INDEX returns table index information. The format resembles that of the 
+ * SQLStatistics call in ODBC. This statement requires some privilege for any 
+ * column in the table.
  * 
- * @edit 18-11-02
- * - Copied code from GIndie\DBHandler\MySQL56\...
+ * @link <https://dev.mysql.com/doc/refman/5.7/en/show-index.html>
+ *
  */
-class ShowColumns
-{
-
+class ShowIndex {
     /**
      *
      * @var string 
-     * @since 18-08-16
+     * @since 21-06-28
      */
     private $tableName;
 
     /**
+     * SHOW INDEX returns table index information. The format resembles that of
+     * the SQLStatistics call in ODBC. This statement requires some privilege 
+     * for any column in the table.
      * 
-     * @param type $tableName
-     * @param array $columnDefinition
-     * @since 18-08-16
+     * @param string $tableName
+     * @since 21-06-28
      */
     public function __construct($tableName)
     {
@@ -45,15 +47,15 @@ class ShowColumns
     /**
      *
      * @var string 
-     * @since 18-08-16
+     * @since 21-06-28
      */
     private $databaseName;
 
     /**
      * 
      * @param string $databaseName
-     * @return \GIndie\DBHandler\MySQL57\Statement\DataAdministration\ShowColumns
-     * @since 18-08-16
+     * @return \GIndie\DBHandler\MySQL57\Statement\DataAdministration\ShowIndex
+     * @since 21-06-28
      */
     public function setDatabaseName($databaseName)
     {
@@ -64,14 +66,13 @@ class ShowColumns
     /**
      * 
      * @return string
-     * @since 18-08-16
+     * @since 21-06-28
      */
     public function __toString()
     {
-        $rtnStr = "SHOW FULL COLUMNS FROM ";
+        $rtnStr = "SHOW INDEX FROM ";
         $rtnStr .= isset($this->databaseName) ? "`{$this->databaseName}`.`{$this->tableName}`" : "`{$this->tableName}`";
         $rtnStr .= ";";
         return $rtnStr;
     }
-
 }

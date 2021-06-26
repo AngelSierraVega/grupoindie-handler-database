@@ -7,7 +7,7 @@
  * @license file://LICENSE
  *
  * @package GIndie\DBHandler\MySQL\Statement
- * 
+ * @version 00.A8
  */
 
 namespace GIndie\DBHandler\MySQL\Statement\Traits;
@@ -19,12 +19,11 @@ namespace GIndie\DBHandler\MySQL\Statement\Traits;
  * @since 18-02-15
  * @edit
  * - Created $selectors, setSelectors(), renderSelectors()
- * @version A0
  * @edit 18-05-03
  * - Moved file from [base_dir]\MySQL\Statement to [base_dir]\MySQL56\Statement\DataManipulation\Traits
  * - Updated namespace
  * - Updated trait name due to PSR-0 Violation
- * @version 00.A7
+ * 
  * @edit 18-10-02
  * - Upgraded version
  * @edit 18-11-02
@@ -67,7 +66,11 @@ trait SelectorTrait
                         if(\is_int($key)){
                             $this->selectors["{$tmpKey}.{$tmpValue}"] = "`{$tmpKey}`.`{$tmpValue}`";
                         }else{
-                            $this->selectors["{$key}.{$tmpValue}"] = "`{$key}`.`{$tmpValue}`";
+                            if(\strpos($tmpValue, " AS ") !== false){
+                                $this->selectors["{$key}.{$tmpValue}"] = "`{$key}`.{$tmpValue}";
+                            }else{
+                                $this->selectors["{$key}.{$tmpValue}"] = "`{$key}`.`{$tmpValue}`";
+                            }
                         }
                     }
                     break;

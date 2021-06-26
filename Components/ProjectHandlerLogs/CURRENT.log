@@ -1,9 +1,13 @@
 19-12-29 a 
 
+DOING
+
+- Added DataAdministration\ShowIndex
+
 -------------------------------PROJECT---------------------------------|
 \GIndie\DBHandler
-19-12-29 v:00.9E LOC:15034
-ABS(15) CLA(55) INT(31) SCR(1) TRA(9) LOG(0) NDF(0) 
+21-06-29 v:00.9E LOC:21033
+ABS(23) CLA(77) INT(40) SCR(1) TRA(9) LOG(0) NDF(0) 
 -------------------------------VERSIONS--------------------------------|
 [00.01] Cero.........| Cero
 [00.30] FP-FE........| Functional project for FacturacionExterna
@@ -32,7 +36,7 @@ ABS(15) CLA(55) INT(31) SCR(1) TRA(9) LOG(0) NDF(0)
 [CLA] MySQL56.php................................................|00.A0|
 [CLA] MySQL57.php................................................|00.BA|
 [SCR] AutoloaderDBHandler.php....................................|00.A4|
-[ABS] Components\Framework\Deployer.php..........................|00.BD|
+[ABS] Components\Framework\Deployer.php..........................|00.BC|
 [TRA] Components\Framework\DisplayTraits.php.....................|00.C0|
 [CLA] Components\Platform\Instance.php...........................|00.A3|
 [CLA] Components\Platform\ModuleDataModel.php....................|00.A3|
@@ -100,9 +104,22 @@ ABS(15) CLA(55) INT(31) SCR(1) TRA(9) LOG(0) NDF(0)
 [CLA] MySQL57\DataDefinition\ServerAdministration\SqlModes.php...|00.FA|
 [INT] MySQL57\DataDefinition\Statements\DataManipulationStatement\Show\Databases.php|00.90|
 [INT] MySQL57\DataDefinition\Statements\DataManipulationStatement\Show.php|00.10|
+[INT] MySQL80\DataDefinition\DataTypes\DateTime.php..............|DOING|
+[INT] MySQL80\DataDefinition\DataTypes\Numeric.php...............|DOING|
+[INT] MySQL80\DataDefinition\DataTypes\StringDataTypes.php.......|DOING|
+[INT] MySQL80\DataDefinition\Identifiers\Column\Definition\DataType.php|DOING|
+[INT] MySQL80\DataDefinition\Identifiers\Column\Definition.php...|DOING|
+[INT] MySQL80\DataDefinition\Identifiers\Database.php............|DOING|
+[INT] MySQL80\DataDefinition\Identifiers\Table.php...............|DOING|
+[CLA] MySQL80\DataDefinition\ServerAdministration\SqlCombinationModes.php|DOING|
+[CLA] MySQL80\DataDefinition\ServerAdministration\SqlModes.php...|DOING|
+[INT] MySQL80\DataDefinition\Statements\DataManipulationStatement\Show\Databases.php|DOING|
+[INT] MySQL80\DataDefinition\Statements\DataManipulationStatement\Show.php|DOING|
 [CLA] MySQL57\Handler\Database.php...............................|00.A0|
-[CLA] MySQL57\Handler\Table.php..................................|00.BA|
-[CLA] MySQL57\Instance\ColumnDefinition.php......................|00.76|
+[CLA] MySQL57\Handler\Table.php..................................|00.BB|
+[CLA] MySQL80\Handler\Database.php...............................|DOING|
+[CLA] MySQL80\Handler\Table.php..................................|DOING|
+[CLA] MySQL57\Instance\ColumnDefinition.php......................|00.77|
 [ABS] MySQL57\Instance\Database.php..............................|00.AA|
 [ABS] MySQL57\Instance\DataType\CommonMethods.php................|00.B0|
 [ABS] MySQL57\Instance\DataType\DateTimeDataTypes.php............|00.9A|
@@ -110,9 +127,19 @@ ABS(15) CLA(55) INT(31) SCR(1) TRA(9) LOG(0) NDF(0)
 [ABS] MySQL57\Instance\DataType\StringDataTypes.php..............|00.AE|
 [CLA] MySQL57\Instance\DataType.php..............................|00.B0|
 [CLA] MySQL57\Instance\ReferenceDefinition.php...................|00.CA|
-[ABS] MySQL57\Instance\Table.php.................................|00.BF|
-[CLA] MySQL57\Statement\DataAdministration\ShowColumns.php.......|00.90|
-[CLA] MySQL57\Statement\DataAdministration.php...................|00.50|
+[ABS] MySQL57\Instance\Table.php.................................|00.C0|
+[CLA] MySQL80\Instance\ColumnDefinition.php......................|DOING|
+[ABS] MySQL80\Instance\Database.php..............................|DOING|
+[ABS] MySQL80\Instance\DataType\CommonMethods.php................|DOING|
+[ABS] MySQL80\Instance\DataType\DateTimeDataTypes.php............|DOING|
+[ABS] MySQL80\Instance\DataType\NumericDataTypes.php.............|DOING|
+[ABS] MySQL80\Instance\DataType\StringDataTypes.php..............|DOING|
+[CLA] MySQL80\Instance\DataType.php..............................|DOING|
+[CLA] MySQL80\Instance\ReferenceDefinition.php...................|DOING|
+[ABS] MySQL80\Instance\Table.php.................................|DOING|
+[CLA] MySQL57\Statement\DataAdministration\ShowColumns.php.......|00.A6|
+[CLA] MySQL57\Statement\DataAdministration\ShowIndex.php.........|00.A0|
+[CLA] MySQL57\Statement\DataAdministration.php...................|00.60|
 [CLA] MySQL57\Statement\DataDefinition\AlterTable.php............|00.50|
 [CLA] MySQL57\Statement\DataDefinition\CreateSchema.php..........|00.90|
 [CLA] MySQL57\Statement\DataDefinition\CreateTable.php...........|00.97|
@@ -127,5 +154,21 @@ ABS(15) CLA(55) INT(31) SCR(1) TRA(9) LOG(0) NDF(0)
 [CLA] MySQL57\Statement\DataManipulation\Show.php................|00.90|
 [CLA] MySQL57\Statement\DataManipulation.php.....................|00.7A|
 [CLA] MySQL57\Statement\ExpressionSyntax.php.....................|00.30|
+[CLA] MySQL80\Statement\DataAdministration\ShowColumns.php.......|DOING|
+[CLA] MySQL80\Statement\DataAdministration.php...................|DOING|
+[CLA] MySQL80\Statement\DataDefinition\AlterTable.php............|DOING|
+[CLA] MySQL80\Statement\DataDefinition\CreateSchema.php..........|DOING|
+[CLA] MySQL80\Statement\DataDefinition\CreateTable.php...........|DOING|
+[ABS] MySQL80\Statement\DataDefinition\DataDefinitionStatement.php|NDFND|
+[CLA] MySQL80\Statement\DataDefinition\DropDatabase.php..........|DOING|
+[CLA] MySQL80\Statement\DataDefinition\DropTable.php.............|DOING|
+[CLA] MySQL80\Statement\DataDefinition.php.......................|DOING|
+[ABS] MySQL80\Statement\DataManipulation\DataManipulationStatement.php|DOING|
+[CLA] MySQL80\Statement\DataManipulation\Delete.php..............|DOING|
+[CLA] MySQL80\Statement\DataManipulation\Insert.php..............|DOING|
+[CLA] MySQL80\Statement\DataManipulation\Select.php..............|DOING|
+[CLA] MySQL80\Statement\DataManipulation\Show.php................|DOING|
+[CLA] MySQL80\Statement\DataManipulation.php.....................|DOING|
+[CLA] MySQL80\Statement\ExpressionSyntax.php.....................|DOING|
 -----------------------------------------------------------------------|
  \GIndie\DBHandler v 00.9E

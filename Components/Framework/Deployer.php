@@ -9,7 +9,7 @@
  *
  * @package GIndie\DBHandler\Components\Framework
  *
- * @version 00.BD
+ * @version 00.BC
  * @since 18-07-26
  */
 
@@ -685,6 +685,7 @@ abstract class Deployer extends \GIndie\Framework\Controller
             $widget->setContext("primary");
             $widget->addContent(static::dsplyTableColumns($tmpTableHandler));
             $widget->addContent(static::dsplyTableColumnsMissing($tmpTableHandler));
+            $widget->addContent(static::dsplyTableIndexes($tmpTableHandler));
             $widget->addContent(View\FormInput\InstanceFromDBHandler::getForm($tmpTableclass));
         }
 
@@ -741,6 +742,37 @@ abstract class Deployer extends \GIndie\Framework\Controller
             $buttonAddColumn->setContext("success");
             $row = $table->addRowGetPointer([$buttonAddColumn, $column, $columnDefinition->getColumnDefinition()]);
             $row->setAttribute("class", "danger");
+        }
+        return $table;
+    }
+    
+    /**
+     * @since 21-06-28
+     * @param \GIndie\DBHandler\MySQL57\Handler\Table $tableHandler
+     * @return type
+     */
+    private static function dsplyTableIndexes(\GIndie\DBHandler\MySQL57\Handler\Table $tableHandler)
+    {
+        $table = View\Table::displayArray(
+                [], "Table indexes"
+            )->addClass("table");
+        $result = $tableHandler->showIndexes();
+        $headerTmp = ["Actions"];
+        foreach ($result->fetch_fields() as $field) {
+            $headerTmp[] = $field->name;
+        }
+        $table->addHeader($headerTmp);
+//        static::$dbmsColumns = [];
+        foreach ($result->fetch_all(\MYSQLI_ASSOC) as $definition) {
+//            static::$dbmsColumns[$definition["Field"]] = $definition;
+//            $button = new Bootstrap3\Component\Button("Update field", "submit");
+//            $button->addClass("btn-sm pull-right");
+//            $button->setForm("updateField");
+//            $button->setContext("success");
+//            $button->setAttribute("name", "fieldName");
+//            $button->setValue($definition["Field"]);
+            $rowActions = "@todo";
+            $table->addRow(\array_merge([$rowActions], $definition));
         }
         return $table;
     }

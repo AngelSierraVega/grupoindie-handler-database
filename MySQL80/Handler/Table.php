@@ -9,7 +9,7 @@
  *
  * @package GIndie\DBHandler\MySQL57
  *
- * @version 00.BB
+ * @version DOING
  * @since 18-11-02
  */
 
@@ -194,18 +194,6 @@ class Table
             throw new \Exception("QUERY: {$query}<br>ERROR: " . \GIndie\DBHandler\MySQL57::getConnection()->error);
         }
         return true;
-    }
-    
-    
-    /**
-     * 
-     * @return \mysqli
-     * @since 21-06-28
-     */
-    public function showIndexes(){
-        return \GIndie\DBHandler\MySQL57::query(Statement\DataAdministration::showIndexes($this->table->name())->setDatabaseName($this->table->databaseName()));
-        $rtnArray = \GIndie\DBHandler\MySQL57::query(Statement\DataAdministration::showIndexes($this->table->name())->setDatabaseName($this->table->databaseName()))->fetch_assoc();
-        return $rtnArray;
     }
 
     /**

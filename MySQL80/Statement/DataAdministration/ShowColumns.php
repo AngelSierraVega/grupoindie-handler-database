@@ -9,7 +9,7 @@
  *
  * @package GIndie\DBHandler\MySQL57\Statement
  *
- * @version 00.A6
+ * @version DOING
  * @since 18-11-02
  * @todo Upgrade DocBlock to MySQL57
  */
@@ -52,7 +52,7 @@ class ShowColumns
     /**
      * 
      * @param string $databaseName
-     * @return \GIndie\DBHandler\MySQL57\Statement\DataAdministration\ShowColumns
+     * @return \GIndie\DBHandler\MySQL57\Statement\DataDefinition\DropTable
      * @since 18-08-16
      */
     public function setDatabaseName($databaseName)

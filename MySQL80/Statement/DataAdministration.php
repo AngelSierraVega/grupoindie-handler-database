@@ -9,7 +9,7 @@
  *
  * @package GIndie\DBHandler\MySQL57\Statement
  *
- * @version 00.60
+ * @version DOING
  * @since 18-08-16
  * @todo Upgrade DocBlock
  */
@@ -35,16 +35,6 @@ class DataAdministration
     public static function showColulmns($tableName)
     {
         return new DataAdministration\ShowColumns($tableName);
-    }
-    
-    /**
-     * 
-     * @param string $tableName
-     * @return \GIndie\DBHandler\MySQL57\Statement\DataAdministration\ShowIndex
-     * @since 21-06-28
-     */
-    public static function showIndexes($tableName){
-        return new DataAdministration\ShowIndex($tableName);
     }
 
 }

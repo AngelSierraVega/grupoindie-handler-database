@@ -1,7 +1,7 @@
 <?php
 
 /**
- * GI-DBHandler-DVLP - ShowColumns
+ * GI-DBHandler-DVLP - DropTable
  *
  * @author Angel Sierra Vega <angel.sierra@grupoindie.com>
  * @copyright (CC) 2020 Angel Sierra Vega. Grupo INDIE.
@@ -9,19 +9,21 @@
  *
  * @package GIndie\DBHandler\MySQL57\Statement
  *
- * @version 00.A6
- * @since 18-11-02
+ * @version DOING
+ * @since 18-08-16
  * @todo Upgrade DocBlock to MySQL57
  */
 
-namespace GIndie\DBHandler\MySQL57\Statement\DataAdministration;
+namespace GIndie\DBHandler\MySQL57\Statement\DataDefinition;
 
 /**
  * 
+ * @edit 18-10-02
+ * - Upgraded version
  * @edit 18-11-02
  * - Copied code from GIndie\DBHandler\MySQL56\...
  */
-class ShowColumns
+class DropTable extends DataDefinitionStatement
 {
 
     /**
@@ -52,7 +54,7 @@ class ShowColumns
     /**
      * 
      * @param string $databaseName
-     * @return \GIndie\DBHandler\MySQL57\Statement\DataAdministration\ShowColumns
+     * @return \GIndie\DBHandler\MySQL56\Statement\DataDefinition\DropTable
      * @since 18-08-16
      */
     public function setDatabaseName($databaseName)
@@ -68,7 +70,7 @@ class ShowColumns
      */
     public function __toString()
     {
-        $rtnStr = "SHOW FULL COLUMNS FROM ";
+        $rtnStr = "DROP TABLE ";
         $rtnStr .= isset($this->databaseName) ? "`{$this->databaseName}`.`{$this->tableName}`" : "`{$this->tableName}`";
         $rtnStr .= ";";
         return $rtnStr;

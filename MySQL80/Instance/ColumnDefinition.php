@@ -9,7 +9,7 @@
  *
  * @package GIndie\DBHandler\MySQL57\Instance
  *
- * @version 00.77
+ * @version DOING
  * @since 18-10-03
  */
 
@@ -393,8 +393,6 @@ class ColumnDefinition implements MySQL57\DataDefinition\Identifiers\Column\Defi
      * @since 18-10-02
      * @edit 18-11-02
      * - Handle default value now()
-     * @edit 21-06-18
-     * - Added NOW, CURRENT_TIMESTAMP
      */
     protected function getColumnDefinitionDefault()
     {
@@ -408,8 +406,6 @@ class ColumnDefinition implements MySQL57\DataDefinition\Identifiers\Column\Defi
                     switch ($this->default) {
                         case "now()":
                         case "NULL":
-                        case "NOW()":
-                        case "CURRENT_TIMESTAMP()":
                             $rtnStr .= " DEFAULT " . $this->default;
                             break;
                         default:
